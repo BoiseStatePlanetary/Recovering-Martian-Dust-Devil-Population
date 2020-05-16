@@ -99,7 +99,7 @@
 \accepted{\today}
 %% Command to document which AAS Journal the manuscript was submitted to.
 %% Adds "Submitted to " the argument.
-\submitjournal{AJ}
+\submitjournal{PSJ}
 
 %% For manuscript that include authors in collaborations, AASTeX v6.3
 %% builds on the \collaboration command to allow greater freedom to 
@@ -265,6 +265,8 @@ miscellaneous --- catalogs --- surveys}
 
 \section{Introduction} \label{sec:Introduction}
 
+% 2020 May 16 - Discuss how Greeley et al. (2006) spotted and analyzed dust devils.
+
 % \citet{2010Icar..206..306N} report a dust flux $Q$ that depends on the pressure deficit at the center of a vortex $\Delta P$ as
 % \begin{equation}
 %     Q = \left(5.79\times10^{-8} {\rm kg\ m^{-2}\ s^{-1}} \right) \left( \Delta P/{\rm Pa}\right)^{3.40}.
@@ -277,8 +279,24 @@ miscellaneous --- catalogs --- surveys}
 %     \label{fig:Neakrase_dust_flux}
 % \end{figure}
 
-\acknowledgments
+\section{Model}
+Consider a camera with a horizontal field-of-view $\Delta_{\rm FOV}$ centered on azimuth $\lambda$ and an angular resolution $\alpha$. Initially, we will assume the camera observes continuously throughout the period during which dust devils are active. Consider also a dust devil with a fixed diameter $D$, height $H$, and a sufficient contrast against the image background that it can be detected. Such a dust devil could be resolved at a distance from the camera $r_{\rm max} = \dfrac{D}{\alpha}$. 
 
+In principle, the camera could detect this dust devil if it traversed the pie-wedge of terrain centered on $\lambda$ and having an area 
+\begin{equation}
+    A_{\rm wedge} = \frac{\alpha r_{\rm max}}{2} = \frac{D^2}{2 \alpha}.
+    \label{eqn:A_wedge}
+\end{equation}
+If dust devils traveled very slowly (or not at all) from their origin point, then the survey would only include devils that appeared within this wedge. However, as pointed out in \citet{2014JAtS...71.4461L}, advection of dust devils through a survey site increases the effective area surveyed. 
+
+Consider a fixed, unidirectional wind of speed $U$ crossing perpendicularly through the pie-wedge. If the dust devil under consideration has a lifetime $\tau$, then it will travel a distance $L = \tau U$ before petering out. Thus, the wind field can advect dust devils into the camera's field-of-view acting as a rectangular conveyor belt with area
+\begin{equation}
+    A_{\rm adv} = r_{\rm max} L = r_{\rm max} U \tau.
+    \label{eqn:A_adv}
+\end{equation}
+For our purposes here, we neglect the contribution of the dust devil's areal extent. For typical dust devil sizes ($D \sim 10\,{\rm m}$), wind speeds ($U \sim 10\,{\rm m\ s^{-1}}$), and lifetimes ($\tau \sim 100\,{\rm s}$), $A_{\rm advect} \sim 10\,{\rm km^2} \gg A_{\rm wedge} \sim 0.1\,{\rm km^2}$, independent of the camera's field-of-view
+
+\acknowledgments
 
 %% To help institutions obtain information on the effectiveness of their 
 %% telescopes the AAS Journals has created a group of keywords for telescope 
