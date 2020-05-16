@@ -147,7 +147,7 @@
 %%
 %% If you wish, you may supply running head information, although
 %% this information may be modified by the editorial offices.
-\shorttitle{The Martian Dust Devil Population}
+\shorttitle{Optimizing Imaging Surveys for Dust Devils}
 \shortauthors{Jackson et al.}
 %%
 %% You can add a light gray and diagonal water-mark to the first page 
@@ -165,7 +165,7 @@
 
 \begin{document}
 
-\title{Strategies to Accurately Recover the Martian Dust Devil Population}
+\title{Optimizing Imaging Surveys for Dust Devils}
 
 %% LaTeX will automatically break titles if they run longer than
 %% one line. However, you may use \\ to force a line break if
@@ -238,7 +238,7 @@ Boise State University\\
 
 %% Mark off the abstract in the ``abstract'' environment. 
 \begin{abstract}
-Dust devils blah blah blah
+
 
 \end{abstract}
 
@@ -265,17 +265,17 @@ miscellaneous --- catalogs --- surveys}
 
 \section{Introduction} \label{sec:Introduction}
 
-\citet{2010Icar..206..306N} report a dust flux $Q$ that depends on the pressure deficit at the center of a vortex $\Delta P$ as
-\begin{equation}
-    Q = \left(5.79\times10^{-8} {\rm kg\ m^{-2}\ s^{-1}} \right) \left( \Delta P/{\rm Pa}\right)^{3.40}.
-    \label{eqn:Neakrase_dust_flux}
-\end{equation}
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{figures/Q_vs_Delta-P.png}
-    \caption{Dust flux $Q$ as a function of the pressure dip at the center of a lab-generated vortex $\Delta P$, as reported in \citet{2010Icar..206..306N}.}
-    \label{fig:Neakrase_dust_flux}
-\end{figure}
+% \citet{2010Icar..206..306N} report a dust flux $Q$ that depends on the pressure deficit at the center of a vortex $\Delta P$ as
+% \begin{equation}
+%     Q = \left(5.79\times10^{-8} {\rm kg\ m^{-2}\ s^{-1}} \right) \left( \Delta P/{\rm Pa}\right)^{3.40}.
+%     \label{eqn:Neakrase_dust_flux}
+% \end{equation}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/Q_vs_Delta-P.png}
+%     \caption{Dust flux $Q$ as a function of the pressure dip at the center of a lab-generated vortex $\Delta P$, as reported in \citet{2010Icar..206..306N}.}
+%     \label{fig:Neakrase_dust_flux}
+% \end{figure}
 
 \acknowledgments
 
@@ -312,32 +312,32 @@ miscellaneous --- catalogs --- surveys}
 \appendix
 
 % 2020 May 9 - Check notes in notepad from today's date
-\section{Effects of Undersampling the Dust Devil Profile}
-With too low a sampling frequency, the pressure profile for a dust devil will be undersampled, potentially distorting the inferred profile shape and depth. Fourier analysis of the pressure profile can show the dependence of the distortion on the angular sampling frequency $\omega$.
+% \section{Effects of Undersampling the Dust Devil Profile}
+% With too low a sampling frequency, the pressure profile for a dust devil will be undersampled, potentially distorting the inferred profile shape and depth. Fourier analysis of the pressure profile can show the dependence of the distortion on the angular sampling frequency $\omega$.
 
-We start by assuming a Lorentzian profile $L(t)$ in time $t$ for the dust devil:
-\begin{equation}
-    L(t) = -\frac{\Delta P}{1 + \left( t/\Gamma \right)^2},
-    \label{eqn:appendix_lorentzian}
-\end{equation}{}
-where $\Delta P$ is the profile depth and $\Gamma$ its duration. The Fourier transform of this profile $F(\omega)$ is 
-\begin{equation}
-    F(\omega) = -\pi \Delta P\ \Gamma e^{-|\omega| \Gamma}.
-    \label{eqn:appendix_lorentzian_fourier}
-\end{equation}{}
+% We start by assuming a Lorentzian profile $L(t)$ in time $t$ for the dust devil:
+% \begin{equation}
+%     L(t) = -\frac{\Delta P}{1 + \left( t/\Gamma \right)^2},
+%     \label{eqn:appendix_lorentzian}
+% \end{equation}{}
+% where $\Delta P$ is the profile depth and $\Gamma$ its duration. The Fourier transform of this profile $F(\omega)$ is 
+% \begin{equation}
+%     F(\omega) = -\pi \Delta P\ \Gamma e^{-|\omega| \Gamma}.
+%     \label{eqn:appendix_lorentzian_fourier}
+% \end{equation}{}
 
-If we now imagine that we undersampled the profile using frequencies below some maximum, $\omega \le \omega_{\rm max}$, then we can estimate the resulting distorted profile $L^\prime(t)$ by taking the inverse, partial Fourier transform of $F(t)$, i.e.
-\begin{equation}
-    L^\prime(t) \equiv \int_{\omega = -\omega_{\rm max}}^{\omega_{\rm max}}\ \left( -\pi \Delta P \Gamma e^{-|\omega| \Gamma}\right) \ \left( \frac{e^{+i\omega t}\ d\omega}{2 \pi} \right)
-    = L(t) \bigg[ 1 - \left( \cos \left( \omega_{\rm max} t \right) - \left( \frac{t}{\Gamma} \right) \sin \left( \omega_{\rm max} t \right) \right) e^{-\omega_{\rm max} \Gamma} \bigg].
-    \label{eqn:appendix_inverse_fourier}
-\end{equation}{}
+% If we now imagine that we undersampled the profile using frequencies below some maximum, $\omega \le \omega_{\rm max}$, then we can estimate the resulting distorted profile $L^\prime(t)$ by taking the inverse, partial Fourier transform of $F(t)$, i.e.
+% \begin{equation}
+%     L^\prime(t) \equiv \int_{\omega = -\omega_{\rm max}}^{\omega_{\rm max}}\ \left( -\pi \Delta P \Gamma e^{-|\omega| \Gamma}\right) \ \left( \frac{e^{+i\omega t}\ d\omega}{2 \pi} \right)
+%     = L(t) \bigg[ 1 - \left( \cos \left( \omega_{\rm max} t \right) - \left( \frac{t}{\Gamma} \right) \sin \left( \omega_{\rm max} t \right) \right) e^{-\omega_{\rm max} \Gamma} \bigg].
+%     \label{eqn:appendix_inverse_fourier}
+% \end{equation}{}
 
-We expect the register the maximum (in magnitude) pressure excursion at the center of the profile, i.e. $L(t = 0) = \Delta P$, and so to estimate the incorrect profile depth $\Delta P^\prime$ arising from this distorted profile, we can evaluate $L^\prime(t)$ at the same time, giving:
-\begin{equation}
-    \Delta P^\prime = \Delta P \left( 1 - e^{-\omega_{\rm max}\Gamma} \right).
-\end{equation}{}
-The distortion decreases rapidly with $\omega_{\rm max}$, and for a sampling frequency of, for example, $2\,{\rm Hz}$ ($\omega_{\rm max} = 2\pi \times (2\,{\rm Hz})$) and a very narrow profile $\Gamma = 0.5\,{\rm s}$, $\Delta P^\prime$ is only 0.2\% different from $\Delta P$.
+% We expect the register the maximum (in magnitude) pressure excursion at the center of the profile, i.e. $L(t = 0) = \Delta P$, and so to estimate the incorrect profile depth $\Delta P^\prime$ arising from this distorted profile, we can evaluate $L^\prime(t)$ at the same time, giving:
+% \begin{equation}
+%     \Delta P^\prime = \Delta P \left( 1 - e^{-\omega_{\rm max}\Gamma} \right).
+% \end{equation}{}
+% The distortion decreases rapidly with $\omega_{\rm max}$, and for a sampling frequency of, for example, $2\,{\rm Hz}$ ($\omega_{\rm max} = 2\pi \times (2\,{\rm Hz})$) and a very narrow profile $\Gamma = 0.5\,{\rm s}$, $\Delta P^\prime$ is only 0.2\% different from $\Delta P$.
 
 \bibliography{sample63}{}
 \bibliographystyle{aasjournal}
