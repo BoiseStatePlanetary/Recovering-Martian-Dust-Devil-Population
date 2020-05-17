@@ -279,22 +279,44 @@ miscellaneous --- catalogs --- surveys}
 %     \label{fig:Neakrase_dust_flux}
 % \end{figure}
 
-\section{Model}
+\section{Camera Model}
 Consider a camera with a horizontal field-of-view $\Delta_{\rm FOV}$ centered on azimuth $\lambda$ and an angular resolution $\alpha$. Initially, we will assume the camera observes continuously throughout the period during which dust devils are active. Consider also a dust devil with a fixed diameter $D$, height $H$, and a sufficient contrast against the image background that it can be detected. Such a dust devil could be resolved at a distance from the camera $r_{\rm max} = \dfrac{D}{\alpha}$. 
 
 In principle, the camera could detect this dust devil if it traversed the pie-wedge of terrain centered on $\lambda$ and having an area 
 \begin{equation}
-    A_{\rm wedge} = \frac{\alpha r_{\rm max}}{2} = \frac{D^2}{2 \alpha}.
+    A_{\rm wedge} = \frac{\Delta_{\rm FOV} r_{\rm max}^2}{2} = \frac{\Delta_{\rm FOV}D^2}{2 \alpha^2}.
     \label{eqn:A_wedge}
 \end{equation}
-If dust devils traveled very slowly (or not at all) from their origin point, then the survey would only include devils that appeared within this wedge. However, as pointed out in \citet{2014JAtS...71.4461L}, advection of dust devils through a survey site increases the effective area surveyed. 
+Typical values for these parameters are $\Delta_{\rm FOV} \sim \pi/2\,{\rm rad}$, $D \sim 10\,{\rm m}$, and $\alpha \sim 1\,{\rm mrad}$, giving $A_{\rm wedge} \sim 100\,{\rm km^2}$ (although we will explore different values for these parameters). If dust devils traveled very slowly (or not at all) from their origin point, then the survey would only include devils that appeared within this wedge. However, as pointed out in \citet{2014JAtS...71.4461L}, advection of dust devils through a survey site increases the effective area surveyed. 
 
-Consider a fixed, unidirectional wind of speed $U$ crossing perpendicularly through the pie-wedge. If the dust devil under consideration has a lifetime $\tau$, then it will travel a distance $L = \tau U$ before petering out. Thus, the wind field can advect dust devils into the camera's field-of-view acting as a rectangular conveyor belt with area
+Consider a fixed, unidirectional wind of speed $U$ crossing perpendicularly through the pie-wedge. If the dust devil under consideration has a lifetime $\tau$, then it will travel a distance $L = \tau U$ before dissipating. Thus, the wind field can advect dust devils into the camera's field-of-view acting as a rectangular conveyor belt with area
 \begin{equation}
-    A_{\rm adv} = r_{\rm max} L = r_{\rm max} U \tau.
+    A_{\rm adv} = r_{\rm max} L = \frac{D U \tau}{\alpha}.
     \label{eqn:A_adv}
 \end{equation}
-For our purposes here, we neglect the contribution of the dust devil's areal extent. For typical dust devil sizes ($D \sim 10\,{\rm m}$), wind speeds ($U \sim 10\,{\rm m\ s^{-1}}$), and lifetimes ($\tau \sim 100\,{\rm s}$), $A_{\rm advect} \sim 10\,{\rm km^2} \gg A_{\rm wedge} \sim 0.1\,{\rm km^2}$, independent of the camera's field-of-view
+Again, typical values $D \sim 10\,{\rm m}$, $U \sim 10\,{\rm m\ s^{-1}}$, $\tau \sim 100\,{\rm s}$, and $\alpha \sim 1\,{\rm mrad}$ gives $A_{\rm adv} \sim 10\,{\rm km^2} \ll A_{\rm wedge}$. Although both areas contribute, we neglect $A_{\rm adv}$ compared to $A_{\rm wedge}$, and we use this estimate for the area surveyed $A_{\rm survey} \approx A_{\rm wedge}$ to determine how the inferred population of dust devils depends on the survey parameters.
+
+\section{Imaging Survey Statistics}
+We can relate the areal occurrence rate, $n$, from the number of dust devils observed $k$ in an amount of time $t$:
+\begin{equation}
+   n = \frac{k}{t A_{\rm survey}} = \left( \frac{2 \alpha^2}{t \Delta_{\rm FOV} D^2} \right)\ k.
+    \label{eqn:areal_occurrence_rate}
+\end{equation}
+
+If we assume that dust devil occurrence is a Poisson process, then we can estimate the uncertainty on $k$ as $\sigma_k = \sqrt{k}$ and the uncertainty $\sigma_n$ on our estimate of $n$ via
+\begin{equation}
+    \frac{\sigma_n}{n} = \frac{\sigma_k}{k} = k^{-1/2} = \sqrt{2} \left( n t \right)^{-1/2} D^{-1}\ \Delta_{\rm FOV}^{-1/2} \alpha.
+    \label{eqn:sigma_n}
+\end{equation}
+
+Usually, we would design our survey so that we achieve a sufficiently precise estimate for the quantity of physical significance $n$. In other words, we would require $\sigma_n/n < T$ with $T$ some threshold. We can see that Equation \ref{eqn:sigma_n} provides the specific requirements to achieve the desired threshold. For instance, we can take some typical values from \citet{2006JGRE..11112S09G} and estimate what minimum angular resolution is required of our camera to achieve $T = 0.1$:
+\begin{equation}
+    \alpha < 2^{-1/2} T \left( n t \right)^{1/2} D\ \Delta_{\rm FOV}^{1/2} = 2^{-1/2} \left( 0.1 \right) \big[ \left( 0.05\,{\rm km^{-2}\ hr^{-1}} \right) \left( 1\,{\rm hr} \right) \big]^{1/2} \left( 10\,{\rm m} \right) \left( \pi/2\,{\rm rad} \right)^{1/2} \approx 0.2\,{\rm mrad}.
+    \label{eqn:alpha_example}
+\end{equation}
+Such an angular resolution is about ten times better than is usually achieved -- the MER Hazcams used for the survey in \citet{2006JGRE..11112S09G} had a resolution of $2\,{\rm mrad/pix}$ \citep{2003JGRE..108.8071M}.
+
+A more practical application of Equation \ref{eqn:sigma_n} might instead involve assuming values for $\Delta_{\rm FOV}$ and $\alpha$ to estimate the duration required for a survey of a given precision. Taking the same parameters as above but this time with $\alpha \sim 1\,{\rm rad}$, we require a survey of duration $t > 25\,{\rm hr}$ to achieve $T = 0.1$. However, dust devils are usually active only for a few hours during each day (or sol on Mars) -- \citet{2006JGRE..11112S09G} found negligible activity before 9 a.m. LTST or after 5 p.m. LTST. Moreover, the occurrence rate itself seemed to evolve over the course of the active phase, increasing from $0.005\,{\rm km^{-2}\ hr^{-1}}$ early in the morning to  $0.05\,{\rm km^{-2}\ hr^{-1}}$ around noon. This mid-day peak agrees with meteorological predictions that dust devil activity should increase as the planetary boundary layer deepens with increasing surface hurting (ref). Accurately estimating the occurrence rate requires a survey duration not longer than the timescale of variability, i.e., about an hour. Therefore, the 25-hours of survey required to recover $n = 0.05\,{\rm km^{-2}\ hr^{-1}}$ to 10\% accuracy would have to be spread into 1-hour surveys around noon spanning 25 sols. (And, of course, smaller occurrence rates would require additional time.) 
 
 \acknowledgments
 
