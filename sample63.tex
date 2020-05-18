@@ -1,3 +1,5 @@
+% 2020 May 18 - THE MARTIAN ATMOSPHERIC BOUNDARY LAYER - https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2010RG000351
+
 
 %% Beginning of file 'sample63.tex'
 %%
@@ -99,7 +101,7 @@
 \accepted{\today}
 %% Command to document which AAS Journal the manuscript was submitted to.
 %% Adds "Submitted to " the argument.
-\submitjournal{AJ}
+\submitjournal{PSJ}
 
 %% For manuscript that include authors in collaborations, AASTeX v6.3
 %% builds on the \collaboration command to allow greater freedom to 
@@ -147,7 +149,7 @@
 %%
 %% If you wish, you may supply running head information, although
 %% this information may be modified by the editorial offices.
-\shorttitle{The Martian Dust Devil Population}
+\shorttitle{Optimizing Imaging Surveys for Dust Devils}
 \shortauthors{Jackson et al.}
 %%
 %% You can add a light gray and diagonal water-mark to the first page 
@@ -165,7 +167,7 @@
 
 \begin{document}
 
-\title{Strategies to Accurately Recover the Martian Dust Devil Population}
+\title{Optimizing Imaging Surveys for Dust Devils}
 
 %% LaTeX will automatically break titles if they run longer than
 %% one line. However, you may use \\ to force a line break if
@@ -238,7 +240,7 @@ Boise State University\\
 
 %% Mark off the abstract in the ``abstract'' environment. 
 \begin{abstract}
-Dust devils blah blah blah
+
 
 \end{abstract}
 
@@ -265,20 +267,62 @@ miscellaneous --- catalogs --- surveys}
 
 \section{Introduction} \label{sec:Introduction}
 
-\citet{2010Icar..206..306N} report a dust flux $Q$ that depends on the pressure deficit at the center of a vortex $\Delta P$ as
+% 2020 May 16 - Discuss how Greeley et al. (2006) spotted and analyzed dust devils.
+
+% \citet{2010Icar..206..306N} report a dust flux $Q$ that depends on the pressure deficit at the center of a vortex $\Delta P$ as
+% \begin{equation}
+%     Q = \left(5.79\times10^{-8} {\rm kg\ m^{-2}\ s^{-1}} \right) \left( \Delta P/{\rm Pa}\right)^{3.40}.
+%     \label{eqn:Neakrase_dust_flux}
+% \end{equation}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/Q_vs_Delta-P.png}
+%     \caption{Dust flux $Q$ as a function of the pressure dip at the center of a lab-generated vortex $\Delta P$, as reported in \citet{2010Icar..206..306N}.}
+%     \label{fig:Neakrase_dust_flux}
+% \end{figure}
+
+\section{Camera Model}
+Consider a camera with a horizontal field-of-view $\Delta_{\rm FOV}$ centered on azimuth $\lambda$ and an angular resolution $\alpha$. Initially, we will assume the camera observes continuously throughout the period during which dust devils are active. Consider also a dust devil with a fixed diameter $D$, height $H$, and a sufficient contrast against the image background that it can be detected. Such a dust devil could be resolved at a distance from the camera $r_{\rm max} = \dfrac{D}{\alpha}$. 
+
+In principle, the camera could detect this dust devil if it traversed the pie-wedge of terrain centered on $\lambda$ and having an area 
 \begin{equation}
-    Q = \left(5.79\times10^{-8} {\rm kg\ m^{-2}\ s^{-1}} \right) \left( \Delta P/{\rm Pa}\right)^{3.40}.
-    \label{eqn:Neakrase_dust_flux}
+    A_{\rm wedge} = \frac{\Delta_{\rm FOV} r_{\rm max}^2}{2} = \frac{\Delta_{\rm FOV}D^2}{2 \alpha^2}.
+    \label{eqn:A_wedge}
 \end{equation}
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{figures/Q_vs_Delta-P.png}
-    \caption{Dust flux $Q$ as a function of the pressure dip at the center of a lab-generated vortex $\Delta P$, as reported in \citet{2010Icar..206..306N}.}
-    \label{fig:Neakrase_dust_flux}
-\end{figure}
+Typical values for these parameters are $\Delta_{\rm FOV} \sim \pi/2\,{\rm rad}$, $D \sim 10\,{\rm m}$, and $\alpha \sim 1\,{\rm mrad}$, giving $A_{\rm wedge} \sim 100\,{\rm km^2}$ (although we will explore different values for these parameters). If dust devils traveled very slowly (or not at all) from their origin point, then the survey would only include devils that appeared within this wedge. However, as pointed out in \citet{2014JAtS...71.4461L}, advection of dust devils through a survey site increases the effective area surveyed. 
+
+Consider a fixed, unidirectional wind of speed $U$ crossing perpendicularly through the pie-wedge. If the dust devil under consideration has a lifetime $\tau$, then it will travel a distance $L = \tau U$ before dissipating. Thus, the wind field can advect dust devils into the camera's field-of-view acting as a rectangular conveyor belt with area
+\begin{equation}
+    A_{\rm adv} = r_{\rm max} L = \frac{D U \tau}{\alpha}.
+    \label{eqn:A_adv}
+\end{equation}
+Again, typical values $D \sim 10\,{\rm m}$, $U \sim 10\,{\rm m\ s^{-1}}$, $\tau \sim 100\,{\rm s}$, and $\alpha \sim 1\,{\rm mrad}$ gives $A_{\rm adv} \sim 10\,{\rm km^2} \ll A_{\rm wedge}$. Although both areas contribute, we neglect $A_{\rm adv}$ compared to $A_{\rm wedge}$, and we use this estimate for the area surveyed $A_{\rm survey} \approx A_{\rm wedge}$ to determine how the inferred population of dust devils depends on the survey parameters.
+
+\section{Imaging Survey Statistics}
+We can relate the areal occurrence rate, $n$, from the number of dust devils observed $k$ in an amount of time $t$:
+\begin{equation}
+   n = \frac{k}{t A_{\rm survey}} = \left( \frac{2 \alpha^2}{t \Delta_{\rm FOV} D^2} \right)\ k.
+    \label{eqn:areal_occurrence_rate}
+\end{equation}
+
+If we assume that dust devil occurrence is a Poisson process, then we can estimate the uncertainty on $k$ as $\sigma_k = \sqrt{k}$ and the uncertainty $\sigma_n$ on our estimate of $n$ via
+\begin{equation}
+    \frac{\sigma_n}{n} = \frac{\sigma_k}{k} = k^{-1/2} = \sqrt{2} \left( n t \right)^{-1/2} D^{-1}\ \Delta_{\rm FOV}^{-1/2} \alpha.
+    \label{eqn:sigma_n}
+\end{equation}
+
+Usually, we would design our survey so that we achieve a sufficiently precise estimate for the quantity of physical significance $n$. In other words, we would require $\sigma_n/n < T$ with $T$ some threshold. We can see that Equation \ref{eqn:sigma_n} provides the specific requirements to achieve the desired threshold. For instance, we can take some typical values from \citet{2006JGRE..11112S09G} and estimate what minimum angular resolution is required of our camera to achieve $T = 0.1$:
+\begin{equation}
+    \alpha < 2^{-1/2} T \left( n t \right)^{1/2} D\ \Delta_{\rm FOV}^{1/2} = 2^{-1/2} \left( 0.1 \right) \big[ \left( 0.05\,{\rm km^{-2}\ hr^{-1}} \right) \left( 1\,{\rm hr} \right) \big]^{1/2} \left( 10\,{\rm m} \right) \left( \pi/2\,{\rm rad} \right)^{1/2} \approx 0.2\,{\rm mrad}.
+    \label{eqn:alpha_example}
+\end{equation}
+Such an angular resolution is about ten times better than is usually achieved -- the MER Hazcams used for the survey in \citet{2006JGRE..11112S09G} had a resolution of $2\,{\rm mrad/pix}$ \citep{2003JGRE..108.8071M}.
+
+A more practical application of Equation \ref{eqn:sigma_n} might instead involve assuming values for $\Delta_{\rm FOV}$ and $\alpha$ to estimate the duration required for a survey of a given precision. Taking the same parameters as above but this time with $\alpha \sim 1\,{\rm rad}$, we require a survey of duration $t > 25\,{\rm hr}$ to achieve $T = 0.1$. However, dust devils are usually active only for a few hours during each day (or sol on Mars) -- \citet{2006JGRE..11112S09G} found negligible activity before 9 a.m. LTST or after 5 p.m. LTST. Moreover, the occurrence rate itself seemed to evolve over the course of the active phase, increasing from $0.005\,{\rm km^{-2}\ hr^{-1}}$ early in the morning to  $0.05\,{\rm km^{-2}\ hr^{-1}}$ around noon. This mid-day peak agrees with meteorological predictions that dust devil activity should increase as the planetary boundary layer deepens with increasing surface heating \citep{doi:10.1029/2010RG000351}. Accurately estimating the occurrence rate requires a survey duration not longer than the timescale of variability, i.e., about an hour. Therefore, the 25-hours of survey required to recover $n = 0.05\,{\rm km^{-2}\ hr^{-1}}$ to 10\% accuracy would have to be spread into 1-hour surveys around noon spanning 25 sols. (And, of course, smaller occurrence rates would require additional time.) 
+
+Similarly, \citet{2006JGRE..11112S09G} reported an occurrence rate that varied with season and $L_{\rm S}$. Assuming sufficient daily coverage to accurately capture the daily occurrence rate (i.e., a large enough value for $n t$), we can ask what $\Delta_{\rm FOV}$ might be required to recover the seasonal variability by looking at the expected variation in $n t$. From its peak in spring to the peak in summer, $n t$ dropped from $0.11\,{\rm km^{-2}}$ to $0.05\,{\rm km^{-2}}$, which would require a precision $\sigma_n/n \sim 0.5$. Solving Equation \ref{eqn:sigma_n} gives $\Delta_{\rm FOV} \approx 65^\circ$. Considering instead the maximum $\Delta_{\rm FOV} = 360^\circ$ and an areal occurrence $nt = 0.11\,{\rm km^{-2}}$ suggests we could recover dozens of 10-m wide dust devils. 
 
 \acknowledgments
-
 
 %% To help institutions obtain information on the effectiveness of their 
 %% telescopes the AAS Journals has created a group of keywords for telescope 
@@ -312,32 +356,32 @@ miscellaneous --- catalogs --- surveys}
 \appendix
 
 % 2020 May 9 - Check notes in notepad from today's date
-\section{Effects of Undersampling the Dust Devil Profile}
-With too low a sampling frequency, the pressure profile for a dust devil will be undersampled, potentially distorting the inferred profile shape and depth. Fourier analysis of the pressure profile can show the dependence of the distortion on the angular sampling frequency $\omega$.
+% \section{Effects of Undersampling the Dust Devil Profile}
+% With too low a sampling frequency, the pressure profile for a dust devil will be undersampled, potentially distorting the inferred profile shape and depth. Fourier analysis of the pressure profile can show the dependence of the distortion on the angular sampling frequency $\omega$.
 
-We start by assuming a Lorentzian profile $L(t)$ in time $t$ for the dust devil:
-\begin{equation}
-    L(t) = -\frac{\Delta P}{1 + \left( t/\Gamma \right)^2},
-    \label{eqn:appendix_lorentzian}
-\end{equation}{}
-where $\Delta P$ is the profile depth and $\Gamma$ its duration. The Fourier transform of this profile $F(\omega)$ is 
-\begin{equation}
-    F(\omega) = -\pi \Delta P\ \Gamma e^{-|\omega| \Gamma}.
-    \label{eqn:appendix_lorentzian_fourier}
-\end{equation}{}
+% We start by assuming a Lorentzian profile $L(t)$ in time $t$ for the dust devil:
+% \begin{equation}
+%     L(t) = -\frac{\Delta P}{1 + \left( t/\Gamma \right)^2},
+%     \label{eqn:appendix_lorentzian}
+% \end{equation}{}
+% where $\Delta P$ is the profile depth and $\Gamma$ its duration. The Fourier transform of this profile $F(\omega)$ is 
+% \begin{equation}
+%     F(\omega) = -\pi \Delta P\ \Gamma e^{-|\omega| \Gamma}.
+%     \label{eqn:appendix_lorentzian_fourier}
+% \end{equation}{}
 
-If we now imagine that we undersampled the profile using frequencies below some maximum, $\omega \le \omega_{\rm max}$, then we can estimate the resulting distorted profile $L^\prime(t)$ by taking the inverse, partial Fourier transform of $F(t)$, i.e.
-\begin{equation}
-    L^\prime(t) \equiv \int_{\omega = -\omega_{\rm max}}^{\omega_{\rm max}}\ \left( -\pi \Delta P \Gamma e^{-|\omega| \Gamma}\right) \ \left( \frac{e^{+i\omega t}\ d\omega}{2 \pi} \right)
-    = L(t) \bigg[ 1 - \left( \cos \left( \omega_{\rm max} t \right) - \left( \frac{t}{\Gamma} \right) \sin \left( \omega_{\rm max} t \right) \right) e^{-\omega_{\rm max} \Gamma} \bigg].
-    \label{eqn:appendix_inverse_fourier}
-\end{equation}{}
+% If we now imagine that we undersampled the profile using frequencies below some maximum, $\omega \le \omega_{\rm max}$, then we can estimate the resulting distorted profile $L^\prime(t)$ by taking the inverse, partial Fourier transform of $F(t)$, i.e.
+% \begin{equation}
+%     L^\prime(t) \equiv \int_{\omega = -\omega_{\rm max}}^{\omega_{\rm max}}\ \left( -\pi \Delta P \Gamma e^{-|\omega| \Gamma}\right) \ \left( \frac{e^{+i\omega t}\ d\omega}{2 \pi} \right)
+%     = L(t) \bigg[ 1 - \left( \cos \left( \omega_{\rm max} t \right) - \left( \frac{t}{\Gamma} \right) \sin \left( \omega_{\rm max} t \right) \right) e^{-\omega_{\rm max} \Gamma} \bigg].
+%     \label{eqn:appendix_inverse_fourier}
+% \end{equation}{}
 
-We expect the register the maximum (in magnitude) pressure excursion at the center of the profile, i.e. $L(t = 0) = \Delta P$, and so to estimate the incorrect profile depth $\Delta P^\prime$ arising from this distorted profile, we can evaluate $L^\prime(t)$ at the same time, giving:
-\begin{equation}
-    \Delta P^\prime = \Delta P \left( 1 - e^{-\omega_{\rm max}\Gamma} \right).
-\end{equation}{}
-The distortion decreases rapidly with $\omega_{\rm max}$, and for a sampling frequency of, for example, $2\,{\rm Hz}$ ($\omega_{\rm max} = 2\pi \times (2\,{\rm Hz})$) and a very narrow profile $\Gamma = 0.5\,{\rm s}$, $\Delta P^\prime$ is only 0.2\% different from $\Delta P$.
+% We expect the register the maximum (in magnitude) pressure excursion at the center of the profile, i.e. $L(t = 0) = \Delta P$, and so to estimate the incorrect profile depth $\Delta P^\prime$ arising from this distorted profile, we can evaluate $L^\prime(t)$ at the same time, giving:
+% \begin{equation}
+%     \Delta P^\prime = \Delta P \left( 1 - e^{-\omega_{\rm max}\Gamma} \right).
+% \end{equation}{}
+% The distortion decreases rapidly with $\omega_{\rm max}$, and for a sampling frequency of, for example, $2\,{\rm Hz}$ ($\omega_{\rm max} = 2\pi \times (2\,{\rm Hz})$) and a very narrow profile $\Gamma = 0.5\,{\rm s}$, $\Delta P^\prime$ is only 0.2\% different from $\Delta P$.
 
 \bibliography{sample63}{}
 \bibliographystyle{aasjournal}
