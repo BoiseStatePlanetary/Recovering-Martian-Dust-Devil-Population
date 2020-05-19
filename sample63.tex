@@ -150,7 +150,7 @@
 %% If you wish, you may supply running head information, although
 %% this information may be modified by the editorial offices.
 \shorttitle{Optimizing Imaging Surveys for Dust Devils}
-\shortauthors{Jackson et al.}
+\shortauthors{Jackson}
 %%
 %% You can add a light gray and diagonal water-mark to the first page 
 %% with this command:
@@ -282,6 +282,7 @@ miscellaneous --- catalogs --- surveys}
 % \end{figure}
 
 \section{Camera Model}
+
 Consider a camera with a horizontal field-of-view $\Delta_{\rm FOV}$ centered on azimuth $\lambda$ and an angular resolution $\alpha$. Initially, we will assume the camera observes continuously throughout the period during which dust devils are active. Consider also a dust devil with a fixed diameter $D$, height $H$, and a sufficient contrast against the image background that it can be detected. Such a dust devil could be resolved at a distance from the camera $r_{\rm max} = \dfrac{D}{\alpha}$. 
 
 In principle, the camera could detect this dust devil if it traversed the pie-wedge of terrain centered on $\lambda$ and having an area 
@@ -299,9 +300,9 @@ Consider a fixed, unidirectional wind of speed $U$ crossing perpendicularly thro
 Again, typical values $D \sim 10\,{\rm m}$, $U \sim 10\,{\rm m\ s^{-1}}$, $\tau \sim 100\,{\rm s}$, and $\alpha \sim 1\,{\rm mrad}$ gives $A_{\rm adv} \sim 10\,{\rm km^2} \ll A_{\rm wedge}$. Although both areas contribute, we neglect $A_{\rm adv}$ compared to $A_{\rm wedge}$, and we use this estimate for the area surveyed $A_{\rm survey} \approx A_{\rm wedge}$ to determine how the inferred population of dust devils depends on the survey parameters.
 
 \section{Imaging Survey Statistics}
-We can relate the areal occurrence rate, $n$, from the number of dust devils observed $k$ in an amount of time $t$:
+We can relate the areal occurrence rate $n$ (measured in dust devils per unit area per unit time) from either the areal density of devils $N$ (measured in dust devils per unit area) or the total number of dust devils observed $k$ in an amount of time $t$:
 \begin{equation}
-   n = \frac{k}{t A_{\rm survey}} = \left( \frac{2 \alpha^2}{t \Delta_{\rm FOV} D^2} \right)\ k.
+   n = \frac{N}{t} = \frac{k}{t A_{\rm survey}} = \left( \frac{2 \alpha^2}{t \Delta_{\rm FOV} D^2} \right)\ k.
     \label{eqn:areal_occurrence_rate}
 \end{equation}
 
@@ -322,7 +323,11 @@ A more practical application of Equation \ref{eqn:sigma_n} might instead involve
 
 Similarly, \citet{2006JGRE..11112S09G} reported an occurrence rate that varied with season and $L_{\rm S}$. Assuming sufficient daily coverage to accurately capture the daily occurrence rate (i.e., a large enough value for $n t$), we can ask what $\Delta_{\rm FOV}$ might be required to recover the seasonal variability by looking at the expected variation in $n t$. From its peak in spring to the peak in summer, $n t$ dropped from $0.11\,{\rm km^{-2}}$ to $0.05\,{\rm km^{-2}}$, which would require a precision $\sigma_n/n \sim 0.5$. Solving Equation \ref{eqn:sigma_n} gives $\Delta_{\rm FOV} \approx 65^\circ$. Considering instead the maximum $\Delta_{\rm FOV} = 360^\circ$ and an areal occurrence $nt = 0.11\,{\rm km^{-2}}$ suggests we could recover dozens of 10-m wide dust devils. 
 
-Importantly, all these calculations up till now have assumed a single dust devil diameter, $D$. In fact, dust devils span a range of diameters - \citet{2006JGRE..11112S09G} reported values between 2 and $276\,{\rm m}$, while orbital studies have reported devils hundreds of meters across \citep{2008Icar..197...39S}. However, the distribution of diameters appears to follow a steep power law, with an exponent between 1 and 2 \citep{2016SSRv..203..277L}. Consequently, the majority of devils reported in \citet{2006JGRE..11112S09G} lay between 10 and $20\,{\rm m}$, and so $n$ is dominated by devils in this range and the calculations presented so far may be considered reasonably representative. 
+Importantly, all these calculations up till now have assumed a single dust devil diameter, $D$. In fact, dust devils span a range of diameters - \citet{2006JGRE..11112S09G} reported values between 2 and $276\,{\rm m}$, while orbital studies have reported devils hundreds of meters across \citep{2008Icar..197...39S}. However, the distribution of diameters appears to follow a steep power law, with an exponent between 1 and 2 \citep{2016SSRv..203..277L}. Consequently, the majority of devils reported in \citet{2006JGRE..11112S09G} lay between 10 and $20\,{\rm m}$, and so $n$ is dominated by devils in this range and the calculations presented so far may be considered reasonably representative. In addition, for a given angular resolution, larger dust devils can be recovered from farther away, an observational bias that has been previously pointed out \citep{2012Icar..219..556K, 2013Icar..226..964L}.
+
+On the other hand, given that larger dust devils are less common, they may be intrinsically less likely to be recovered. Equation \ref{eqn:areal_occurrence_rate} may be adapted to allow for a distribution of dust devils by diameter by simply taking $n$ to represent the areal occurrence rate in a narrow range of diameters and $k$ to represent the number of devils observed within that same range of diameters. From Equation \ref{eqn:areal_occurrence_rate}, we can see that if $n$ were a steeply declining function of $D$ (e.g., $n \propto D^{-3}$), then the total number of devils recovered with smaller diameters would exceed the number with larger diameters in proportion to $D^{-1}$.
+
+Moreover, larger dust devils may dominate the 
 
 \acknowledgments
 
