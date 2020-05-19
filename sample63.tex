@@ -283,7 +283,14 @@ miscellaneous --- catalogs --- surveys}
 
 \section{Camera Model}
 
-Consider a camera with a horizontal field-of-view $\Delta_{\rm FOV}$ centered on azimuth $\lambda$ and an angular resolution $\alpha$. Initially, we will assume the camera observes continuously throughout the period during which dust devils are active. Consider also a dust devil with a fixed diameter $D$, height $H$, and a sufficient contrast against the image background that it can be detected. Such a dust devil could be resolved at a distance from the camera $r_{\rm max} = \dfrac{D}{\alpha}$. 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/Awedge.jpg}
+    \caption{Observational geometry. The camera has a field-of-view is $\Delta_{\rm FOV}$ and an angular resolution $\alpha$ which allows it to resolve dust devils of diameter $D$ out to a radial distance $r_{\rm max}$. The area surveyed is $A_{\rm wedge}$.}
+    \label{fig:Awedge}
+\end{figure}
+
+Consider a camera with a horizontal field-of-view $\Delta_{\rm FOV}$ centered on azimuth $\lambda$ and an angular resolution $\alpha$ (Figure \ref{fig:Awedge}). Initially, we will assume the camera observes continuously throughout the period during which dust devils are active. Consider also a dust devil with a fixed diameter $D$, height $H$, and a sufficient contrast against the image background that it can be detected. Such a dust devil could be resolved at a distance from the camera $r_{\rm max} = \dfrac{D}{\alpha}$. 
 
 In principle, the camera could detect this dust devil if it traversed the pie-wedge of terrain centered on $\lambda$ and having an area 
 \begin{equation}
@@ -300,6 +307,14 @@ Consider a fixed, unidirectional wind of speed $U$ crossing perpendicularly thro
 Again, typical values $D \sim 10\,{\rm m}$, $U \sim 10\,{\rm m\ s^{-1}}$, $\tau \sim 100\,{\rm s}$, and $\alpha \sim 1\,{\rm mrad}$ gives $A_{\rm adv} \sim 10\,{\rm km^2} \ll A_{\rm wedge}$. Although both areas contribute, we neglect $A_{\rm adv}$ compared to $A_{\rm wedge}$, and we use this estimate for the area surveyed $A_{\rm survey} \approx A_{\rm wedge}$ to determine how the inferred population of dust devils depends on the survey parameters.
 
 \section{Imaging Survey Statistics}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/DDs_vs_Delta.jpg}
+    \caption{The number of dust devils recovered by an imaging survey as a function of field-of-view $\Delta_{\rm FOV}$ shown as thick, blue lines, along with estimated uncertainties (adjacent thin, blue lines). The survey precision, $\sigma_n/n$ shown as thick orange lines. The dashed lines of both colors assume a survey duration $t = 4\,{\rm hours}$, and the dash-dot lines a duration $t = 25\,{\rm hours}$.}
+    \label{fig:DDs_vs_Delta}
+\end{figure}
+
 We can relate the areal occurrence rate $n$ (measured in dust devils per unit area per unit time) from either the areal density of devils $N$ (measured in dust devils per unit area) or the total number of dust devils observed $k$ in an amount of time $t$:
 \begin{equation}
    n = \frac{N}{t} = \frac{k}{t A_{\rm survey}} = \left( \frac{2 \alpha^2}{t \Delta_{\rm FOV} D^2} \right)\ k.
