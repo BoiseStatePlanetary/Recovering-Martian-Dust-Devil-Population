@@ -306,12 +306,12 @@ Consider a fixed, unidirectional wind of speed $U$ crossing perpendicularly thro
 \end{equation}
 Again, typical values $D \sim 10\,{\rm m}$, $U \sim 10\,{\rm m\ s^{-1}}$, $\tau \sim 100\,{\rm s}$, and $\alpha \sim 1\,{\rm mrad}$ gives $A_{\rm adv} \sim 10\,{\rm km^2} \ll A_{\rm wedge}$. Although both areas contribute, we neglect $A_{\rm adv}$ compared to $A_{\rm wedge}$, and we use this estimate for the area surveyed $A_{\rm survey} \approx A_{\rm wedge}$ to determine how the inferred population of dust devils depends on the survey parameters.
 
-\section{Imaging Survey Statistics}
+\section{Imaging Survey Constraints}
 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/DDs_vs_Delta.jpg}
-    \caption{The number of dust devils recovered by an imaging survey as a function of field-of-view $\Delta_{\rm FOV}$ shown as thick, blue lines, along with estimated uncertainties (adjacent thin, blue lines). The survey precision, $\sigma_n/n$ shown as thick orange lines. The dashed lines of both colors assume a survey duration $t = 4\,{\rm hours}$, and the dash-dot lines a duration $t = 25\,{\rm hours}$.}
+    \caption{The number of dust devils recovered by an imaging survey as a function of field-of-view $\Delta_{\rm FOV}$ shown as thick, blue lines, along with estimated uncertainties $\sigma_n$ (adjacent thin, blue lines). The survey precision, $\sigma_n/n$ shown as thick orange lines. The dashed lines of both colors assume a survey duration $t = 4\,{\rm hrs}$, and the dash-dot lines a duration $t = 25\,{\rm hrs}$. All calculations here assume $n = 0.05\,{\rm km^{-2}\ hr^{-1}}$, $D = 10\,{\rm m}$, and $\alpha = 1\,{\rm mrad}$.}
     \label{fig:DDs_vs_Delta}
 \end{figure}
 
@@ -342,7 +342,28 @@ Importantly, all these calculations up till now have assumed a single dust devil
 
 On the other hand, given that larger dust devils are less common, they may be intrinsically less likely to be recovered. Equation \ref{eqn:areal_occurrence_rate} may be adapted to allow for a distribution of dust devils by diameter by simply taking $n$ to represent the areal occurrence rate in a narrow range of diameters and $k$ to represent the number of devils observed within that same range of diameters. From Equation \ref{eqn:areal_occurrence_rate}, we can see that if $n$ were a steeply declining function of $D$ (e.g., $n \propto D^{-3}$), then the total number of devils recovered with smaller diameters would exceed the number with larger diameters in proportion to $D^{-1}$.
 
-Moreover, larger dust devils may dominate the 
+More than simply counting dust devils, a survey might consider also assessing dust devil dynamics. In their survey, \citet{2006JGRE..11112S09G} constructed 21-frame short movies of dust devils in order to estimate their advective motions. By tracking the motions of visually distinct eddies within dust devils, they also estimated vertical velocities, ranging from $0.2$ to $8.8\,{\rm m\ s^{-1}}$, and therefrom the atmospheric dust flux. 
+
+In addition to sufficient time resolution (the movies analyzed in \citealt{2006JGRE..11112S09G} had a few seconds between frames), such an estimate requires sufficient angular resolution. Eddies within a dust devil span a range of sizes but all smaller than the host devil itself. In order for the motion of such an eddy to be resolvable, it must span a few pixels. At a minimum, the devil itself must be larger, occupying many times as pixels as the eddy, a minimum number of pixels $p_{\rm min}$.
+
+In order for a dust devil with diameter $D$ to occupy $p_{\rm min}$ pixels, it must pass within a radial distance $r$ of the camera, given by 
+\begin{equation}
+    r \le \frac{D}{p_{\rm min} \alpha}.
+    \label{eqn:encounter_distance}
+\end{equation}
+Passing within that radial distance requires the devil to pass through a pie-wedge area $A$ smaller than that corresponding to $r_{\rm max}$ but with the same opening angle $\Delta_{\rm FOV}$.
+
+The time between encounters with such a dust devil $\tau_{\rm enc}$ can be estimated using $r$:
+\begin{equation}
+    \tau_{\rm enc} = \left( n A \right)^{-1} = \bigg[ \left( \frac{n \Delta_{\rm FOV}}{2} \right) \left( \frac{D}{p_{\rm min} \alpha } \right)^2 \bigg]^{-1}.
+    \label{eqn:tau}
+\end{equation}
+For example, if we require a 10-m dust devil occupies 10 pixels (i.e., passes within $1\,{\rm km}$ of a camera with $\alpha = 1\,{\rm mrad}$ and $\Delta_{\rm FOV} = 65^\circ$), with $n = 0.05\,{\rm km^{-2}\ hr^{-1}}$, $\tau_{\rm enc} = 35\,{\rm hrs}$. In other words, a survey would require 35 hours of observation for such a small devil to pass so close to the camera. Assuming the same occurrence rate for 100-m devils, the same encounter distance would only require $\tau_{\rm enc} \approx 20\,{\rm min}$. However, the relative rarity of such large dust devils means encounters with such large devils would occur rarely. Figure \ref{fig:encounter_time} shows the encounter times for different diameters and various fields-of-view.
+
+
+
+\section{Assessing the Dust Flux}
+Accurate recovery of the dust devil population, in particular the largest devils, may be critical to assess the contribution of dust devils to the martian dust budget. 
 
 \acknowledgments
 
