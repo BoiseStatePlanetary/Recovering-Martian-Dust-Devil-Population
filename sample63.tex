@@ -283,12 +283,11 @@ miscellaneous --- catalogs --- surveys}
 
 An in-situ survey could be tailored to test ideas about dust devils. 
 
-\citet{1998JAtS...55.3244R} proposed the ``dust devil activity'' (DDA) parameter, the product of the surface sensible heat flux and a thermodynamic efficiency related to the depth of the planetary boundary layer. During the martian day, the heat flux and boundary layer depth increase as insolation heats the surface. \citet{2019JGRE..124.3442N} conducted large eddy simulations of the environment in and around Gale Crater to assess the DDA, along with other micrometeorological parameters as a function of position and time-of-day. The study then compared those model predictions to the rate at which short-lived dips appeared in the barometric time-series, likely indicative of vortex encounters. The study found that the frequency of vortex encounters scaled with
-DDA.
+\citet{1998JAtS...55.3244R} proposed the ``dust devil activity'' (DDA) parameter, the product of the surface sensible heat flux and a thermodynamic efficiency related to the depth of the planetary boundary layer. During the martian day, the heat flux and boundary layer depth increase as insolation heats the surface. \citet{2019JGRE..124.3442N} conducted large eddy simulations of the environment in and around Gale Crater to assess the DDA, along with other micrometeorological parameters as a function of position and time-of-day. The study then compared those model predictions to the rate at which short-lived dips appeared in the barometric time-series, likely indicative of vortex encounters. The study found that the frequency of vortex encounters scaled with DDA.
 
-However, in \citet{1998JAtS...55.3244R}, the actual relationship between DDA and dust devil properties is unclear: whether a larger DDA translates into a higher frequency of dust devils, more large dust devils, more vigorous dust devils. The results in \citet{2019JGRE..124.3442N} suggest the frequency at least increases with DDA, but 
+However, in \citet{1998JAtS...55.3244R}, the actual relationship between DDA and dust devil properties remains unclear: whether a larger DDA translates into a higher frequency of dust devils, more large dust devils, more vigorous dust devils. The results in \citet{2019JGRE..124.3442N} suggest the frequency at least increases with DDA, but it is not clear whether the increased frequency arose from higher surface winds (which would more quickly advect vortices past the sensor). Also unknown was whether the detected vortices exhibited deeper pressure excursions or more vigorous winds. A tailored imaging survey for dust devils, especially combined with a meteorological dataset, could disentangle the influence of DDA on dust devil properties. 
 
-suggested quantifying the energy available for dust devil convection 
+The detailed influence of dust devils on Mars' atmosphere likewise remain obscure. 
 
 \section{Camera Model}
 
@@ -377,7 +376,19 @@ For example, if we require a 10-m dust devil occupies 10 pixels (i.e., passes wi
 \end{figure}
 
 \section{Assessing the Dust Flux}
-Accurate recovery of the dust devil population, in particular the largest devils, may be critical to assess the contribution of dust devils to the martian dust budget. By tracking vertical velocities and optical depths within imaged dust devils, \citet{2006JGRE..11112S09G} estimated dust flux values $q$ for 300 devils, with values ranging between $3.95\times10^{−9}$ and $4.59\times10^{−4}\,{\rm kg\ m^{-2}\ s^{-1}}$ with an average $2.07\times10^{−5}\,{\rm kg\ m^{-2}\ s^{-1}}$, although no information is given regarding the dependence on diameter or any other parameter. Assuming this dust flux applies uniformly across diameter, it suggests dust flux scales with a devil's areal footprint, i.e. with $D^2$. We can use these values to explore 
+Accurate recovery of the dust devil population, in particular the largest devils, may be critical to assess the contribution of dust devils to the martian dust budget. By tracking vertical velocities and optical depths within imaged dust devils, \citet{2006JGRE..11112S09G} estimated dust flux values $q$ for 300 devils, with values ranging between $3.95\times10^{−9}$ and $4.59\times10^{−4}\,{\rm kg\ m^{-2}\ s^{-1}}$ with an average $2.07\times10^{−5}\,{\rm kg\ m^{-2}\ s^{-1}}$, although no information is given regarding the dependence on diameter or any other parameter. Assuming this dust flux applies uniformly across diameter, it suggests dust flux scales with a devil's areal footprint, i.e.~with $D^2$. We can use these values to explore how well we can estimate the dust flux for a given dust devil population.
+
+Taking the areal occurrence rate of dust devils with a diameter within a small interval around $D$ as $dn/dD = n_0 D^{-\gamma}$ with $\gamma$ between 1 and 2 \citep{2016SSRv..203..277L}. (As before, the area of an individual dust does not factor into the areal occurrence rate.) This expression translates into a number of devils observed during a survey of duration $t$ and within a narrow range of diameters $dk/dD = \left( dn/dD \right) A_{\rm survey} t$. Taking the rate of dust mass lifting for a single devil as $Q = q\ \pi D^2$, we can estimate the population-weighted rate as 
+\begin{equation}
+    \langle Q \rangle = \int_{D_{\rm min}}^{D_{\rm max}} \left( \frac{dk}{dD} \right) q\ \pi D^2 dD = \int_{D_{\rm min}}^{D_{\rm max}} n_0 D^{-\gamma} \left( \frac{t \Delta_{\rm FOV} D^2}{2 \alpha^2} \right) q \pi D^2\ dD.
+    \label{eqn:dust_lifted}
+\end{equation}
+Although the dust flux $q$ likely depends on $D$ itself, the dependence is unknown, and so for simplicity, we will assume $q = {\rm const.}$, yielding 
+\begin{equation}
+    \langle Q \rangle = \pi q n_0 \left( \frac{t \Delta_{\rm FOV}}{2 \alpha^2} \right) \left( \frac{D_{\rm max}^{5 - \gamma} - D_{\rm min}^{5 - \gamma}}{5 - \gamma} \right) \approx \left( \frac{ \pi q n_0 }{2 \left( 5 - \gamma \right)} \right) \left( \frac{t \Delta_{\rm FOV}}{\alpha^2} \right) D_{\rm max}^{5 - \gamma},
+    \label{eqn:solved_dust_lifted}
+\end{equation}
+with $\gamma < 5$ and $D_{\rm min} \ll D_{\rm max}$. For a representative estimate, we can take $q = 2.07\times10^{−5}\,{\rm kg\ m^{-2}\ s^{-1}}$, $n_0 = 0.05\,{\rm km^{-2}\ hr^{-1}}$, $\gamma = 1$, $t = 25\,{\rm hrs}$, $\Delta_{\rm FOV} = 65^\circ$, $\alpha = 1\,{\rm mrad}$, and $D_{\rm max} = 100\,{\rm m}$, giving an estimate $\langle Q \rangle \approx 4 {\rm g\ hr^{-1}}$.
 
 \acknowledgments
 
@@ -413,32 +424,32 @@ Accurate recovery of the dust devil population, in particular the largest devils
 \appendix
 
 % 2020 May 9 - Check notes in notepad from today's date
-% \section{Effects of Undersampling the Dust Devil Profile}
-% With too low a sampling frequency, the pressure profile for a dust devil will be undersampled, potentially distorting the inferred profile shape and depth. Fourier analysis of the pressure profile can show the dependence of the distortion on the angular sampling frequency $\omega$.
+\section{Effects of Undersampling the Dust Devil Profile}
+With too low a sampling frequency, the pressure profile for a dust devil will be undersampled, potentially distorting the inferred profile shape and depth. Fourier analysis of the pressure profile can show the dependence of the distortion on the angular sampling frequency $\omega$.
 
-% We start by assuming a Lorentzian profile $L(t)$ in time $t$ for the dust devil:
-% \begin{equation}
-%     L(t) = -\frac{\Delta P}{1 + \left( t/\Gamma \right)^2},
-%     \label{eqn:appendix_lorentzian}
-% \end{equation}{}
-% where $\Delta P$ is the profile depth and $\Gamma$ its duration. The Fourier transform of this profile $F(\omega)$ is 
-% \begin{equation}
-%     F(\omega) = -\pi \Delta P\ \Gamma e^{-|\omega| \Gamma}.
-%     \label{eqn:appendix_lorentzian_fourier}
-% \end{equation}{}
+We start by assuming a Lorentzian profile $L(t)$ in time $t$ for the dust devil:
+\begin{equation}
+    L(t) = -\frac{\Delta P}{1 + \left( t/\Gamma \right)^2},
+    \label{eqn:appendix_lorentzian}
+\end{equation}{}
+where $\Delta P$ is the profile depth and $\Gamma$ its duration. The Fourier transform of this profile $F(\omega)$ is 
+\begin{equation}
+    F(\omega) = -\pi \Delta P\ \Gamma e^{-|\omega| \Gamma}.
+    \label{eqn:appendix_lorentzian_fourier}
+\end{equation}{}
 
-% If we now imagine that we undersampled the profile using frequencies below some maximum, $\omega \le \omega_{\rm max}$, then we can estimate the resulting distorted profile $L^\prime(t)$ by taking the inverse, partial Fourier transform of $F(t)$, i.e.
-% \begin{equation}
-%     L^\prime(t) \equiv \int_{\omega = -\omega_{\rm max}}^{\omega_{\rm max}}\ \left( -\pi \Delta P \Gamma e^{-|\omega| \Gamma}\right) \ \left( \frac{e^{+i\omega t}\ d\omega}{2 \pi} \right)
-%     = L(t) \bigg[ 1 - \left( \cos \left( \omega_{\rm max} t \right) - \left( \frac{t}{\Gamma} \right) \sin \left( \omega_{\rm max} t \right) \right) e^{-\omega_{\rm max} \Gamma} \bigg].
-%     \label{eqn:appendix_inverse_fourier}
-% \end{equation}{}
+If we now imagine that we undersampled the profile using frequencies below some maximum, $\omega \le \omega_{\rm max}$, then we can estimate the resulting distorted profile $L^\prime(t)$ by taking the inverse, partial Fourier transform of $F(t)$, i.e.
+\begin{equation}
+    L^\prime(t) \equiv \int_{\omega = -\omega_{\rm max}}^{\omega_{\rm max}}\ \left( -\pi \Delta P \Gamma e^{-|\omega| \Gamma}\right) \ \left( \frac{e^{+i\omega t}\ d\omega}{2 \pi} \right)
+    = L(t) \bigg[ 1 - \left( \cos \left( \omega_{\rm max} t \right) - \left( \frac{t}{\Gamma} \right) \sin \left( \omega_{\rm max} t \right) \right) e^{-\omega_{\rm max} \Gamma} \bigg].
+    \label{eqn:appendix_inverse_fourier}
+\end{equation}{}
 
-% We expect the register the maximum (in magnitude) pressure excursion at the center of the profile, i.e. $L(t = 0) = \Delta P$, and so to estimate the incorrect profile depth $\Delta P^\prime$ arising from this distorted profile, we can evaluate $L^\prime(t)$ at the same time, giving:
-% \begin{equation}
-%     \Delta P^\prime = \Delta P \left( 1 - e^{-\omega_{\rm max}\Gamma} \right).
-% \end{equation}{}
-% The distortion decreases rapidly with $\omega_{\rm max}$, and for a sampling frequency of, for example, $2\,{\rm Hz}$ ($\omega_{\rm max} = 2\pi \times (2\,{\rm Hz})$) and a very narrow profile $\Gamma = 0.5\,{\rm s}$, $\Delta P^\prime$ is only 0.2\% different from $\Delta P$.
+We expect the register the maximum (in magnitude) pressure excursion at the center of the profile, i.e. $L(t = 0) = \Delta P$, and so to estimate the incorrect profile depth $\Delta P^\prime$ arising from this distorted profile, we can evaluate $L^\prime(t)$ at the same time, giving:
+\begin{equation}
+    \Delta P^\prime = \Delta P \left( 1 - e^{-\omega_{\rm max}\Gamma} \right).
+\end{equation}{}
+The distortion decreases rapidly with $\omega_{\rm max}$, and for a sampling frequency of, for example, $2\,{\rm Hz}$ ($\omega_{\rm max} = 2\pi \times (2\,{\rm Hz})$) and a very narrow profile $\Gamma = 0.5\,{\rm s}$, $\Delta P^\prime$ is only 0.2\% different from $\Delta P$.
 
 \bibliography{sample63}{}
 \bibliographystyle{aasjournal}
