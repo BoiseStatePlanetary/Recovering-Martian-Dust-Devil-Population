@@ -344,7 +344,14 @@ If we assume that dust devil occurrence is a Poisson process, then we can estima
 % \end{equation}
 % Such an angular resolution is about ten times better than is usually achieved -- the MER Hazcams used for the survey in \citet{2006JGRE..11112S09G} had a resolution of $2\,{\rm mrad/pix}$ \citep{2003JGRE..108.8071M}.
 
-Another application of Equation \ref{eqn:sigma_N} might instead involve assuming requiring a minimum survey accuracy $T = \sigma_N/N$ and asking, for a given camera field-of-view, what angular resolution is required. Figure \ref{fig:}
+Another application of Equation \ref{eqn:sigma_N} might instead involve assuming requiring a minimum survey accuracy $T = \sigma_N/N$ and asking, for a given camera field-of-view, what angular resolution is required. Figure \ref{fig:alpha_vs_Delta} shows the result: an accuracy of $T = 50\%$ can be achieved with $\Delta_{\rm FOV} = 150^\circ$ and a modest $\alpha = 1\,{\rm mrad}$ (i.e., resolving a dust devil with pixels across if the pixels each have a resolution of $0.3\,{\rm mrad\, pix^{-1}}$), again for $N = 0.03\,{\rm km^{-2}}$.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/alpha_vs_Delta.jpg}
+    \caption{The $\Delta_{\rm FOV}$-$\alpha$ combinations required to achieve a desired survey accuracy $T = \sigma_N/N$. The calculation here assumes $N = 0.03\,{\rm km^{-2}}$ and $D = 10\,{\rm m}$.}
+    \label{fig:alpha_vs_Delta}
+\end{figure}
 
 However, dust devils are usually active only for a few hours during each day (or sol on Mars) -- \citet{2006JGRE..11112S09G} found negligible activity before 9 a.m. LTST or after 5 p.m. LTST. Moreover, the occurrence rate itself seemed to evolve over the course of the active phase, increasing from $0.005\,{\rm km^{-2}\ hr^{-1}}$ early in the morning to  $0.05\,{\rm km^{-2}\ hr^{-1}}$ around noon. This mid-day peak agrees with meteorological predictions that dust devil activity should increase as the planetary boundary layer deepens with increasing surface heating \citep{doi:10.1029/2010RG000351}. Accurately estimating the occurrence rate requires a survey duration not longer than the timescale of variability, i.e., about an hour. Therefore, the 25-hours of survey required to recover $n = 0.05\,{\rm km^{-2}\ hr^{-1}}$ to 10\% accuracy would have to be spread into 1-hour surveys around noon spanning 25 sols. (And, of course, smaller occurrence rates would require additional time.) 
 
