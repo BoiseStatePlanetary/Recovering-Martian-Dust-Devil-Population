@@ -291,8 +291,10 @@ The detailed influence of dust devils on Mars' atmosphere likewise remain obscur
 
 For this study, we will consider two types of dust devil detections and analyses: the first involves dust devils far enough from the instrument suite that they are analyzed using only imagery; the second involves dust devils that pass over the instruments. The latter detection has the potential to more directly elucidate the pressure, temperature, and wind structures within a dust devil, as well as the dust abundance but requires a rare encounter at a distance from a devil's center not much more than the eyewall diameter. The former detection may also reveal the dust content but indirectly, via a analysis of the image contrast; however such detections are much more common since they can be made out to the resolution of the imaging system and may therefore provide a more robust assessment of dust devil statistics. 
 
+The atmospheric influence of a dust devil population depends on the areal density of dust devil occurrence and the dust flux for each. Thus, accurately assessing that influence requires accurate estimates of the both. 
+
 \section{Camera Model}
-To begin with, we outline the very basic characteristics of our model camera. By design, the considerations here are simplistic and general, rendering them applicable to a wide range of imaging systems. Consider a camera angled to have a clear view of the horizon and with a horizontal field-of-view $\Delta_{\rm FOV}$ centered on azimuth $\lambda$ and an angular resolution $\alpha$ (Figure \ref{fig:Awedge}). Initially, we will assume the camera observes continuously throughout the period during which dust devils are active. Consider also a dust devil with a fixed diameter $D$, height $H$, and a sufficient contrast against the image background that it can be detected. Such a dust devil could be resolved at a distance from the camera $r_{\rm max} = \dfrac{D}{\alpha}$. 
+To begin with, we outline the very basic characteristics of our model camera. By design, the considerations here are simplistic and general, rendering them applicable to a wide range of imaging systems. Consider a camera angled to have a clear view of the horizon and with a horizontal field-of-view $\Delta_{\rm FOV}$ centered on azimuth $\lambda$ and an angular resolution $\alpha$ measured in angle per pixel (Figure \ref{fig:Awedge}). Consider also a dust devil with a fixed diameter $D$, height $H$, and a sufficient contrast against the image background that it can be detected. Such a dust devil could be resolved at a distance from the camera $r_{\rm max} = D/\alpha$. For example, to resolve a dust devil with $D = 10\,{\rm m}$ with three pixels across, if $\alpha = 0.3\,{\rm mrad\ pix^{-1}}$ (similar to the Mars 2020 Mastcam-Z - \citealp{2017E&SS....4..396B}), $r_{\rm max} \approx 10\,{\rm km}$.
 
 \begin{figure}
     \centering
@@ -306,7 +308,7 @@ In principle, the camera could detect this dust devil if it traversed the pie-we
     A_{\rm wedge} = \frac{\Delta_{\rm FOV} r_{\rm max}^2}{2} = \frac{\Delta_{\rm FOV}D^2}{2 \alpha^2}.
     \label{eqn:A_wedge}
 \end{equation}
-Typical values for these parameters are $\Delta_{\rm FOV} \sim \pi/2\,{\rm rad}$, $D \sim 10\,{\rm m}$, and $\alpha \sim 1\,{\rm mrad}$, giving $A_{\rm wedge} \sim 100\,{\rm km^2}$ (although we will explore different values for these parameters). If dust devils traveled very slowly (or not at all) from their origin point, then the survey would only include devils that appeared within this wedge. However, as pointed out in \citet{2014JAtS...71.4461L}, advection of dust devils through a survey site increases the effective area surveyed. 
+Taking the same $D$ and $\alpha$-values as above, along with $\Delta_{\rm FOV} = \pi/2\,{\rm rad}$ gives $A_{\rm wedge} \sim 100\,{\rm km^2}$. If dust devils traveled very slowly (or not at all) from their origin point, then the survey would only include devils that appeared within this wedge. However, as pointed out in \citet{2014JAtS...71.4461L}, advection of dust devils through a survey site increases the effective area surveyed. 
 
 Consider a fixed, unidirectional wind of speed $U$ crossing perpendicularly through the pie-wedge. If the dust devil under consideration has a lifetime $\tau$, then it will travel a distance $L = \tau U$ before dissipating. Thus, the wind field can advect dust devils into the camera's field-of-view acting as a conveyor belt with area
 \begin{equation}
@@ -315,7 +317,18 @@ Consider a fixed, unidirectional wind of speed $U$ crossing perpendicularly thro
 \end{equation}
 Again, typical values $D \sim 10\,{\rm m}$, $U \sim 10\,{\rm m\ s^{-1}}$, $\tau \sim 100\,{\rm s}$, and $\alpha \sim 1\,{\rm mrad}$ gives $A_{\rm adv} \sim 10\,{\rm km^2} \ll A_{\rm wedge}$. Although both areas contribute, we neglect $A_{\rm adv}$ compared to $A_{\rm wedge}$, and we use this estimate for the area surveyed $A_{\rm survey} \approx A_{\rm wedge}$ to determine how the inferred population of dust devils depends on the survey parameters.
 
-\section{Imaging Survey Constraints}
+\section{Imaging Surveys for Distant Dust Devils}
+First, we consider the accuracy with which we could infer the occurrence rate of dust devils detected very distant from the instrument suite and that register only on the camera instrument. We can relate the areal density $N$ (dust devils per unit area) for a certain period of interest from the total number of dust devils observed in a single image $k$:
+\begin{equation}
+   N = \frac{k}{A_{\rm survey}} = \left( \frac{2 \alpha^2}{\Delta_{\rm FOV} D^2} \right)\ k.
+    \label{eqn:areal_occurrence}
+\end{equation}
+
+If we assume that dust devil occurrence is a Poisson process, then we can estimate the standard deviation or uncertainty on $k$ as $\sigma_k = \sqrt{k}$ and the uncertainty $\sigma_N$ on our estimate of $N$ via
+\begin{equation}
+    \frac{\sigma_N}{N} = \frac{\sigma_k}{k} = k^{-1/2} = \sqrt{2} N^{-1/2} D^{-1}\ \Delta_{\rm FOV}^{-1/2} \alpha.
+    \label{eqn:sigma_N}
+\end{equation}
 
 \begin{figure}
     \centering
@@ -324,19 +337,7 @@ Again, typical values $D \sim 10\,{\rm m}$, $U \sim 10\,{\rm m\ s^{-1}}$, $\tau 
     \label{fig:DDs_vs_Delta}
 \end{figure}
 
-The atmospheric influence of a dust devil population depends on the frequency of dust devil occurrence and the dust flux for each. Thus, accurately assessing that influence requires accurate estimates of the both. We can relate the areal occurrence rate $n$ (dust devils per unit area per unit time) from either the areal density of devils $N$ (measured in dust devils per unit area) or the total number of dust devils observed $k$ in an amount of time $t$:
-\begin{equation}
-   n = \frac{N}{t} = \frac{k}{t A_{\rm survey}} = \left( \frac{2 \alpha^2}{t \Delta_{\rm FOV} D^2} \right)\ k.
-    \label{eqn:areal_occurrence_rate}
-\end{equation}
-
-If we assume that dust devil occurrence is a Poisson process, then we can estimate the standard deviation or uncertainty on $k$ as $\sigma_k = \sqrt{k}$ and the uncertainty $\sigma_n$ on our estimate of $n$ via
-\begin{equation}
-    \frac{\sigma_n}{n} = \frac{\sigma_k}{k} = k^{-1/2} = \sqrt{2} \left( n t \right)^{-1/2} D^{-1}\ \Delta_{\rm FOV}^{-1/2} \alpha.
-    \label{eqn:sigma_n}
-\end{equation}
-
-Usually, we would design our survey so that we achieve a sufficiently precise estimate for the quantity of physical significance $n$. In other words, we would require $\sigma_n/n < T$, some threshold. We can see that Equation \ref{eqn:sigma_n} provides the specific requirements to achieve the desired threshold. For instance, we can take some typical values from \citet{2006JGRE..11112S09G} and estimate what minimum angular resolution is required of our camera to achieve $T = 0.1$:
+Usually, we would design our survey so that we achieve a sufficiently precise estimate for the quantity of physical significance $n$. In other words, we would require $\sigma_N/N < T$, some threshold. We can see that Equation \ref{eqn:sigma_N} provides the specific requirements to achieve the desired threshold. For instance, we can take some typical values from \citet{2006JGRE..11112S09G} and estimate what minimum angular resolution is required of our camera to achieve $T = 0.1$:
 \begin{equation}
     \alpha < 2^{-1/2} T \left( n t \right)^{1/2} D\ \Delta_{\rm FOV}^{1/2} = 2^{-1/2} \left( 0.1 \right) \big[ \left( 0.05\,{\rm km^{-2}\ hr^{-1}} \right) \left( 1\,{\rm hr} \right) \big]^{1/2} \left( 10\,{\rm m} \right) \left( \pi/2\,{\rm rad} \right)^{1/2} \approx 0.2\,{\rm mrad}.
     \label{eqn:alpha_example}
