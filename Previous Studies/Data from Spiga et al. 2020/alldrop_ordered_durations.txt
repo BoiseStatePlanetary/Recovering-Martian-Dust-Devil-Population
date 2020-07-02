@@ -1,4 +1,4 @@
-# sol, t0, DeltaP, Gamma, resid, datafile
+sol, t0, DeltaP, Gamma, resid, datafile
 14, 14.6047, 0.0631751, -0.00460428, 3.38504, ps_calib_0014_01.csv
 14, 11.8955, 0.0374272, 0.00217994, 3.65596, ps_calib_0014_01.csv
 14, 13.2106, 0.0393254, -0.00101906, 2.6293, ps_calib_0014_01.csv
