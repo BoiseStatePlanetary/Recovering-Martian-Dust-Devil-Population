@@ -67,11 +67,8 @@ def moving_average(x, w, mode='valid'):
     return np.convolve(x, np.ones(w), mode) / w
 
 def moving_std(x, w, mode='valid'):
-#     sqrt(<x^2> - <x>^2)
-    avg_sq = moving_average(x*x, w, mode=mode)
-    sq_avg = moving_average(x, w, mode=mode)**2.
-    
-    return np.sqrt(avg_sq - sq_avg)
+    avg = moving_average(x, w, mode=mode)
+    return np.sqrt(moving_average((x - avg)**2, w, mode=mode))
 
 def redchisqg(ydata,ymod,deg=2,sd=None):
     """  
