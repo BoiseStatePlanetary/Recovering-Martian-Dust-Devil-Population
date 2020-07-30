@@ -68,7 +68,7 @@ def moving_average(x, w, mode='valid'):
 
 def moving_std(x, w, mode='valid'):
     avg = moving_average(x, w, mode=mode)
-    return np.sqrt(moving_average((x - avg)**2, w, mode=mode))
+    return np.sqrt(w/(w - 1.)*moving_average((x - avg)**2, w, mode=mode))
 
 def redchisqg(ydata,ymod,deg=2,sd=None):
     """  
@@ -177,6 +177,12 @@ def retrieve_pressure_data(sol):
 
     sol_data = np.genfromtxt(sol_filename[0], delimiter=",", dtype=None, names=True)
     LTST, LTST_and_sol = convert_ltst(sol_data)
+
+    ind = np.isfinite(LTST) & np.isfinite(LTST_and_sol) &\
+            np.isfinite(sol_data["PRESSURE"])
+    LTST = LTST[ind]
+    LTST_and_sol = LTST_and_sol[ind]
+    sol_data = sol_data[ind]
 
     # For some reason, some times are doubled up
     _, unq = np.unique(sol_data["LTST"], return_index=True)
