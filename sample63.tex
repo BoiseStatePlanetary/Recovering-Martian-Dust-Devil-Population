@@ -295,7 +295,17 @@ For this study, we will consider two types of dust devil detections and analyses
 
 The atmospheric influence of a dust devil population depends on the areal density of dust devil occurrence and the dust flux for each. Thus, accurately assessing that influence requires accurate estimates of the both. 
 \section{Pressure Time-Series and Vortex Detection Scheme}
-We employ a matched filter approach to recover vortices from the Insight APSS calibrated pressure time-series \citep[Ch.~13][]{Press2007}. In addition to Gaussian (white) noise, the data also exhibit long-term variations of timescales typically much longer (minutes to hours) than the vortex signals. The suppress these longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices.
+We employ a matched filter approach to recover vortices from the Insight APSS calibrated pressure time-series \citep[Ch.~13][]{Press2007}. In addition to Gaussian (white) noise, the data also exhibit long-term variations of timescales typically much longer (minutes to hours) than the vortex signals. The suppress these longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices. Of course, any time-series analysis will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, so, in addition to outlining our approach here, we explore its biases and how those influence the final recover population of vortices.
+
+As in previous work \citep[e.g.][]{2016JGRE..121.1514K}, we model the vortex signals as a modified Lorentzian profile $L(t)$:
+\begin{equation}
+    L(t) = \frac{-\Delta P}{1 + \left( \frac{ t - t_0 }{\Gamma/2} \right)^2},\label{eqn:Lorentzian_profile}
+\end{equation}
+where $t$ is the time of each datum, $\Delta P$ is the maximum value of the pressure excursion (a positive number) at the center of vortex signal, $t_0$ the central time, and $\Gamma$ the full-width/half-max for the profile. 
+
+% Show how mean boxcar with a given window size distorts Lorentzian
+
+% Discuss how the matched filter works
 
 \section{Camera Model}
 To begin with, we outline the very basic characteristics of our model camera. By design, the considerations here are simplistic and general, rendering them applicable to a wide range of imaging systems. Consider a camera angled to have a clear view of the horizon and with a horizontal field-of-view $\Delta_{\rm FOV}$ centered on azimuth $\lambda$ and an angular resolution $\alpha$ measured in angle per pixel (Figure \ref{fig:Awedge}). Consider also a dust devil with a fixed diameter $D$, height $H$, and a sufficient contrast against the image background that it can be detected. Such a dust devil could be resolved at a distance from the camera $r_{\rm max} = D/\alpha$. For example, to resolve a dust devil with $D = 10\,{\rm m}$ with three pixels across, if $\alpha = 0.3\,{\rm mrad\ pix^{-1}} \times 3\,{\rm pix} \approx 1\,{\rm mrad}$ (similar to the Mars 2020 Mastcam-Z - \citealp{2017E&SS....4..396B}), $r_{\rm max} \approx 10\,{\rm km}$.
