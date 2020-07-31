@@ -149,7 +149,7 @@
 %%
 %% If you wish, you may supply running head information, although
 %% this information may be modified by the editorial offices.
-\shorttitle{Vortices and Meteorology from Insight's First 400 Sols}
+\shorttitle{Vortices and Meteorology from Insight}
 \shortauthors{Jackson}
 %%
 %% You can add a light gray and diagonal water-mark to the first page 
@@ -167,7 +167,7 @@
 
 \begin{document}
 
-\title{Inferring Vortex and Meteorological Statistics from Insight's First 400 Sols}
+\title{Inferring Vortex and Meteorological Statistics from Insight}
 
 %% LaTeX will automatically break titles if they run longer than
 %% one line. However, you may use \\ to force a line break if
@@ -222,6 +222,9 @@
 \email{bjackson@boisestate.edu}
 
 \author[0000-0002-9495-9700]{Brian Jackson}
+\author{Justin Crevier}
+\author{Michelle Szurgot}
+\author{Ryan Battin}
 \affiliation{Department of Physics\\ 
 Boise State University\\ 
 1910 University Drive, Boise ID 83725-1570 USA}
@@ -240,8 +243,7 @@ Boise State University\\
 
 %% Mark off the abstract in the ``abstract'' environment. 
 \begin{abstract}
-
-
+The Insight Mission has operated on the surface of Mars for nearly two Earth years, returning hundreds of sols worth of data, including detections of the first Marsquakes. The lander also deployed an exquisitely sensitive meteorological instrument package to assess the influence of the atmosphere on the geophysical measurements, as well as imaging cameras to monitor both instrument deployment and local surface activity. In addition to their relevance to Insight geoscience, these latter instruments have detected a variety of boundary layer phenomena, including an unprecedented number of encounters with small-scale vortices. These vortices register as short-lived (< tens of seconds), negative (< a few \% ambient) pressure excursions in the barometric time-series collected by Insight. These vortices closely resemble dust devils, which largely shape climate and air quality on Mars where they are widespread. Puzzlingly, although Insight detected more than 9,000 such vortices and collected hundreds of mid-day images (as reported in \citealp{2020arXiv200501134S}), no active dust devils were imaged -- apparently, all the vortices were dustless. In spite of the lack of dust devil detections, we can leverage the vortex detections and Insight’s daily wind speed measurements to learn about the boundary layer processes that create dust devils. Such an analysis could even help us optimize our vortex detection strategies. In this study, we will discuss our own analysis of Insight’s meteorological data to assess the statistics of vortex and dust devil activity. Comparing these results to Insight’s imagery and space-based observations of the Insight landing site, we can also statistically infer the maximum dust-loading allowed for nearby dust devils. 
 \end{abstract}
 
 %% Keywords should appear after the \end{abstract} command. 
@@ -292,6 +294,8 @@ The detailed influence of dust devils on Mars' atmosphere likewise remain obscur
 For this study, we will consider two types of dust devil detections and analyses: the first involves dust devils far enough from the instrument suite that they are analyzed using only imagery; the second involves dust devils that pass over the instruments. The latter detection has the potential to more directly elucidate the pressure, temperature, and wind structures within a dust devil, as well as the dust abundance but requires a rare encounter at a distance from a devil's center not much more than the eyewall diameter. The former detection may also reveal the dust content but indirectly, via a analysis of the image contrast; however such detections are much more common since they can be made out to the resolution of the imaging system and may therefore provide a more robust assessment of dust devil statistics. 
 
 The atmospheric influence of a dust devil population depends on the areal density of dust devil occurrence and the dust flux for each. Thus, accurately assessing that influence requires accurate estimates of the both. 
+\section{Pressure Time-Series and Vortex Detection Scheme}
+We employ a matched filter approach to recover vortices from the Insight APSS calibrated pressure time-series \citep[Ch.~13][]{Press2007}. In addition to Gaussian (white) noise, the data also exhibit long-term variations of timescales typically much longer (minutes to hours) than the vortex signals. The suppress these longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices.
 
 \section{Camera Model}
 To begin with, we outline the very basic characteristics of our model camera. By design, the considerations here are simplistic and general, rendering them applicable to a wide range of imaging systems. Consider a camera angled to have a clear view of the horizon and with a horizontal field-of-view $\Delta_{\rm FOV}$ centered on azimuth $\lambda$ and an angular resolution $\alpha$ measured in angle per pixel (Figure \ref{fig:Awedge}). Consider also a dust devil with a fixed diameter $D$, height $H$, and a sufficient contrast against the image background that it can be detected. Such a dust devil could be resolved at a distance from the camera $r_{\rm max} = D/\alpha$. For example, to resolve a dust devil with $D = 10\,{\rm m}$ with three pixels across, if $\alpha = 0.3\,{\rm mrad\ pix^{-1}} \times 3\,{\rm pix} \approx 1\,{\rm mrad}$ (similar to the Mars 2020 Mastcam-Z - \citealp{2017E&SS....4..396B}), $r_{\rm max} \approx 10\,{\rm km}$.
