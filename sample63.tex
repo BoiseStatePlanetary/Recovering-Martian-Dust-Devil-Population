@@ -295,13 +295,30 @@ For this study, we will consider two types of dust devil detections and analyses
 
 The atmospheric influence of a dust devil population depends on the areal density of dust devil occurrence and the dust flux for each. Thus, accurately assessing that influence requires accurate estimates of the both. 
 \section{Pressure Time-Series and Vortex Detection Scheme}
+Any time-series analysis scheme will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, so, in addition to outlining our approach here, we explore its biases and how those influence the final recovered population of vortices. As in previous work \citep[e.g.][]{2016JGRE..121.1514K}, we model the vortex signals using a steady-state modified Lorentzian profile $L(t)$:
+\begin{equation}
+    L(t) = \frac{-\Delta P_{\rm act}}{1 + \left( \frac{ t - t_0 }{\Gamma_{\rm act}/2} \right)^2},\label{eqn:Lorentzian_profile}
+\end{equation}
+where $t$ is the time of each datum, $\Delta P_{\rm act}$ is the pressure excursion (a positive number) at the center of vortex signal (the ``actual'' value, as contrasted with the ``observed'' value -- see below), $t_0$ the central time, and $\Gamma_{\rm act}$ the actual full-width/half-max (FWHM) for the profile. Assume, also, a simple linear trajectory for the vortex with a ground velocity $U$ (very nearly equal to the ambient wind speed -- \citealp{2012Icar..221..632B}), and take the vortex's physical diameter $D_{\rm act} = U\ \Gamma_{\rm act}$. The radial distance between the barometer and the vortex center $r(t) = \sqrt{U \left( t - t_0 \right)^2 + b^2}$, where $b$ is the closest approach distance during the whole encounter. 
+
+If $b = 0$, then the center of the given vortex passes directly over the barometer and the observed profile will exactly match the actual profile. However, such a central encounter has vanishing probability \citep{2018Icar..299..166J, 2019Icar..317..209K}. Consequently, the observed profile parameters are given by
+\begin{equation}
+    \Delta P_{\rm obs} &=& \frac{\Delta P_{\rm act}}{1 + \left( 2b/D_{\rm act} \right)^2 }\label{eqn:Pobs}
+\end{equation}
+and
+\begin{equation}
+    \Gamma_{\rm obs} &=& \sqrt{\Gamma_{\rm act}^2  + \left(2 b \right)^2}.\label{eqn:Gammaobs}
+\end{equation}
+Another useful relationship is given by 
+\begin{equation}
+    \Delta P_{\rm obs} \Gamma_{\rm obs}^2 = \Delta P_{\rm act} \Gamma_{\rm act}^2.\label{eqn:conservation_eqn}
+\end{equation}
+Taken together, these equations mean that the observed profile in the barometric time-series will usually be skewed shallower ($\Delta P_{\rm obs} < \Delta P_{\rm act}$) and broader ($\Gamma_{\rm obs} > \Gamma_{\rm act}$) than the actual profile. Since $b$ is usually unknown, it is not usually possible to determine how much shallower and broader, though \citep{2018Icar..299..166J, 2019Icar..317..209K}. (If the wind profile is measured simultaneously, though, $b$ may be estimated -- \citealp{2016Icar..271..326L, 2020AeoRe..4400594F}.)
+
+How do these distortion effects influence the recovery of an underlying vortex population? As an example, assume all vortices have the same $\Delta P_{\rm act}$- and $D_{\rm act}$-values -- typical values for Mars are $\Delta P_{\rm act} = 1\,{\rm Pa}$ and $D_{\rm act} = 10\,{\rm m}$. With $U = 1\,{\rm m\ s^{-1}}$, $\Gamma_{\rm act} = 10\, {\rm s}$. (In reality, these parameters exhibit a wide but highly skewed distribution, rendering ``typical'' values of dubious merit -- \citealp{2016SSRv..203..277L}.) Some detection schemes sift the pressure time-series for individual outlier points with minimum threshold pressure excursions $\Delta P_{\rm obs} \geq \Delta P_{\rm min}$ \citep{2010JGRE..115.0E16E, 2020arXiv200501134S}, usually set by the noise in the time-series $\sigma_{\rm P}$.
+
 We employ a matched filter approach to recover vortices from the Insight APSS calibrated pressure time-series \citep[Ch.~13][]{Press2007}. In addition to Gaussian (white) noise, the data also exhibit long-term variations of timescales typically much longer (minutes to hours) than the vortex signals. The suppress these longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices. Of course, any time-series analysis will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, so, in addition to outlining our approach here, we explore its biases and how those influence the final recover population of vortices.
 
-As in previous work \citep[e.g.][]{2016JGRE..121.1514K}, we model the vortex signals as a modified Lorentzian profile $L(t)$:
-\begin{equation}
-    L(t) = \frac{-\Delta P}{1 + \left( \frac{ t - t_0 }{\Gamma/2} \right)^2},\label{eqn:Lorentzian_profile}
-\end{equation}
-where $t$ is the time of each datum, $\Delta P$ is the maximum value of the pressure excursion (a positive number) at the center of vortex signal, $t_0$ the central time, and $\Gamma$ the full-width/half-max for the profile. 
 
 % Show how mean boxcar with a given window size distorts Lorentzian
 
