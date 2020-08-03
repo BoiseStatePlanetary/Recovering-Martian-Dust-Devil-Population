@@ -172,8 +172,8 @@ def determine_bounds(vortex, init_params, init_t0_fac=0.0002, init_DeltaP_fac=10
             [np.max(y),  10.*np.abs(init_params[1]), (1+init_t0_fac)*init_params[2], init_DeltaP_fac*init_params[3],
                300./3600])
 
-def retrieve_pressure_data(sol):
-    sol_filename = create_datafilename(sol)
+def retrieve_pressure_data(sol, dr=None):
+    sol_filename = create_datafilename(sol, dr=dr)
 
     sol_data = np.genfromtxt(sol_filename[0], delimiter=",", dtype=None, names=True)
     LTST, LTST_and_sol = convert_ltst(sol_data)
