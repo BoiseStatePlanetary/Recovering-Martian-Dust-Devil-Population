@@ -331,6 +331,15 @@ With an areal density $N$ measured in per unit area, the total number of vortice
 \end{equation}
 where $T$ is the total duration of the survey (which may consist of multiple observational sequences spread over many sols). If $N$ and $U$ evolve with time (as they usually do), this estimate can be converted into an integral over time. As an example, \citet{2020arXiv200501134S} take $\Delta P_{\rm min} = 0.3\,{\rm Pa}$ and report vortex activity spanning about 12 hours ($ = T$) each sol. Taking $N \approx 1\,{\rm km^{-2}}$ \citep{2016SSRv..203..277L}, Equation \ref{eqn:number_of_encounters} suggests a daily encounter rate of about 16 vortices, which compares favorably to the daily rates reported in \citet{2020arXiv200501134S}. Equation \ref{eqn:bmax} suggests these detections originate from vortices that pass within $b_{\rm max} = 20\,{\rm m}$ of the Insight lander.
 
+Another typical feature of detection schemes: $\Gamma_{\rm obs} < \Gamma_{\rm max}$, with $\Gamma_{\rm max} \sim 1000\,{\rm s}$. 
+
+We can estimate the reduction in the pressure excursion $\Delta P_{\rm obs}^\prime$ that results from applying a mean boxcar filter of width $W$ as 
+\begin{equation}
+    \Delta P_{\rm obs}^\prime = -\frac{1}{W} \int_{-1/2 W}^{1/2 W} \frac{\Delta P_{\rm obs}}{1 + \left( 2t/\Gamma_{\rm obs} \right)^2} dt = -\Delta P_{\rm obs} \left( \frac{\Gamma_{\rm obs}}{W} \right) \tan^{-1} \left( \frac{W}{\Gamma_{\rm obs}} \right).\label{eqn:Pobsprime}
+\end{equation}
+
+
+
 As discussed in Section \ref{sec:Introduction}, the quantity of meteorological interest is $N$, which can be estimated from this equation. In particular, we can test predictions for how $N$ should vary with ambient conditions (sensible heat flux, ambient wind speed and shear, boundary layer depth, etc. -- \citealp{2019JGRE..124.3442N}) but only to the extent that we can reliably distinguish different values for $N$. This requirement necessitates an estimate for the uncertainty associated with any estimate of $N$. A reasonable assumption is that vortex encounters represent a Poisson process \citep[cf.][]{Press2007}. We can estimate the uncertainty on $k$ as $\sigma_k = \sqrt{k}$ and therefrom the uncertainty $\sigma_N$ via
 \begin{equation}
     \frac{\sigma_N}{N} = \frac{\sigma_k}{k} = k^{-1/2} = \left ( N U T D_{\rm act} \right)^{-1/2} \left( \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 \right)^{-1/4}.
