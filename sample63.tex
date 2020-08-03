@@ -295,10 +295,22 @@ For this study, we will consider two types of dust devil detections and analyses
 
 % Define areal density N
 
-The atmospheric influence of a dust devil population depends on the areal density of dust devil occurrence and the dust flux for each. Thus, accurately assessing that influence requires accurate estimates of the both. 
+The atmospheric influence of a dust devil population depends on the areal density of dust devil occurrence and the dust flux for each. Thus, accurately assessing that influence requires accurate estimates of the both.
+
+\section{Pressure Time-Series Data and Analysis}
+We analyze the pressure time-series collected by Insight's Auxiliary Payload Sensor Subsystem or APSS, which measures the local magnetic field, wind, and atmospheric temperature, in addition to ambient pressure. 
+
+\citet{2018SSRv..214..109S} and \citet{2020NatGe..13..190B} provide details of the instrument calibration and operation. 
 
 
-\section{How a Vortex Detection and Analysis Scheme Influences the Recovered Population}
+We employ a matched filter approach to recover vortices from the Insight APSS calibrated pressure time-series \citep[][ch.~13]{Press2007}. In addition to Gaussian (white) noise, the data also exhibit long-term variations of timescales typically much longer (minutes to hours) than the vortex signals. To suppress these longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices. Any time-series analysis will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, so, in addition to outlining our approach here, we explore its biases and how those influence the final recover population of vortices in Section XXX.
+
+% Show how mean boxcar with a given window size distorts Lorentzian
+
+% Discuss how the matched filter works
+
+\section{Results and Discussion}
+
 Any time-series analysis scheme will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, so, in addition to outlining our approach here, we explore its biases and how those influence the final recovered population of vortices. As in previous work \citep[e.g.][]{2016JGRE..121.1514K}, we model the vortex signals using a steady-state modified Lorentzian profile $L(t)$:
 \begin{equation}
     L(t) = \frac{-\Delta P_{\rm act}}{1 + \left( \frac{ t - t_0 }{\Gamma_{\rm act}/2} \right)^2},\label{eqn:Lorentzian_profile}
@@ -338,20 +350,18 @@ We can estimate the reduction in the pressure excursion $\Delta P_{\rm obs}^\pri
     \Delta P_{\rm obs}^\prime = -\frac{1}{W} \int_{-1/2 W}^{1/2 W} \frac{\Delta P_{\rm obs}}{1 + \left( 2t/\Gamma_{\rm obs} \right)^2} dt = -\Delta P_{\rm obs} \left( \frac{\Gamma_{\rm obs}}{W} \right) \tan^{-1} \left( \frac{W}{\Gamma_{\rm obs}} \right).\label{eqn:Pobsprime}
 \end{equation}
 
-
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/suppressed_DeltaPobs.png}
+    \caption{Comparing the pressure excursion observed before $\Delta P_{\rm obs}$ application of the mean boxcar filter and after $\Delta P_{\rm obs}^\prime$ as a function of the width of the filter $W$ and of the vortex signal $\Gamma_{\rm obs}$.}
+    \label{fig:suppressed_DeltaPobs}
+\end{figure}
 
 As discussed in Section \ref{sec:Introduction}, the quantity of meteorological interest is $N$, which can be estimated from this equation. In particular, we can test predictions for how $N$ should vary with ambient conditions (sensible heat flux, ambient wind speed and shear, boundary layer depth, etc. -- \citealp{2019JGRE..124.3442N}) but only to the extent that we can reliably distinguish different values for $N$. This requirement necessitates an estimate for the uncertainty associated with any estimate of $N$. A reasonable assumption is that vortex encounters represent a Poisson process \citep[cf.][]{Press2007}. We can estimate the uncertainty on $k$ as $\sigma_k = \sqrt{k}$ and therefrom the uncertainty $\sigma_N$ via
 \begin{equation}
     \frac{\sigma_N}{N} = \frac{\sigma_k}{k} = k^{-1/2} = \left ( N U T D_{\rm act} \right)^{-1/2} \left( \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 \right)^{-1/4}.
     \label{eqn:sigma_N}
 \end{equation}
-
-We employ a matched filter approach to recover vortices from the Insight APSS calibrated pressure time-series \citep[][ch.~13]{Press2007}. In addition to Gaussian (white) noise, the data also exhibit long-term variations of timescales typically much longer (minutes to hours) than the vortex signals. The suppress these longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices. Of course, any time-series analysis will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, so, in addition to outlining our approach here, we explore its biases and how those influence the final recover population of vortices.
-
-
-% Show how mean boxcar with a given window size distorts Lorentzian
-
-% Discuss how the matched filter works
 
 \section{Camera Model}
 To begin with, we outline the very basic characteristics of our model camera. By design, the considerations here are simplistic and general, rendering them applicable to a wide range of imaging systems. Consider a camera angled to have a clear view of the horizon and with a horizontal field-of-view $\Delta_{\rm FOV}$ centered on azimuth $\lambda$ and an angular resolution $\alpha$ measured in angle per pixel (Figure \ref{fig:Awedge}). Consider also a dust devil with a fixed diameter $D$, height $H$, and a sufficient contrast against the image background that it can be detected. Such a dust devil could be resolved at a distance from the camera $r_{\rm max} = D/\alpha$. For example, to resolve a dust devil with $D = 10\,{\rm m}$ with three pixels across, if $\alpha = 0.3\,{\rm mrad\ pix^{-1}} \times 3\,{\rm pix} \approx 1\,{\rm mrad}$ (similar to the Mars 2020 Mastcam-Z - \citealp{2017E&SS....4..396B}), $r_{\rm max} \approx 10\,{\rm km}$.
