@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import glob
 from scipy.optimize import minimize, curve_fit
 from scipy.stats import mode
-from scipy.signal import argrelextrema
+from scipy.signal import savgol_filter, find_peaks, peak_widths
 from numpy.random import normal
 
 from statsmodels.robust import mad
@@ -191,3 +191,42 @@ def retrieve_pressure_data(sol, dr=None):
     sol_data = sol_data[unq]
 
     return LTST, LTST_and_sol, sol_data
+
+def boxcar_filter(data, boxcar_window_size):
+    filt = savgol_filter(data, boxcar_window_size, 0, mode='nearest')
+    filtered_data = (data - filt)
+    st = moving_std(data, boxcar_window_size, mode='same')
+
+    return filtered_data, st
+
+def apply_lorentzian_matched_filter(time, filtered_data, st, lorentzian_fwhm, lorentzian_depth, boxcar_window_size,
+                                    delta_t=None):
+
+    if(delta_t is None):
+        delta_t = np.max(time[1:] - time[0:-1])
+
+    lorentzian_time = np.arange(-3.*lorentzian_fwhm, 3.*lorentzian_fwhm, delta_t)
+    lorentzian = modified_lorentzian(lorentzian_time, 0., 0., 0., lorentzian_depth, lorentzian_fwhm)
+
+    convolution = np.convolve(filtered_data/st, lorentzian, mode='same')
+    convolution -= np.median(convolution)
+    convolution /= mad(convolution)
+
+    med = np.median(convolution)
+    md = mad(convolution)
+
+    return convolution, med, md
+
+def find_vortices(time, convolution, detection_threshold=3):
+    """Finds outliers """
+
+    med = np.median(convolution)
+    md = mad(convolution)
+
+    ind = convolution >= (med + detection_threshold*md)
+    ex = find_peaks(convolution[ind])
+
+
+    pk_wds, _, _, _ = peak_widths(convolution[ind], ex[0])
+
+    return np.searchsorted(time, time[ind][ex[0]]), pk_wds
