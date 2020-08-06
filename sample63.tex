@@ -300,22 +300,42 @@ The atmospheric influence of a dust devil population depends on the areal densit
 \section{Pressure Time-Series Data and Analysis}
 We analyze the pressure time-series collected by Insight's Auxiliary Payload Sensor Subsystem or APSS, which measures the local magnetic field, wind, and atmospheric temperature, in addition to ambient pressure. 
 
+As in previous work \citep[e.g.][]{2016JGRE..121.1514K}, we model the vortex signals using a steady-state modified Lorentzian profile $L(t)$:
+\begin{equation}
+    L(t) = \frac{-\Delta P_{\rm obs}}{1 + \left( \frac{ t - t_0 }{\Gamma_{\rm obs}/2} \right)^2},\label{eqn:Lorentzian_profile}
+\end{equation}
+where $t$ is the time of each datum, $\Delta P_{\rm obs}$ is the maximum pressure excursion observed (a positive number) at the center of vortex signal, $t_0$ the central time, and $\Gamma_{\rm obs}$ the observed profile full-width/half-max (FWHM). This profile assumes the vortex travels past the sensor on a simple linear trajectory with a unidirectional and constant velocity $U$. 
+
+In addition to vortex signals and Gaussian (white) noise, the data also exhibit long-term variations of timescales typically much longer (minutes to hours) than the vortex signals. To suppress these longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices. Next, to recover the pressure signatures of vortices, we employ a matched filter approach \citep[][ch.~13]{Press2007}; that is, we march a Lorentzian profile, point-by-point, across the time series, convolving it with the time-series. This process produces the equivalent of a spectrum, with large positive spikes when the filter encounters other Lorentzian-like shapes. Any time-series analysis scheme will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, so, in addition to outlining our approach here, we explore its biases and how those influence the final recovered population of vortices below.
+
+
+
+
+Most observed vortices pass near but directly over the sensor, i.e., they have a non-zero miss distance $b$. If, instead, the center of a vortex passed directly over the sensor, it would register central pressure excursion (the ``actual'' value $P_{\rm act}$), and the profile FWHM would relate directly to the vortex diameter $D_{\rm act}$ and speed (i.e., $\Gamma_{\rm act} = U D_{\rm act}$). If the wind profile is measured simultaneously with the pressure profile, then $b$ may be estimated, as well as $P_{\rm act}$ and $D_{\rm act}$ \citep{2016Icar..271..326L, 2020AeoRe..4400594F}. Otherwise, the observed profile depth and width ($P_{\rm obs}$ and $\Gamma_{\rm obs}$) are smaller and larger, respectively, than their actual values with consequences to estimates for meteorological impacts of vortices and dust devils \citep{2018Icar..299..166J, 2019Icar..317..209K}.
+
+Usually, the pressure time-series is conditioned so it consists primarily of vortex passages and roughly white noise (with a variance $\sigma_{\rm P}^2$). Detection schemes can then sift the pressure time-series for individual outlier points with minimum threshold pressure excursions $\Delta P_{\rm obs} \geq \Delta P_{\rm min}$ some multiple of $\sigma_{\rm P}$ \citep{2010JGRE..115.0E16E, 2020arXiv200501134S}. 
+
+these distortion effects influence the recovery of an underlying vortex population? As an example, assume all vortices have the same $\Delta P_{\rm act}$- and $D_{\rm act}$-values -- typical values for Mars are $\Delta P_{\rm act} = 0.5\,{\rm Pa}$ and $D_{\rm act} = 50\,{\rm m}$. With $U = 5\,{\rm m\ s^{-1}}$, $\Gamma_{\rm act} = 10\, {\rm s}$. (In reality, these parameters exhibit a wide but highly skewed distribution, rendering ``typical'' values of dubious merit -- \citealp{2016SSRv..203..277L}.) Usually, the pressure time-series is conditioned so it consists primarily of vortex passages and roughly white noise (with a variance $\sigma_{\rm P}^2$). Detection schemes can then sift the pressure time-series for individual outlier points with minimum threshold pressure excursions $\Delta P_{\rm obs} \geq \Delta P_{\rm min}$ some multiple of $\sigma_{\rm P}$ \citep{2010JGRE..115.0E16E, 2020arXiv200501134S}. Assume, therefore, that all vortices that pass within a certain maximum distance $b_{\rm max}$ are detected, with
+\begin{equation}
+    b_{\rm max} = \left( \frac{D_{\rm act}}{2} \right) \sqrt{ \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 } \label{eqn:bmax},
+\end{equation} 
+where we take $P_{\rm act} \gg P_{\rm min}$ for simplicity.
+
+With an areal density $N$ measured in per unit area, the total number of vortices probed $k$ is given by 
+\begin{equation}
+    k = 2 N U T b_{\rm max} = N U T D_{\rm act} \sqrt{ \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 }, \label{eqn:number_of_encounters}
+\end{equation}
+where $T$ is the total duration of the survey (which may consist of multiple observational sequences spread over many sols). If $N$ and $U$ evolve with time (as they usually do), this estimate can be converted into an integral over time. As an example, \citet{2020arXiv200501134S} take $\Delta P_{\rm min} = 0.3\,{\rm Pa}$ and report vortex activity spanning about 12 hours ($ = T$) each sol. Taking $N \approx 1\,{\rm km^{-2}}$ \citep{2016SSRv..203..277L}, Equation \ref{eqn:number_of_encounters} suggests a daily encounter rate of about 16 vortices, which compares favorably to the daily rates reported in \citet{2020arXiv200501134S}. Equation \ref{eqn:bmax} suggests these detections originate from vortices that pass within $b_{\rm max} = 20\,{\rm m}$ of the Insight lander.
+
 \citet{2018SSRv..214..109S} and \citet{2020NatGe..13..190B} provide details of the instrument calibration and operation. 
 
-
-We employ a matched filter approach to recover vortices from the Insight APSS calibrated pressure time-series \citep[][ch.~13]{Press2007}. In addition to Gaussian (white) noise, the data also exhibit long-term variations of timescales typically much longer (minutes to hours) than the vortex signals. To suppress these longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices. Any time-series analysis will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, so, in addition to outlining our approach here, we explore its biases and how those influence the final recover population of vortices in Section XXX.
+Of course, any time-series analysis will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, so, in addition to outlining our approach here, we explore its biases and how those influence the final recover population of vortices in Section XXX.
 
 % Show how mean boxcar with a given window size distorts Lorentzian
 
 % Discuss how the matched filter works
 
 \section{Results and Discussion}
-
-Any time-series analysis scheme will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, so, in addition to outlining our approach here, we explore its biases and how those influence the final recovered population of vortices. As in previous work \citep[e.g.][]{2016JGRE..121.1514K}, we model the vortex signals using a steady-state modified Lorentzian profile $L(t)$:
-\begin{equation}
-    L(t) = \frac{-\Delta P_{\rm act}}{1 + \left( \frac{ t - t_0 }{\Gamma_{\rm act}/2} \right)^2},\label{eqn:Lorentzian_profile}
-\end{equation}
-where $t$ is the time of each datum, $\Delta P_{\rm act}$ is the pressure excursion (a positive number) at the center of vortex signal (the ``actual'' value, as contrasted with the ``observed'' value -- see below), $t_0$ the central time, and $\Gamma_{\rm act}$ the actual full-width/half-max (FWHM) for the profile. Assume, also, a simple linear trajectory for the vortex with a unidirectional (but not necessarily constant) wind field of velocity $U$, and take the vortex's physical diameter $D_{\rm act} = U\ \Gamma_{\rm act}$. The radial distance between the barometer and the vortex center $r(t) = \sqrt{U \left( t - t_0 \right)^2 + b^2}$, where $b$ is the closest approach distance during the whole encounter. Figure \ref{fig:} illustrates the encounter geometry.
 
 If $b = 0$, then the center of the given vortex passes directly over the barometer and the observed profile will exactly match the actual profile. However, such a central encounter has vanishing probability \citep{2018Icar..299..166J, 2019Icar..317..209K}. Consequently, the observed profile parameters are given by
 \begin{equation}
