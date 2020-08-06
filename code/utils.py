@@ -199,8 +199,7 @@ def boxcar_filter(data, boxcar_window_size):
 
     return filtered_data, st
 
-def apply_lorentzian_matched_filter(time, filtered_data, st, lorentzian_fwhm, lorentzian_depth, boxcar_window_size,
-                                    delta_t=None):
+def apply_lorentzian_matched_filter(time, filtered_data, st, lorentzian_fwhm, lorentzian_depth, delta_t=None):
 
     if(delta_t is None):
         delta_t = np.max(time[1:] - time[0:-1])
