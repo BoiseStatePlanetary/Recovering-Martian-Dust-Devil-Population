@@ -370,13 +370,6 @@ We can estimate the reduction in the pressure excursion $\Delta P_{\rm obs}^\pri
     \Delta P_{\rm obs}^\prime = -\frac{1}{W} \int_{-1/2 W}^{1/2 W} \frac{\Delta P_{\rm obs}}{1 + \left( 2t/\Gamma_{\rm obs} \right)^2} dt = -\Delta P_{\rm obs} \left( \frac{\Gamma_{\rm obs}}{W} \right) \tan^{-1} \left( \frac{W}{\Gamma_{\rm obs}} \right).\label{eqn:Pobsprime}
 \end{equation}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{figures/suppressed_DeltaPobs.png}
-    \caption{Comparing the pressure excursion observed before $\Delta P_{\rm obs}$ application of the mean boxcar filter and after $\Delta P_{\rm obs}^\prime$ as a function of the width of the filter $W$ and of the vortex signal $\Gamma_{\rm obs}$.}
-    \label{fig:suppressed_DeltaPobs}
-\end{figure}
-
 As discussed in Section \ref{sec:Introduction}, the quantity of meteorological interest is $N$, which can be estimated from this equation. In particular, we can test predictions for how $N$ should vary with ambient conditions (sensible heat flux, ambient wind speed and shear, boundary layer depth, etc. -- \citealp{2019JGRE..124.3442N}) but only to the extent that we can reliably distinguish different values for $N$. This requirement necessitates an estimate for the uncertainty associated with any estimate of $N$. A reasonable assumption is that vortex encounters represent a Poisson process \citep[cf.][]{Press2007}. We can estimate the uncertainty on $k$ as $\sigma_k = \sqrt{k}$ and therefrom the uncertainty $\sigma_N$ via
 \begin{equation}
     \frac{\sigma_N}{N} = \frac{\sigma_k}{k} = k^{-1/2} = \left ( N U T D_{\rm act} \right)^{-1/2} \left( \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 \right)^{-1/4}.
@@ -536,33 +529,42 @@ The earlier and more accurately a lander could register an encounter with such a
 
 \appendix
 
+\section{Vortex Recovery Statistics}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Pobsprime-sigmaP_vs_W.png}
+    \caption{(a) Comparing the pressure excursion observed before $\Delta P_{\rm obs}$ application of the mean boxcar filter and after $\Delta P_{\rm obs}^\prime$ as a function of the width of the filter $W$ and of the vortex signal $\Gamma_{\rm obs}$. (b) }
+    \label{fig:Pobsprime-sigmaP_vs_W}
+\end{figure}
+
 % 2020 May 9 - Check notes in notepad from today's date
-\section{Effects of Undersampling the Dust Devil Profile}
-With too low a sampling frequency, the pressure profile for a dust devil will be undersampled, potentially distorting the inferred profile shape and depth. Fourier analysis of the pressure profile can show the dependence of the distortion on the angular sampling frequency $\omega$.
+% \section{Effects of Undersampling the Dust Devil Profile}
+% With too low a sampling frequency, the pressure profile for a dust devil will be undersampled, potentially distorting the inferred profile shape and depth. Fourier analysis of the pressure profile can show the dependence of the distortion on the angular sampling frequency $\omega$.
 
-We start by assuming a Lorentzian profile $L(t)$ in time $t$ for the dust devil:
-\begin{equation}
-    L(t) = -\frac{\Delta P}{1 + \left( t/\Gamma \right)^2},
-    \label{eqn:appendix_lorentzian}
-\end{equation}{}
-where $\Delta P$ is the profile depth and $\Gamma$ its duration. The Fourier transform of this profile $F(\omega)$ is 
-\begin{equation}
-    F(\omega) = -\pi \Delta P\ \Gamma e^{-|\omega| \Gamma}.
-    \label{eqn:appendix_lorentzian_fourier}
-\end{equation}{}
+% We start by assuming a Lorentzian profile $L(t)$ in time $t$ for the dust devil:
+% \begin{equation}
+%     L(t) = -\frac{\Delta P}{1 + \left( t/\Gamma \right)^2},
+%     \label{eqn:appendix_lorentzian}
+% \end{equation}{}
+% where $\Delta P$ is the profile depth and $\Gamma$ its duration. The Fourier transform of this profile $F(\omega)$ is 
+% \begin{equation}
+%     F(\omega) = -\pi \Delta P\ \Gamma e^{-|\omega| \Gamma}.
+%     \label{eqn:appendix_lorentzian_fourier}
+% \end{equation}{}
 
-If we now imagine that we undersampled the profile using frequencies below some maximum, $\omega \le \omega_{\rm max}$, then we can estimate the resulting distorted profile $L^\prime(t)$ by taking the inverse, partial Fourier transform of $F(t)$, i.e.
-\begin{equation}
-    L^\prime(t) \equiv \int_{\omega = -\omega_{\rm max}}^{\omega_{\rm max}}\ \left( -\pi \Delta P \Gamma e^{-|\omega| \Gamma}\right) \ \left( \frac{e^{+i\omega t}\ d\omega}{2 \pi} \right)
-    = L(t) \bigg[ 1 - \left( \cos \left( \omega_{\rm max} t \right) - \left( \frac{t}{\Gamma} \right) \sin \left( \omega_{\rm max} t \right) \right) e^{-\omega_{\rm max} \Gamma} \bigg].
-    \label{eqn:appendix_inverse_fourier}
-\end{equation}{}
+% If we now imagine that we undersampled the profile using frequencies below some maximum, $\omega \le \omega_{\rm max}$, then we can estimate the resulting distorted profile $L^\prime(t)$ by taking the inverse, partial Fourier transform of $F(t)$, i.e.
+% \begin{equation}
+%     L^\prime(t) \equiv \int_{\omega = -\omega_{\rm max}}^{\omega_{\rm max}}\ \left( -\pi \Delta P \Gamma e^{-|\omega| \Gamma}\right) \ \left( \frac{e^{+i\omega t}\ d\omega}{2 \pi} \right)
+%     = L(t) \bigg[ 1 - \left( \cos \left( \omega_{\rm max} t \right) - \left( \frac{t}{\Gamma} \right) \sin \left( \omega_{\rm max} t \right) \right) e^{-\omega_{\rm max} \Gamma} \bigg].
+%     \label{eqn:appendix_inverse_fourier}
+% \end{equation}{}
 
-We expect the register the maximum (in magnitude) pressure excursion at the center of the profile, i.e. $L(t = 0) = \Delta P$, and so to estimate the incorrect profile depth $\Delta P^\prime$ arising from this distorted profile, we can evaluate $L^\prime(t)$ at the same time, giving:
-\begin{equation}
-    \Delta P^\prime = \Delta P \left( 1 - e^{-\omega_{\rm max}\Gamma} \right).
-\end{equation}{}
-The distortion decreases rapidly with $\omega_{\rm max}$, and for a sampling frequency of, for example, $2\,{\rm Hz}$ ($\omega_{\rm max} = 2\pi \times (2\,{\rm Hz})$) and a very narrow profile $\Gamma = 0.5\,{\rm s}$, $\Delta P^\prime$ is only 0.2\% different from $\Delta P$.
+% We expect the register the maximum (in magnitude) pressure excursion at the center of the profile, i.e. $L(t = 0) = \Delta P$, and so to estimate the incorrect profile depth $\Delta P^\prime$ arising from this distorted profile, we can evaluate $L^\prime(t)$ at the same time, giving:
+% \begin{equation}
+%     \Delta P^\prime = \Delta P \left( 1 - e^{-\omega_{\rm max}\Gamma} \right).
+% \end{equation}{}
+% The distortion decreases rapidly with $\omega_{\rm max}$, and for a sampling frequency of, for example, $2\,{\rm Hz}$ ($\omega_{\rm max} = 2\pi \times (2\,{\rm Hz})$) and a very narrow profile $\Gamma = 0.5\,{\rm s}$, $\Delta P^\prime$ is only 0.2\% different from $\Delta P$.
 
 \bibliography{sample63}{}
 \bibliographystyle{aasjournal}
