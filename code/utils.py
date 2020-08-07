@@ -208,13 +208,10 @@ def apply_lorentzian_matched_filter(time, filtered_data, st, lorentzian_fwhm, lo
     lorentzian = modified_lorentzian(lorentzian_time, 0., 0., 0., lorentzian_depth, lorentzian_fwhm)
 
     convolution = np.convolve(filtered_data/st, lorentzian, mode='same')
-    convolution -= np.median(convolution)
-    convolution /= mad(convolution)
+#   convolution -= np.median(convolution)
+#   convolution /= mad(convolution)
 
-    med = np.median(convolution)
-    md = mad(convolution)
-
-    return convolution, med, md
+    return convolution
 
 def find_vortices(time, convolution, detection_threshold=3):
     """Finds outliers """
