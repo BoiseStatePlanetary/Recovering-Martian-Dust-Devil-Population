@@ -300,77 +300,42 @@ The atmospheric influence of a dust devil population depends on the areal densit
 \section{Pressure Time-Series Data and Analysis}
 We analyze the pressure time-series collected by Insight's Auxiliary Payload Sensor Subsystem or APSS, which measures the local magnetic field, wind, and atmospheric temperature, in addition to ambient pressure. 
 
+% Summary of the instruments
+\citet{2018SSRv..214..109S} and \citet{2020NatGe..13..190B} provide details of the instrument calibration and operation. 
+
 As in previous work \citep[e.g.][]{2016JGRE..121.1514K}, we model the vortex signals using a steady-state modified Lorentzian profile $L(t)$:
 \begin{equation}
     L(t) = \frac{-\Delta P_{\rm obs}}{1 + \left( \frac{ t - t_0 }{\Gamma_{\rm obs}/2} \right)^2},\label{eqn:Lorentzian_profile}
 \end{equation}
 where $t$ is the time of each datum, $\Delta P_{\rm obs}$ is the maximum pressure excursion observed (a positive number) at the center of vortex signal, $t_0$ the central time, and $\Gamma_{\rm obs}$ the observed profile full-width/half-max (FWHM). This profile assumes the vortex travels past the sensor on a simple linear trajectory with a unidirectional and constant velocity $U$. 
 
-In addition to vortex signals and Gaussian (white) noise, the data also exhibit long-term variations of timescales typically much longer (minutes to hours) than the vortex signals. To suppress these longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices. Next, to recover the pressure signatures of vortices, we employ a matched filter approach \citep[][ch.~13]{Press2007}; that is, we march a Lorentzian profile, point-by-point, across the time series, convolving it with the time-series. This process produces the equivalent of a spectrum, with large positive spikes when the filter encounters other Lorentzian-like shapes. Any time-series analysis scheme will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, so, in addition to outlining our approach here, we explore its biases and how those influence the final recovered population of vortices below.
+In addition to vortex signals and Gaussian (white) noise, the data also exhibit long-term variations of timescales typically much longer (minutes to hours) than the vortex signals. To suppress these longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices. Next, to recover the pressure signatures of vortices, we employ a matched filter approach \citep[][ch.~13]{Press2007} using a normalized Lorentzian profile with a known FWHW $\Gamma$; that is, we march a Lorentzian profile, point-by-point, across the time series, convolving it with the time-series. This process produces the equivalent of a spectrum, with large positive spikes when the filter encounters other Lorentzian-like signals. Any time-series analysis scheme will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, so, in addition to outlining our approach here, we explore its biases and how those influence the final recovered population of vortices in the Appendix (Section \ref{sec:Vortex Recovery Statistics}). Based on that analysis, we choose $W = 3000\,{\rm s}$ and $\Gamma = 1\,{\rm s}$. We discuss the effects these choices have on our vortex recovery in the Appendix, Section \ref{sec:Vortex Recovery Statistics}.
 
-
-
-
-Most observed vortices pass near but directly over the sensor, i.e., they have a non-zero miss distance $b$. If, instead, the center of a vortex passed directly over the sensor, it would register central pressure excursion (the ``actual'' value $P_{\rm act}$), and the profile FWHM would relate directly to the vortex diameter $D_{\rm act}$ and speed (i.e., $\Gamma_{\rm act} = U D_{\rm act}$). If the wind profile is measured simultaneously with the pressure profile, then $b$ may be estimated, as well as $P_{\rm act}$ and $D_{\rm act}$ \citep{2016Icar..271..326L, 2020AeoRe..4400594F}. Otherwise, the observed profile depth and width ($P_{\rm obs}$ and $\Gamma_{\rm obs}$) are smaller and larger, respectively, than their actual values with consequences to estimates for meteorological impacts of vortices and dust devils \citep{2018Icar..299..166J, 2019Icar..317..209K}.
-
-Usually, the pressure time-series is conditioned so it consists primarily of vortex passages and roughly white noise (with a variance $\sigma_{\rm P}^2$). Detection schemes can then sift the pressure time-series for individual outlier points with minimum threshold pressure excursions $\Delta P_{\rm obs} \geq \Delta P_{\rm min}$ some multiple of $\sigma_{\rm P}$ \citep{2010JGRE..115.0E16E, 2020arXiv200501134S}. 
-
-these distortion effects influence the recovery of an underlying vortex population? As an example, assume all vortices have the same $\Delta P_{\rm act}$- and $D_{\rm act}$-values -- typical values for Mars are $\Delta P_{\rm act} = 0.5\,{\rm Pa}$ and $D_{\rm act} = 50\,{\rm m}$. With $U = 5\,{\rm m\ s^{-1}}$, $\Gamma_{\rm act} = 10\, {\rm s}$. (In reality, these parameters exhibit a wide but highly skewed distribution, rendering ``typical'' values of dubious merit -- \citealp{2016SSRv..203..277L}.) Usually, the pressure time-series is conditioned so it consists primarily of vortex passages and roughly white noise (with a variance $\sigma_{\rm P}^2$). Detection schemes can then sift the pressure time-series for individual outlier points with minimum threshold pressure excursions $\Delta P_{\rm obs} \geq \Delta P_{\rm min}$ some multiple of $\sigma_{\rm P}$ \citep{2010JGRE..115.0E16E, 2020arXiv200501134S}. Assume, therefore, that all vortices that pass within a certain maximum distance $b_{\rm max}$ are detected, with
-\begin{equation}
-    b_{\rm max} = \left( \frac{D_{\rm act}}{2} \right) \sqrt{ \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 } \label{eqn:bmax},
-\end{equation} 
-where we take $P_{\rm act} \gg P_{\rm min}$ for simplicity.
-
-With an areal density $N$ measured in per unit area, the total number of vortices probed $k$ is given by 
-\begin{equation}
-    k = 2 N U T b_{\rm max} = N U T D_{\rm act} \sqrt{ \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 }, \label{eqn:number_of_encounters}
-\end{equation}
-where $T$ is the total duration of the survey (which may consist of multiple observational sequences spread over many sols). If $N$ and $U$ evolve with time (as they usually do), this estimate can be converted into an integral over time. As an example, \citet{2020arXiv200501134S} take $\Delta P_{\rm min} = 0.3\,{\rm Pa}$ and report vortex activity spanning about 12 hours ($ = T$) each sol. Taking $N \approx 1\,{\rm km^{-2}}$ \citep{2016SSRv..203..277L}, Equation \ref{eqn:number_of_encounters} suggests a daily encounter rate of about 16 vortices, which compares favorably to the daily rates reported in \citet{2020arXiv200501134S}. Equation \ref{eqn:bmax} suggests these detections originate from vortices that pass within $b_{\rm max} = 20\,{\rm m}$ of the Insight lander.
-
-\citet{2018SSRv..214..109S} and \citet{2020NatGe..13..190B} provide details of the instrument calibration and operation. 
-
-Of course, any time-series analysis will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, so, in addition to outlining our approach here, we explore its biases and how those influence the final recover population of vortices in Section XXX.
-
-% Show how mean boxcar with a given window size distorts Lorentzian
-
-% Discuss how the matched filter works
+\begin{figure}
+    \centering
+    \includegraphics{}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
 
 \section{Results and Discussion}
 
-If $b = 0$, then the center of the given vortex passes directly over the barometer and the observed profile will exactly match the actual profile. However, such a central encounter has vanishing probability \citep{2018Icar..299..166J, 2019Icar..317..209K}. Consequently, the observed profile parameters are given by
+What do these choices mean about our ability to accurately recover the vortex population? The answer will depend, in part, on the properties of the vortex population itself, and \citet{2018Icar..299..166J} discuss many of the relevant details. In brief, in order for our scheme to detect a vortex with given $\Delta P_{\rm act}$- and $D_{\rm act}$-values, it must register in the time-series with 
 \begin{equation}
-    \Delta P_{\rm obs} &=& \frac{\Delta P_{\rm act}}{1 + \left( 2b/D_{\rm act} \right)^2 }\label{eqn:Pobs}
+    \Delta P_{\rm obs} &=& \frac{\Delta P_{\rm act}}{1 + \left(2b/D_{\rm act}\right)^2} &>& P_{\rm min},\label{eqn:Pobs} 
 \end{equation}
-and
-\begin{equation}
-    \Gamma_{\rm obs} &=& \sqrt{\Gamma_{\rm act}^2  + \left(2 b \right)^2}.\label{eqn:Gammaobs}
-\end{equation}
-Another useful relationship is given by 
-\begin{equation}
-    \Delta P_{\rm obs} \Gamma_{\rm obs}^2 = \Delta P_{\rm act} \Gamma_{\rm act}^2.\label{eqn:conservation_eqn}
-\end{equation}
-Taken together, these equations mean that the observed profile in the barometric time-series will usually be skewed shallower ($\Delta P_{\rm obs} < \Delta P_{\rm act}$) and broader ($\Gamma_{\rm obs} > \Gamma_{\rm act}$) than the actual profile. Since $b$ is usually unknown, it is not usually possible to determine how much shallower and broader, though \citep{2018Icar..299..166J, 2019Icar..317..209K}. (If the wind profile is measured simultaneously, though, $b$ may be estimated -- \citealp{2016Icar..271..326L, 2020AeoRe..4400594F}.)
+where $b$ is the closest approach distance between the sensor and the vortex center and $P_{\rm min}$ is the minimum pressure excursion detectable. Figure \ref{fig:vortex_recovery} shows that, for $\log \Gamma/\Gamma_{\rm obs} < 0.5$ at least, $\Delta P_{\rm obs} \gtrsim 0.3 \sigma_P$. In other words, for the typical APSS pressure time-series with $\sigma_P \lesssim 1\,{\rm Pa}$ (Figure \ref{fig:Pobsprime-sigmaP_vs_W}(b)), we could, in principle, recover vortices with $\Delta P_{\rm obs} \approx 0.3\,{\rm Pa}$. Since the sampling rate for the APSS barometer (1 Hz) means we cannot detect devils with durations $\Gamma_{\rm obs} < 1\,{\rm s}$, we take $\Gamma = 1\,{\rm s}$ for our matched filter, meaning the limit imposed by $\Gamma/\Gamma_{\rm obs}$ is easily dealt with.
 
-How do these distortion effects influence the recovery of an underlying vortex population? As an example, assume all vortices have the same $\Delta P_{\rm act}$- and $D_{\rm act}$-values -- typical values for Mars are $\Delta P_{\rm act} = 0.5\,{\rm Pa}$ and $D_{\rm act} = 50\,{\rm m}$. With $U = 5\,{\rm m\ s^{-1}}$, $\Gamma_{\rm act} = 10\, {\rm s}$. (In reality, these parameters exhibit a wide but highly skewed distribution, rendering ``typical'' values of dubious merit -- \citealp{2016SSRv..203..277L}.) Usually, the pressure time-series is conditioned so it consists primarily of vortex passages and roughly white noise (with a variance $\sigma_{\rm P}^2$). Detection schemes can then sift the pressure time-series for individual outlier points with minimum threshold pressure excursions $\Delta P_{\rm obs} \geq \Delta P_{\rm min}$ some multiple of $\sigma_{\rm P}$ \citep{2010JGRE..115.0E16E, 2020arXiv200501134S}. Assume, therefore, that all vortices that pass within a certain maximum distance $b_{\rm max}$ are detected, with
+With these choices, the maximum distance out to which we could detect a vortex is given by
 \begin{equation}
-    b_{\rm max} = \left( \frac{D_{\rm act}}{2} \right) \sqrt{ \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 } \label{eqn:bmax},
+    b_{\rm max} = \left( \frac{D_{\rm act}}{2} \right) \sqrt{ \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 }. \label{eqn:bmax}
 \end{equation} 
-where we take $P_{\rm act} \gg P_{\rm min}$ for simplicity.
 
-With an areal density $N$ measured in per unit area, the total number of vortices probed $k$ is given by 
+As discussed in Section \ref{sec:Introduction}, the quantity of meteorological interest is $N$, the number of vortices per unit area, which can be estimated from the total number of vortex detections, $k$, via
 \begin{equation}
     k = 2 N U T b_{\rm max} = N U T D_{\rm act} \sqrt{ \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 }, \label{eqn:number_of_encounters}
 \end{equation}
-where $T$ is the total duration of the survey (which may consist of multiple observational sequences spread over many sols). If $N$ and $U$ evolve with time (as they usually do), this estimate can be converted into an integral over time. As an example, \citet{2020arXiv200501134S} take $\Delta P_{\rm min} = 0.3\,{\rm Pa}$ and report vortex activity spanning about 12 hours ($ = T$) each sol. Taking $N \approx 1\,{\rm km^{-2}}$ \citep{2016SSRv..203..277L}, Equation \ref{eqn:number_of_encounters} suggests a daily encounter rate of about 16 vortices, which compares favorably to the daily rates reported in \citet{2020arXiv200501134S}. Equation \ref{eqn:bmax} suggests these detections originate from vortices that pass within $b_{\rm max} = 20\,{\rm m}$ of the Insight lander.
-
-Another typical feature of detection schemes: $\Gamma_{\rm obs} < \Gamma_{\rm max}$, with $\Gamma_{\rm max} \sim 1000\,{\rm s}$. 
-
-We can estimate the reduction in the pressure excursion $\Delta P_{\rm obs}^\prime$ that results from applying a mean boxcar filter of width $W$ as 
-\begin{equation}
-    \Delta P_{\rm obs}^\prime = -\frac{1}{W} \int_{-1/2 W}^{1/2 W} \frac{\Delta P_{\rm obs}}{1 + \left( 2t/\Gamma_{\rm obs} \right)^2} dt = -\Delta P_{\rm obs} \left( \frac{\Gamma_{\rm obs}}{W} \right) \tan^{-1} \left( \frac{W}{\Gamma_{\rm obs}} \right).\label{eqn:Pobsprime}
-\end{equation}
-
-As discussed in Section \ref{sec:Introduction}, the quantity of meteorological interest is $N$, which can be estimated from this equation. In particular, we can test predictions for how $N$ should vary with ambient conditions (sensible heat flux, ambient wind speed and shear, boundary layer depth, etc. -- \citealp{2019JGRE..124.3442N}) but only to the extent that we can reliably distinguish different values for $N$. This requirement necessitates an estimate for the uncertainty associated with any estimate of $N$. A reasonable assumption is that vortex encounters represent a Poisson process \citep[cf.][]{Press2007}. We can estimate the uncertainty on $k$ as $\sigma_k = \sqrt{k}$ and therefrom the uncertainty $\sigma_N$ via
+where $T$ is the total duration of the survey (which may consist of multiple observational sequences spread over many sols). (If $N$ and $U$ evolve with time (as they usually do), this estimate can be converted into an integral over time.) A reasonable assumption is that vortex encounters represent a Poisson process \citep[cf.][]{Press2007}, and so we can estimate the uncertainty on $k$ as $\sigma_k = \sqrt{k}$ and therefrom the uncertainty $\sigma_N$ via
 \begin{equation}
     \frac{\sigma_N}{N} = \frac{\sigma_k}{k} = k^{-1/2} = \left ( N U T D_{\rm act} \right)^{-1/2} \left( \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 \right)^{-1/4}.
     \label{eqn:sigma_N}
@@ -530,6 +495,7 @@ The earlier and more accurately a lander could register an encounter with such a
 \appendix
 
 \section{Vortex Recovery Statistics}
+\label{sec:Vortex Recovery Statistics}
 In this section, we describe our analysis of our vortex recovery statistics. We explored the effects of the mean boxcar filter on both the time-series scatter but also on the detected vortices, as well as the effectivenesss of our matched filter approach.
 
 For our study here, the mean boxcar filter  acts as high-pass filter on the APSS pressure time-series and, in principle, should induce little distortion on signals much narrower than the filter window size $W$. However, some vortices have quite long durations (many tens of seconds), and so they may be prone to distortion if we used a small enough window. As a measure of this distortion, we can calculate how much less deep a vortex profile would appear after applying the filter by calculating the convolution of a boxcar function $B(t)$ against a Lorentzian profile, where $B(t)$ is $1/W$ within the window ($-W/2 < t < +W/2$):
@@ -538,7 +504,7 @@ For our study here, the mean boxcar filter  acts as high-pass filter on the APSS
 \end{equation}
 where we have taken the Lorenztian to be center at $t_0 = 0$ and $\Delta P_{\rm obs}^\prime$ represents the distorted profile depth. Figure \ref{fig:Pobsprime-sigmaP_vs_W}(a) shows the result: for windows more than 100 times the profile's original width (i.e., $W/\Gamma_{\rm obs} > 10^2$), the profile width is more than 98\% of its original value, indicating minimal distortion. 
 
-Of course, the narrower the window, the more effectively we can reduce the long-term variations in the time-series that may otherwise obscure the vortices. To explore that effect, we applied mean boxcar filters of various widths $W$ to each sol's pressure time-series and then estimated the resulting scatter via $1.4826\ \times$ the median absolute deviation \citep{doi:10.1080/01621459.1993.10476408}. Figure \ref{fig:Pobsprime-sigmaP_vs_W}(b) shows that for the time-series for sol 435 exhibited the largest scatter for any value of $W$, while that for sol 269 exhibited the smallest. The time-series for sol 392 had values near the median for each given $W$. In all cases, as $W$ increases, so does the scatter, consistent with our expectations that less aggressive filtering (i.e., $W$ larger) leaves more noise.
+Of course, the narrower the window, the more effectively we can reduce the long-term variations in the time-series that may otherwise obscure the vortices. To explore that effect, we applied mean boxcar filters of various widths $W$ to each sol's pressure time-series and then estimated the resulting scatter via $1.4826\ \times$ the median absolute deviation \citep{doi:10.1080/01621459.1993.10476408}. Figure \ref{fig:Pobsprime-sigmaP_vs_W}(b) shows that for the time-series for sol 435 exhibited the largest scatter for any value of $W$, while that for sol 269 exhibited the smallest. The time-series for sol 392 had values near the median for each given $W$. In all cases, as $W$ increases, so does the scatter, consistent with our expectations that less aggressive filtering (i.e., $W$ larger) leaves more noise. We fit Lorentzian profiles to the vortices reported in \citet{2020arXiv200501134S} and found that the largest $\Gamma_{\rm obs} \approx 300\,{\rm s}$. Therefore, we took $W = 3000\,{\rm s}$, meaning that even the most distorted vortices should have $\Delta P_{\rm obs}^\prime/\Delta P_{\rm obs} > 0.8$.
 
 \begin{figure}
     \centering
@@ -555,6 +521,13 @@ Finally, we must interpret these results in terms of our ability to recover vort
     \caption{How effectively a convolution of a synthetic pressure time-series with the matched filter ($F \ast P$) recovers a vortex. The vortex has a known depth $\Delta P_\text{obs}$ and width $\Gamma_\text{obs}$ and is embedded in a synthetic time-series with white noise of variance $\sigma_\text{P}^2$. The matched filtered has a width $\Gamma$. The dashed, white line shows the threshold for detection used in this study ($F \ast P \geq 5$). In principle, vortices with values of $\Delta P_\text{obs}\sigma_P$ and $\Gamma/\Gamma_\text{obs}$ above and to the left of that line could be recovered.}
     \label{fig:vortex_recovery}
 \end{figure}
+
+% For N estimate, with about 6 hours per day of dust devil activity (1/4 day),
+%   1 km^{-2} day^{-1} translates into about 0.25 km^{-2}.
+
+% We can compare our estimate for the daily number of vortex encounters and the associated sampling uncertainty from Equations \ref{eqn:number_of_encounters} and \label{eqn:sigma_N} to the actual numbers reported in \citet{2020arXiv200501134S} by plugging in representative values: \citet{2020arXiv200501134S} report typical wind speeds $U \sim 5\,{\rm m\ s^{-1}}$ and vortex activity during about $12\, {\rm hours}$ each sol over about 400 sols; monitoring dust devil tracks around the Insight landing site, \citet{2020GeoRL..4787234P} suggest $N = 0.05\,{\rm km^{-2}\ sol} \times \left(12\,{\rm hours\ sol^{-1}}\right) = 0.025\,{\rm km^{-2}}$ and $D_{\rm act} \approx 10\,{\rm m}$; \citet{2018Icar..299..166J} suggests $P_{\rm act} \approx 1\,{\rm Pa}$; and our analysis here gives $P_{\rm min} \approx 0.3\,{\rm Pa}$. Taken altogether, we estimate Insight could detect vortices out to a distance $b_{\rm max} \approx 8\,{\rm m}$ distance and should have recovered about 
+
+recover the population with $\sigma_N/N \approx 20\%$.
 
 % 2020 May 9 - Check notes in notepad from today's date
 % \section{Effects of Undersampling the Dust Devil Profile}
