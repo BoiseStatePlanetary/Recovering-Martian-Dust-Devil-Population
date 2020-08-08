@@ -190,6 +190,12 @@ def retrieve_pressure_data(sol, dr=None):
     LTST_and_sol = LTST_and_sol[unq]
     sol_data = sol_data[unq]
 
+    # Some of the time-series are out of order for some reason
+    srt = np.argsort(LTST_and_sol)
+    LTST = LTST[srt]
+    LTST_and_sol = LTST_and_sol[srt]
+    sol_data = sol_data[srt]
+
     return LTST, LTST_and_sol, sol_data
 
 def boxcar_filter(data, boxcar_window_size):
