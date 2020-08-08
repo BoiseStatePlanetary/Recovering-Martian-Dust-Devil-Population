@@ -298,7 +298,16 @@ For this study, we will consider two types of dust devil detections and analyses
 The atmospheric influence of a dust devil population depends on the areal density of dust devil occurrence and the dust flux for each. Thus, accurately assessing that influence requires accurate estimates of the both.
 
 \section{Pressure Time-Series Data and Analysis}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/data_conditioning_and_fit.png}
+    \caption{(a) The pressure time-series for sol 392, as blue dots. The vertical orange lines highlight the detected vortex signals. (b) The time-series after application of the mean boxcar filter. Apparent by eye, the scatter in the time-series increases around mid-day. (c) Convolution of the matched filter with the time-series in (b). The horizontal dashed orange line shows the detection threshold of 5. (d) A model fit (solid orange line) to the deepest vortex discovered on sol 392, along with the model fit parameters -- each point's uncertainty is calculated via $1.4826 \times$ the median absolute deviation in the window $W$ centered on that point.}
+    \label{fig:data_conditioning_and_fit}
+\end{figure}
+
 We analyze the pressure time-series collected by Insight's Auxiliary Payload Sensor Subsystem or APSS, which measures the local magnetic field, wind, and atmospheric temperature, in addition to ambient pressure. 
+
+Figure \ref{fig:data_conditioning_and_fit}(a) shows the time-series for sol 392, a representative dataset. The vertical dashed orange lines show the vortex signals.
 
 % Summary of the instruments
 \citet{2018SSRv..214..109S} and \citet{2020NatGe..13..190B} provide details of the instrument calibration and operation. 
