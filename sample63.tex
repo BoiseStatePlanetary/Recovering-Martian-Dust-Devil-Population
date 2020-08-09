@@ -298,19 +298,21 @@ For this study, we will consider two types of dust devil detections and analyses
 The atmospheric influence of a dust devil population depends on the areal density of dust devil occurrence and the dust flux for each. Thus, accurately assessing that influence requires accurate estimates of the both.
 
 \section{Pressure Time-Series Data and Analysis}
+In this section, we describe our analysis of the APSS pressure time-series. 
+
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/data_conditioning_and_fit.png}
-    \caption{(a) The pressure time-series for sol 392, as blue dots. The vertical orange lines highlight the detected vortex signals. (b) The time-series after application of the mean boxcar filter. Apparent by eye, the scatter in the time-series increases around mid-day. (c) Convolution of the matched filter with the time-series in (b). The horizontal dashed orange line shows the detection threshold of 5. (d) A model fit (solid orange line) to the deepest vortex discovered on sol 392, along with the model fit parameters -- each point's uncertainty is calculated via $1.4826 \times$ the median absolute deviation in the window $W$ centered on that point.}
+    \caption{(a) The pressure time-series for sol 392, as blue dots. The vertical orange lines highlight the detected vortex signals. (b) The time-series after application of the mean boxcar filter. Apparent by eye, the scatter in the time-series increases around mid-day. (c) Convolution of the matched filter with the time-series in (b). The horizontal dashed orange line shows the detection threshold of 5. (d) A model fit (solid orange line) to the deepest vortex discovered on sol 392, along with the model fit parameters -- each point's uncertainty is calculated via $1.4826\ \times$ the median absolute deviation in the window centered on that point.}
     \label{fig:data_conditioning_and_fit}
 \end{figure}
 
-We analyze the pressure time-series collected by Insight's Auxiliary Payload Sensor Subsystem or APSS, which measures the local magnetic field, wind, and atmospheric temperature, in addition to ambient pressure. 
-
-Figure \ref{fig:data_conditioning_and_fit}(a) shows the time-series for sol 392, a representative dataset. The vertical dashed orange lines show the vortex signals.
+We analyzed the pressure time-series collected by Insight's Auxiliary Payload Sensor Subsystem or APSS, which measures the local magnetic field, wind, and atmospheric temperature, in addition to ambient pressure. In this sect
 
 % Summary of the instruments
 \citet{2018SSRv..214..109S} and \citet{2020NatGe..13..190B} provide details of the instrument calibration and operation. 
+
+Figure \ref{fig:data_conditioning_and_fit}(a) shows the time-series for sol 392, a representative dataset. The vertical dashed orange lines show the vortex signals.
 
 As in previous work \citep[e.g.][]{2016JGRE..121.1514K}, we model the vortex signals using a steady-state modified Lorentzian profile $L(t)$:
 \begin{equation}
@@ -318,14 +320,11 @@ As in previous work \citep[e.g.][]{2016JGRE..121.1514K}, we model the vortex sig
 \end{equation}
 where $t$ is the time of each datum, $\Delta P_{\rm obs}$ is the maximum pressure excursion observed (a positive number) at the center of vortex signal, $t_0$ the central time, and $\Gamma_{\rm obs}$ the observed profile full-width/half-max (FWHM). This profile assumes the vortex travels past the sensor on a simple linear trajectory with a unidirectional and constant velocity $U$. 
 
-In addition to vortex signals and Gaussian (white) noise, the data also exhibit long-term variations of timescales typically much longer (minutes to hours) than the vortex signals. To suppress these longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices. Next, to recover the pressure signatures of vortices, we employ a matched filter approach \citep[][ch.~13]{Press2007} using a normalized Lorentzian profile with a known FWHW $\Gamma$; that is, we march a Lorentzian profile, point-by-point, across the time series, convolving it with the time-series. This process produces the equivalent of a spectrum, with large positive spikes when the filter encounters other Lorentzian-like signals. Any time-series analysis scheme will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, so, in addition to outlining our approach here, we explore its biases and how those influence the final recovered population of vortices in the Appendix (Section \ref{sec:Vortex Recovery Statistics}). Based on that analysis, we choose $W = 3000\,{\rm s}$ and $\Gamma = 1\,{\rm s}$. We discuss the effects these choices have on our vortex recovery in the Appendix, Section \ref{sec:Vortex Recovery Statistics}.
+In addition to vortex signals and Gaussian (white) noise, the data also exhibit long-term variations of timescales typically much longer (minutes to hours) than the vortex signals. To suppress these longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices. Figure \ref{fig:data_conditioning_and_fit}(b) shows the resulting detrended time-series $\Delta P$. Any time-series analysis scheme will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, and we explore its biases and how those influence the final recovered population of vortices in the Appendix (Section \ref{sec:Vortex Recovery Statistics}). Based on that analysis, we chose $W = 3000\,{\rm s}$. 
 
-\begin{figure}
-    \centering
-    \includegraphics{}
-    \caption{Caption}
-    \label{fig:my_label}
-\end{figure}
+Next, to recover the pressure signatures of vortices, we employ a matched filter approach \citep[][ch.~13]{Press2007} using a normalized Lorentzian profile with a known FWHW $\Gamma$; that is, we march a Lorentzian profile, point-by-point, across the time series, convolving it with the time-series. Based on our analysis discussed in the Appendix (Section \ref{sec:Vortex Recovery Statistics}), we chose $\Gamma = 1\,{\rm s}$. This process produces the equivalent of a spectrum, with large positive spikes when the filter encounters other Lorentzian-like signals. We subtract the median value from this raw spectrum and then normalize it by the standard deviation (as estimated by $1.4826\ \times$ the median absolute deviation -- \citealp{doi:10.1080/01621459.1993.10476408}). We consider peaks rising above the detection threshold of 5 to be vortices. Figure \ref{fig:data_conditioning_and_fit} shows this normalized spectrum for the time-series in panel (b), along with the purported vortex signals (vertical dashed orange lines). 
+
+Finally, considering the original, undetrended time-series (e.g., Figure \ref{fig:data_conditioning_and_fit}(a)), we use the Leverberg-Marquardt algorithm \citep[cf.][]{Press2007} to fit the time-series in a window 30-FWHMs wide around each vortex signal. We fit a Lorentzian profile (Equation \ref{eqn:Lorentzian_profile}) combined with a linear trend, returning best fit parameters $t_0$, $\Delta P_{\rm obs}$, $\Gamma_{\rm obs}$, as well as the background slope and intercept. Fitting such a model to the original, undetrended instead of the detrended time-series avoids the distorting effect of the boxcar filter on the vortex signal while taking into account any background trend. Figure \ref{fig:data_conditioning_and_fit}(d) shows such a fit (with the background intercept subtracted out).
 
 \section{Results and Discussion}
 
