@@ -3,8 +3,9 @@ import matplotlib.pyplot as plt
 import glob
 from scipy.optimize import minimize, curve_fit
 from scipy.stats import mode
-from scipy.signal import savgol_filter, find_peaks, peak_widths
+from scipy.signal import savgol_filter, find_peaks, peak_widths, boxcar
 from numpy.random import normal
+from astropy.convolution import convolve as astropy_convolve
 
 from statsmodels.robust import mad
 
@@ -172,7 +173,7 @@ def determine_bounds(vortex, init_params, init_t0_fac=0.0002, init_DeltaP_fac=10
             [np.max(y),  10.*np.abs(init_params[1]), (1+init_t0_fac)*init_params[2], init_DeltaP_fac*init_params[3],
                300./3600])
 
-def retrieve_pressure_data(sol, dr=None):
+def retrieve_pressure_data(sol, dr=None, fill_gaps=True):
     sol_filename = create_datafilename(sol, dr=dr)
 
     sol_data = np.genfromtxt(sol_filename[0], delimiter=",", dtype=None, names=True)
@@ -190,8 +191,8 @@ def retrieve_pressure_data(sol, dr=None):
     LTST_and_sol = LTST_and_sol[unq]
     sol_data = sol_data[unq]
 
-    # Fill gaps
-    LTST, LTST_and_sol, sol_data = fill_gaps(LTST, LTST_and_sol, sol_data)
+    if(fill_gaps is True):
+        LTST, LTST_and_sol, sol_data = fill_gaps(LTST, LTST_and_sol, sol_data)
 
     return LTST, LTST_and_sol, sol_data
 
@@ -202,16 +203,11 @@ def fill_gaps(LTST, LTST_and_sol, sol_data):
     ret_LTST_and_sol = LTST_and_sol
     ret_sol_data = sol_data
 
-    delta_ts = (LTST_and_sol[1:] - LTST_and_sol[0:-1])      
-    ind = delta_ts > 0.
-    mod = mode(delta_ts[ind])[0][0]
+    gaps = find_gaps(LTST_and_sol)
 
-    # If there are no gaps in the time-series
-    if(len(delta_ts[~np.isclose(delta_ts, mod)]) == 0):
+    if(len(gaps) == 0):
         return LTST, LTST_and_sol, sol_data
     else:
-        gaps = np.argwhere(~np.isclose(delta_ts, mod))[:,0]
-
         ret_LTST_and_sol = LTST_and_sol
         ret_LTST = LTST
         ret_sol_data = sol_data
@@ -240,13 +236,64 @@ def fill_gaps(LTST, LTST_and_sol, sol_data):
 
         return ret_LTST, ret_LTST_and_sol, ret_sol_data
 
+def break_at_gaps(LTST, LTST_and_sol, sol_data):
+    """ Break the time-series into pieces if there are gaps """
 
-def boxcar_filter(data, boxcar_window_size):
-    filt = savgol_filter(data, boxcar_window_size, 0, mode='nearest')
-    filtered_data = (data - filt)
-    st = moving_std(data, boxcar_window_size, mode='same')
+    gaps = find_gaps(LTST_and_sol)
 
-    return filtered_data, st
+    if(len(gaps) == 0):
+        return [LTST], [LTST_and_sol], [sol_data]
+    else:
+        ret_LTST = list()
+        ret_LTST_and_sol = list()
+        ret_sol_data = list()
+
+        last_gap = 0
+        for i in range(len(gaps)):
+
+            ret_LTST.append(LTST[last_gap:gaps[i]+1])
+            ret_LTST_and_sol.append(LTST_and_sol[last_gap:gaps[i]+1])
+            ret_sol_data.append(sol_data[last_gap:gaps[i]+1])
+
+            last_gap = gaps[i]
+
+        ret_LTST.append(LTST[gaps[-1]+1:])
+        ret_LTST_and_sol.append(LTST_and_sol[gaps[-1]+1:])
+        ret_sol_data.append(sol_data[gaps[-1]+1:])
+
+        return ret_LTST, ret_LTST_and_sol, ret_sol_data
+
+def find_gaps(LTST_and_sol):
+    """ Finds gaps in the time-series """
+
+    delta_ts = (LTST_and_sol[1:] - LTST_and_sol[0:-1])
+    ind = delta_ts > 0.
+    mod = mode(delta_ts[ind])[0][0]
+
+    # If there are no gaps in the time-series
+    if(len(delta_ts[~np.isclose(delta_ts, mod)]) == 0):
+        return []
+    else:
+        return np.argwhere(~np.isclose(delta_ts, mod))[:,0]
+
+def boxcar_filter(LTST, LTST_and_sol, sol_data, boxcar_window_size):
+
+    gapped_LTST, gapped_LTST_and_sol, gapped_sol_data = break_at_gaps(LTST, LTST_and_sol, sol_data)
+
+    filt = np.array([])
+    st = np.array([])
+    for cur in gapped_sol_data:
+        
+        filt = np.append(filt, astropy_convolve(cur["PRESSURE"], boxcar(boxcar_window_size),
+            boundary=None, preserve_nan=True))
+        st = np.append(st, moving_std(cur["PRESSURE"], boxcar_window_size, mode='same'))
+
+    # Yank the NaNs
+    ind = ~np.isnan(filt)
+    filt = filt[ind]
+    st = st[ind]
+
+    return filt, st
 
 def apply_lorentzian_matched_filter(time, filtered_data, st, lorentzian_fwhm, lorentzian_depth, delta_t=None):
 
