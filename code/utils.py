@@ -210,35 +210,33 @@ def fill_gaps(LTST, LTST_and_sol, sol_data):
     if(len(delta_ts[~np.isclose(delta_ts, mod)]) == 0):
         return LTST, LTST_and_sol, sol_data
     else:
-        # If there are any gaps at all, there seems only to be one gap.
-        # Fill that gap with nans.
-        gaps = np.argwhere(~np.isclose(delta_ts, mod))[0]
+        gaps = np.argwhere(~np.isclose(delta_ts, mod))[:,0]
 
-        ret_LTST_and_sol =\
-            np.concatenate((LTST_and_sol[0:gaps[0]], 
-            np.arange(LTST_and_sol[gaps[0]] + mod,
-                LTST_and_sol[gaps[0]+1] - mod, mod), 
-            LTST_and_sol[gaps[0]+1:-1]))
+        ret_LTST_and_sol = LTST_and_sol
+        ret_LTST = LTST
+        ret_sol_data = sol_data
 
-        ret_LTST =\
-            np.concatenate((LTST[0:gaps[0]], 
-            np.arange(LTST[gaps[0]] + mod, LTST[gaps[0]+1] - mod, mod), 
-            LTST[gaps[0] + 1:-1]))
+        for cur_gap in gaps:
+            ret_LTST_and_sol = np.append(ret_LTST_and_sol,
+                    np.arange(LTST_and_sol[cur_gap] + mod,
+                        LTST_and_sol[cur_gap+1] - mod, mod))
+    
+            ret_LTST = np.append(ret_LTST, np.arange(LTST[cur_gap] + mod,
+                LTST[cur_gap+1] - mod, mod))
 
-        # Create temp array to get correct shape
-        first_name = sol_data.dtype.names[0]
-        temp_array = np.concatenate((sol_data[first_name][0:gaps[0]],
-                                     np.full_like(np.arange(LTST[gaps[0]] + mod,
-                                         LTST[gaps[0]+1] - mod, mod), np.nan),
-                                     sol_data[first_name][gaps[0] + 1:-1]))
-        ret_sol_data = np.empty(temp_array.shape, dtype=sol_data.dtype)
-        for cur_name in sol_data.dtype.names:
-            ret_sol_data[cur_name] =\
-                    np.concatenate((sol_data[cur_name][0:gaps[0]],
-                        np.full_like(np.arange(LTST[gaps[0]] + mod, 
-                            LTST[gaps[0]+1] - mod, mod), np.nan),
-                        sol_data[cur_name][gaps[0] + 1:-1]))
+            # Create temp array to get correct shape
+            temp_array = np.empty(len(np.full_like(np.arange(LTST[cur_gap] + mod,
+                            LTST[cur_gap+1] - mod, mod), np.nan)),
+                            dtype=sol_data.dtype)
+            for cur_name in sol_data.dtype.names:
+                temp_array[cur_name] = np.full_like(np.arange(LTST[cur_gap] + mod,
+                            LTST[cur_gap+1] - mod, mod), np.nan)
+            ret_sol_data = np.append(ret_sol_data, temp_array)
 
+        srt = np.argsort(ret_LTST_and_sol)
+        ret_LTST_and_sol = ret_LTST_and_sol[srt]
+        ret_LTST = ret_LTST[srt]
+        ret_sol_data = ret_sol_data[srt]
 
         return ret_LTST, ret_LTST_and_sol, ret_sol_data
 
