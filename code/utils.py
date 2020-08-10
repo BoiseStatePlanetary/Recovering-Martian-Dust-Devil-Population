@@ -65,11 +65,16 @@ def modified_lorentzian(t, baseline, slope, t0, DeltaP, Gamma):
 
 # From https://stackoverflow.com/questions/14313510/how-to-calculate-moving-average-using-numpy
 def moving_average(x, w, mode='valid'):
+
+    w = np.min([len(x), w])
     return np.convolve(x, np.ones(w), mode) / w
 
 def moving_std(x, w, mode='valid'):
+    w = np.min([len(x), w])
+
     avg = moving_average(x, w, mode=mode)
-    return np.sqrt(w/(w - 1.)*moving_average((x - avg)**2, w, mode=mode))
+    return np.sqrt(w/(w - 1.)*\
+            (moving_average(x*x, w, mode=mode)) - avg**2)
 
 def redchisqg(ydata,ymod,deg=2,sd=None):
     """  
@@ -255,15 +260,15 @@ def break_at_gaps(LTST, LTST_and_sol, sol_data):
         last_gap = 0
         for i in range(len(gaps)):
 
-            ret_LTST.append(LTST[last_gap:gaps[i]+1])
-            ret_LTST_and_sol.append(LTST_and_sol[last_gap:gaps[i]+1])
-            ret_sol_data.append(sol_data[last_gap:gaps[i]+1])
+            ret_LTST.append(LTST[last_gap:gaps[i]])
+            ret_LTST_and_sol.append(LTST_and_sol[last_gap:gaps[i]])
+            ret_sol_data.append(sol_data[last_gap:gaps[i]])
 
             last_gap = gaps[i]
 
-        ret_LTST.append(LTST[gaps[-1]+1:])
-        ret_LTST_and_sol.append(LTST_and_sol[gaps[-1]+1:])
-        ret_sol_data.append(sol_data[gaps[-1]+1:])
+        ret_LTST.append(LTST[gaps[-1]:])
+        ret_LTST_and_sol.append(LTST_and_sol[gaps[-1]:])
+        ret_sol_data.append(sol_data[gaps[-1]:])
 
         return ret_LTST, ret_LTST_and_sol, ret_sol_data
 
@@ -275,10 +280,11 @@ def find_gaps(LTST_and_sol):
     mod = mode(delta_ts[ind])[0][0]
 
     # If there are no gaps in the time-series
-    if(len(delta_ts[~np.isclose(delta_ts, mod)]) == 0):
+    # There are smallish gaps that we want to ignore; hence the atol-value
+    if(len(delta_ts[~np.isclose(delta_ts, mod, atol=1e-2)]) == 0):
         return []
     else:
-        return np.argwhere(~np.isclose(delta_ts, mod))[:,0]
+        return np.argwhere(~np.isclose(delta_ts, mod, atol=1e-2))[:,0]
 
 def boxcar_filter(LTST, LTST_and_sol, sol_data, boxcar_window_size):
 
@@ -288,8 +294,11 @@ def boxcar_filter(LTST, LTST_and_sol, sol_data, boxcar_window_size):
     st = np.array([])
     for cur in gapped_sol_data:
         
-        filt = np.append(filt, astropy_convolve(cur["PRESSURE"], boxcar(boxcar_window_size),
-            boundary='extend', preserve_nan=True))
+        filt = np.append(filt, astropy_convolve(cur["PRESSURE"], 
+            boxcar(boxcar_window_size), boundary='extend', preserve_nan=True))
+#       filt = np.append(filt,
+#               savgol_filter(cur["PRESSURE"], boxcar_window_size, 0, 
+#                   mode='nearest'))
         st = np.append(st, moving_std(cur["PRESSURE"], boxcar_window_size, mode='same'))
 
     # Yank the NaNs
@@ -307,6 +316,7 @@ def apply_lorentzian_matched_filter(time, filtered_data, st, lorentzian_fwhm, lo
     lorentzian_time = np.arange(-3.*lorentzian_fwhm, 3.*lorentzian_fwhm, delta_t)
     lorentzian = modified_lorentzian(lorentzian_time, 0., 0., 0., lorentzian_depth, lorentzian_fwhm)
 
+#   print(len(filtered_data), len(st), len(lorentzian))
     convolution = np.convolve(filtered_data/st, lorentzian, mode='same')
 #   convolution -= np.median(convolution)
 #   convolution /= mad(convolution)
