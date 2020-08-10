@@ -173,7 +173,7 @@ def determine_bounds(vortex, init_params, init_t0_fac=0.0002, init_DeltaP_fac=10
             [np.max(y),  10.*np.abs(init_params[1]), (1+init_t0_fac)*init_params[2], init_DeltaP_fac*init_params[3],
                300./3600])
 
-def retrieve_pressure_data(sol, dr=None, fill_gaps=True):
+def retrieve_pressure_data(sol, dr=None, nans_in_gaps=False):
     sol_filename = create_datafilename(sol, dr=dr)
 
     sol_data = np.genfromtxt(sol_filename[0], delimiter=",", dtype=None, names=True)
@@ -191,7 +191,7 @@ def retrieve_pressure_data(sol, dr=None, fill_gaps=True):
     LTST_and_sol = LTST_and_sol[unq]
     sol_data = sol_data[unq]
 
-    if(fill_gaps is True):
+    if(nans_in_gaps is True):
         LTST, LTST_and_sol, sol_data = fill_gaps(LTST, LTST_and_sol, sol_data)
 
     return LTST, LTST_and_sol, sol_data
@@ -204,6 +204,10 @@ def fill_gaps(LTST, LTST_and_sol, sol_data):
     ret_sol_data = sol_data
 
     gaps = find_gaps(LTST_and_sol)
+
+    delta_ts = (LTST_and_sol[1:] - LTST_and_sol[0:-1])
+    ind = delta_ts > 0.
+    mod = mode(delta_ts[ind])[0][0]
 
     if(len(gaps) == 0):
         return LTST, LTST_and_sol, sol_data
@@ -285,13 +289,13 @@ def boxcar_filter(LTST, LTST_and_sol, sol_data, boxcar_window_size):
     for cur in gapped_sol_data:
         
         filt = np.append(filt, astropy_convolve(cur["PRESSURE"], boxcar(boxcar_window_size),
-            boundary=None, preserve_nan=True))
+            boundary='extend', preserve_nan=True))
         st = np.append(st, moving_std(cur["PRESSURE"], boxcar_window_size, mode='same'))
 
     # Yank the NaNs
-    ind = ~np.isnan(filt)
-    filt = filt[ind]
-    st = st[ind]
+#   ind = ~np.isnan(filt)
+#   filt = filt[ind]
+#   st = st[ind]
 
     return filt, st
 
