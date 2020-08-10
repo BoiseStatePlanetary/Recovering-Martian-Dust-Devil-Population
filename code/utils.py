@@ -18,7 +18,7 @@ def create_datafilename(sol, dr='/Users/brian/Downloads/ps_bundle/data_calibrate
         file_stem += "0"
     file_stem += str(sol)
     
-    res = [i for i in filenames if str(file_stem) + "_01" in i] 
+    res = [i for i in filenames if str(file_stem) + "_0" in i] 
     return res
 
 def convert_ltst(sol_data):
