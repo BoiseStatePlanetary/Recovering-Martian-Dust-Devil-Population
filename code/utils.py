@@ -332,7 +332,8 @@ def find_vortices(time, convolution, detection_threshold=5):
     convolution -= med
     convolution /= md
 
-    ex = find_peaks(convolution)
+    # At least five seconds between peaks!
+    ex = find_peaks(convolution, distance=5)
     ind = convolution[ex[0]] >= detection_threshold
 
     pk_wds, _, _, _ = peak_widths(convolution, ex[0][ind])
