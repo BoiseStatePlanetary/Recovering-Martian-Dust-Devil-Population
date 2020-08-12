@@ -9,10 +9,8 @@ from astropy.convolution import convolve as astropy_convolve
 
 from statsmodels.robust import mad
 
-def create_datafilename(sol,
-        dr="/Users/brian/Downloads/ps_bundle/data_calibrated",
-        filename_stem="_calib_"):
-    filenames = glob.glob("%s/*/*%s*.csv" % (dr, filename_stem))
+def create_datafilename(sol, dr='/Users/brian/Downloads/ps_bundle/data_calibrated'):
+    filenames = glob.glob(dr + "/*/*_calib_*.csv")
     
     # file names have some zeros and then the sol number; Add the right number of zeros
     file_stem = ""
@@ -20,7 +18,7 @@ def create_datafilename(sol,
         file_stem += "0"
     file_stem += str(sol)
     
-    res = [i for i in filenames if str(file_stem) + "_0" in i] 
+    res = [i for i in filenames if str(file_stem) + "_01" in i] 
     return res
 
 def convert_ltst(sol_data):
@@ -67,16 +65,11 @@ def modified_lorentzian(t, baseline, slope, t0, DeltaP, Gamma):
 
 # From https://stackoverflow.com/questions/14313510/how-to-calculate-moving-average-using-numpy
 def moving_average(x, w, mode='valid'):
-
-    w = np.min([len(x), w])
     return np.convolve(x, np.ones(w), mode) / w
 
 def moving_std(x, w, mode='valid'):
-    w = np.min([len(x), w])
-
     avg = moving_average(x, w, mode=mode)
-    return np.sqrt(w/(w - 1.)*\
-            (moving_average(x*x, w, mode=mode)) - avg**2)
+    return np.sqrt(w/(w - 1.)*moving_average((x - avg)**2, w, mode=mode))
 
 def redchisqg(ydata,ymod,deg=2,sd=None):
     """  
@@ -180,16 +173,14 @@ def determine_bounds(vortex, init_params, init_t0_fac=0.0002, init_DeltaP_fac=10
             [np.max(y),  10.*np.abs(init_params[1]), (1+init_t0_fac)*init_params[2], init_DeltaP_fac*init_params[3],
                300./3600])
 
-def retrieve_data(sol, dr=None, nans_in_gaps=False, data_field="PRESSURE",
-        filename_stem=None):
-    sol_filename = create_datafilename(sol, dr=dr, filename_stem=filename_stem)
+def retrieve_pressure_data(sol, dr=None, nans_in_gaps=False):
+    sol_filename = create_datafilename(sol, dr=dr)
 
     sol_data = np.genfromtxt(sol_filename[0], delimiter=",", dtype=None, names=True)
     LTST, LTST_and_sol = convert_ltst(sol_data)
 
-    ind = np.isfinite(LTST) & np.isfinite(LTST_and_sol)
-    if(data_field is not None):
-        ind = ind & np.isfinite(sol_data[data_field])
+    ind = np.isfinite(LTST) & np.isfinite(LTST_and_sol) &\
+            np.isfinite(sol_data["PRESSURE"])
     LTST = LTST[ind]
     LTST_and_sol = LTST_and_sol[ind]
     sol_data = sol_data[ind]
@@ -264,15 +255,15 @@ def break_at_gaps(LTST, LTST_and_sol, sol_data):
         last_gap = 0
         for i in range(len(gaps)):
 
-            ret_LTST.append(LTST[last_gap:gaps[i]])
-            ret_LTST_and_sol.append(LTST_and_sol[last_gap:gaps[i]])
-            ret_sol_data.append(sol_data[last_gap:gaps[i]])
+            ret_LTST.append(LTST[last_gap:gaps[i]+1])
+            ret_LTST_and_sol.append(LTST_and_sol[last_gap:gaps[i]+1])
+            ret_sol_data.append(sol_data[last_gap:gaps[i]+1])
 
             last_gap = gaps[i]
 
-        ret_LTST.append(LTST[gaps[-1]:])
-        ret_LTST_and_sol.append(LTST_and_sol[gaps[-1]:])
-        ret_sol_data.append(sol_data[gaps[-1]:])
+        ret_LTST.append(LTST[gaps[-1]+1:])
+        ret_LTST_and_sol.append(LTST_and_sol[gaps[-1]+1:])
+        ret_sol_data.append(sol_data[gaps[-1]+1:])
 
         return ret_LTST, ret_LTST_and_sol, ret_sol_data
 
@@ -284,11 +275,10 @@ def find_gaps(LTST_and_sol):
     mod = mode(delta_ts[ind])[0][0]
 
     # If there are no gaps in the time-series
-    # There are smallish gaps that we want to ignore; hence the atol-value
-    if(len(delta_ts[~np.isclose(delta_ts, mod, atol=1e-2)]) == 0):
+    if(len(delta_ts[~np.isclose(delta_ts, mod)]) == 0):
         return []
     else:
-        return np.argwhere(~np.isclose(delta_ts, mod, atol=1e-2))[:,0]
+        return np.argwhere(~np.isclose(delta_ts, mod))[:,0]
 
 def boxcar_filter(LTST, LTST_and_sol, sol_data, boxcar_window_size):
 
@@ -298,11 +288,8 @@ def boxcar_filter(LTST, LTST_and_sol, sol_data, boxcar_window_size):
     st = np.array([])
     for cur in gapped_sol_data:
         
-        filt = np.append(filt, astropy_convolve(cur["PRESSURE"], 
-            boxcar(boxcar_window_size), boundary='extend', preserve_nan=True))
-#       filt = np.append(filt,
-#               savgol_filter(cur["PRESSURE"], boxcar_window_size, 0, 
-#                   mode='nearest'))
+        filt = np.append(filt, astropy_convolve(cur["PRESSURE"], boxcar(boxcar_window_size),
+            boundary='extend', preserve_nan=True))
         st = np.append(st, moving_std(cur["PRESSURE"], boxcar_window_size, mode='same'))
 
     # Yank the NaNs
@@ -320,7 +307,6 @@ def apply_lorentzian_matched_filter(time, filtered_data, st, lorentzian_fwhm, lo
     lorentzian_time = np.arange(-3.*lorentzian_fwhm, 3.*lorentzian_fwhm, delta_t)
     lorentzian = modified_lorentzian(lorentzian_time, 0., 0., 0., lorentzian_depth, lorentzian_fwhm)
 
-#   print(len(filtered_data), len(st), len(lorentzian))
     convolution = np.convolve(filtered_data/st, lorentzian, mode='same')
 #   convolution -= np.median(convolution)
 #   convolution /= mad(convolution)
@@ -336,8 +322,7 @@ def find_vortices(time, convolution, detection_threshold=5):
     convolution -= med
     convolution /= md
 
-    # At least five seconds between peaks!
-    ex = find_peaks(convolution, distance=5)
+    ex = find_peaks(convolution)
     ind = convolution[ex[0]] >= detection_threshold
 
     pk_wds, _, _, _ = peak_widths(convolution, ex[0][ind])
