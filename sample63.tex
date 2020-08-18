@@ -26,6 +26,7 @@
 %%
 %% using aastex version 6.3
 \usepackage{amsmath}
+\usepackage{wrapfig}
 \documentclass{aastex63}
 
 %% The default is a single spaced, 10 point font, single spaced article.
@@ -372,9 +373,12 @@ The $\Gamma_{\rm obs}$- and $\Delta P_{\rm obs}$-values exhibit intriguing trend
     \label{fig:Gammaobs_DeltaPobs_vs_TOD_and_sol}
 \end{figure}
 
-Presumably, these hour-to-hour trends reflect the influence of variable ambient conditions, but these data alone are not sufficient to judge what influence: the increase in $\Gamma_{\rm obs}$ could result either from intrinsically larger vortices late in the day or lower wind speeds $U$ advecting the same size vortices past the sensor. Fortunately, the TWINS wind speed data can shed light on this issue. Figure \ref{fig:} shows the vortices with the maximum, median, and minimum $\Gamma_{\rm obs}$-values (panels (a), (b), and (c), respectively). The estimate the 
+Presumably, these hour-to-hour trends reflect the influence of variable ambient conditions, but these data alone are not sufficient to judge what influence: the increase in $\Gamma_{\rm obs}$ could result either from intrinsically larger vortices late in the day or lower wind speeds $U$ advecting the same size vortices past the sensor. Fortunately, the TWINS wind speed data can shed light on this issue. Figure \ref{fig:vortices_and_windspeed} shows the vortices with the maximum, median, and minimum $\Gamma_{\rm obs}$-values (panels (a), (b), and (c), respectively). The estimate the 
 
-
+\begin{figure}
+\includegraphics[width=0.48\textwidth]{figures/vortices_and_windspeed.png}
+\caption{The linearly-detrended pressure signals (blue dots) and the corresponding horizontal windspeeds (orange). The vertical dashed green lines show the best-fit $\Gamma_{\rm obs}$-values. The horizontal dashed green lines show the median wind speed between 3- and 5-$\Gamma_{\rm obs}$ times before the vortex encounter. Panel (a) illustrates the vortex with the largest $\Gamma_{\rm obs}$-value, (b) the median $\Gamma_{\rm obs}$-value, and (c) the smallest $\Gamma_{\rm obs}$-value.\label{fig:vortices_and_windspeed}}
+\end{figure}
 
 \section{Discussion and Conclusions}
 \label{sec:Discussion and Conclusions}
