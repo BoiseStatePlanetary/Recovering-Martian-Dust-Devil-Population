@@ -9,16 +9,16 @@ from astropy.convolution import convolve as astropy_convolve
 
 from statsmodels.robust import mad
 
-def create_datafilename(sol, dr='/Users/brian/Downloads/ps_bundle/data_calibrated'):
-    filenames = glob.glob(dr + "/*/*_calib_*.csv")
+def create_datafilename(sol, filename_stem="_calib_", dr='/Users/brian/Downloads/ps_bundle/data_calibrated'):
+    filenames = glob.glob("%s/*/*%s*.csv" % (dr, filename_stem))
     
     # file names have some zeros and then the sol number; Add the right number of zeros
     file_stem = ""
-    for i in range(4 - len(str(sol))):
+    for i in range(4 - len(str(int(sol)))):
         file_stem += "0"
-    file_stem += str(sol)
+    file_stem += str(int(sol))
     
-    res = [i for i in filenames if str(file_stem) + "_01" in i] 
+    res = [i for i in filenames if str(file_stem) + "_0" in i] 
     return res
 
 def convert_ltst(sol_data):
@@ -173,17 +173,18 @@ def determine_bounds(vortex, init_params, init_t0_fac=0.0002, init_DeltaP_fac=10
             [np.max(y),  10.*np.abs(init_params[1]), (1+init_t0_fac)*init_params[2], init_DeltaP_fac*init_params[3],
                300./3600])
 
-def retrieve_pressure_data(sol, dr=None, nans_in_gaps=False):
-    sol_filename = create_datafilename(sol, dr=dr)
+def retrieve_data(sol, filename_stem="calib", dr=None, nans_in_gaps=False, data_field="PRESSURE"):
+    sol_filename = create_datafilename(sol, filename_stem=filename_stem, dr=dr)
 
     sol_data = np.genfromtxt(sol_filename[0], delimiter=",", dtype=None, names=True)
     LTST, LTST_and_sol = convert_ltst(sol_data)
 
-    ind = np.isfinite(LTST) & np.isfinite(LTST_and_sol) &\
-            np.isfinite(sol_data["PRESSURE"])
-    LTST = LTST[ind]
-    LTST_and_sol = LTST_and_sol[ind]
-    sol_data = sol_data[ind]
+    if(data_field is not None):
+        ind = np.isfinite(LTST) & np.isfinite(LTST_and_sol) &\
+                np.isfinite(sol_data[data_field])
+        LTST = LTST[ind]
+        LTST_and_sol = LTST_and_sol[ind]
+        sol_data = sol_data[ind]
 
     # For some reason, some times are doubled up
     _, unq = np.unique(sol_data["LTST"], return_index=True)
