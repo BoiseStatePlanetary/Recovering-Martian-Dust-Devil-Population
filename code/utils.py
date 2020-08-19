@@ -329,3 +329,45 @@ def find_vortices(time, convolution, detection_threshold=5):
     pk_wds, _, _, _ = peak_widths(convolution, ex[0][ind])
 
     return np.searchsorted(time, time[ex[0]][ind]), pk_wds
+
+def line(x, m, b):
+    return m*x + b
+
+def find_wind(cur_sol, t0, Gamma, num_Gamma=10.):
+    # Wind data in a different folder
+    dr_wind = '/Users/bjackson/Downloads/twins_bundle/data_derived'
+
+    try:
+        wind_LTST, wind_LTST_and_sol, wind_data =\
+            retrieve_data(cur_sol, dr=dr_wind, filename_stem="_model_", data_field="HORIZONTAL_WIND_SPEED")
+        return wind_LTST, wind_LTST_and_sol, wind_data
+
+    except:
+        print("%s doesn't have windspeed data!" % cur_sol)
+        return None, None, None
+
+def estimate_diameter(sol, t0, Gamma, Gamma_err, 
+        num_max_gam=5., num_min_gam=3.):
+    wind_LTST, wind_LTST_and_sol, wind_data = find_wind(sol, t0, Gamma)
+    wind_LTST_and_sol -= 24.*sol
+
+    ind = (np.abs(wind_LTST_and_sol - t0)*3600. < num_max_gam*Gamma) &\
+        np.abs((wind_LTST_and_sol - t0)*3600. > num_min_gam*Gamma)
+
+    if(len(wind_data["HORIZONTAL_WIND_SPEED"][ind]) > 0):
+        med = np.median(wind_data["HORIZONTAL_WIND_SPEED"][ind])
+        md = np.nan
+
+        diameter = med*Gamma
+        diameter_unc = np.nan
+        if(len(wind_data["HORIZONTAL_WIND_SPEED"][ind]) > 1):
+            md = mad(wind_data["HORIZONTAL_WIND_SPEED"][ind])
+            diameter_unc = diameter*np.sqrt((md/med)**2 + (Gamma_err/Gamma)**2)
+
+        return diameter, diameter_unc, med, md
+
+    else:
+        return np.nan, np.nan, np.nan, np.nan
+
+def gauss(x, A, x0, sigma):
+    return A * np.exp(-(x - x0) ** 2 / (2 * sigma ** 2))
