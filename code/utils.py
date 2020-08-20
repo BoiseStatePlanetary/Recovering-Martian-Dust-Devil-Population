@@ -333,13 +333,15 @@ def find_vortices(time, convolution, detection_threshold=5):
 def line(x, m, b):
     return m*x + b
 
-def find_wind(cur_sol, t0, Gamma, num_Gamma=10.):
+def find_wind(cur_sol, t0, Gamma, filename_stem="_model_", num_Gamma=10.):
     # Wind data in a different folder
     dr_wind = '/Users/bjackson/Downloads/twins_bundle/data_derived'
 
     try:
         wind_LTST, wind_LTST_and_sol, wind_data =\
-            retrieve_data(cur_sol, dr=dr_wind, filename_stem="_model_", data_field="HORIZONTAL_WIND_SPEED")
+            retrieve_data(cur_sol, dr=dr_wind, 
+                    filename_stem=filename_stem, 
+                    data_field="HORIZONTAL_WIND_SPEED")
         return wind_LTST, wind_LTST_and_sol, wind_data
 
     except:
