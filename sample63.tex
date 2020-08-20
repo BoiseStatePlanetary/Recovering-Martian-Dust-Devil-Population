@@ -373,11 +373,30 @@ The $\Gamma_{\rm obs}$- and $\Delta P_{\rm obs}$-values exhibit intriguing trend
     \label{fig:Gammaobs_DeltaPobs_vs_TOD_and_sol}
 \end{figure}
 
-Presumably, these hour-to-hour trends reflect the influence of variable ambient conditions, but these data alone are not sufficient to judge what influence: the increase in $\Gamma_{\rm obs}$ could result either from intrinsically larger vortices late in the day or lower wind speeds $U$ advecting the same size vortices past the sensor. Fortunately, the TWINS wind speed data can shed light on this issue. Figure \ref{fig:vortices_and_windspeed} shows the vortices with the maximum, median, and minimum $\Gamma_{\rm obs}$-values (panels (a), (b), and (c), respectively). We estimate the advection speed by taking the median value $U$ between 5- and 3-$\Gamma_{\rm obs}$ before the encounter time $t_0$. This approach returns a wind speed close enough in time to be a plausible estimate of the advection speed while widely enough separated in time that the vortex would significantly influence the wind. We then estimate the apparent diameter $D_{\rm obs} = U \Gamma_{\rm obs}$ with uncertainties as $\sigma_{D} = \left( U \Gamma_{\rm obs} \right) \sqrt{ \left( \sigma_U/U \right)^2 + \left( \sigma_{\Gamma_{\rm obs}}/\Gamma_{\rm obs} \right)^2 }$, where $\sigma_U$, the uncertainty on $U$, is estimated from the scatter in $U$ and $\sigma_{\Gamma_{\rm obs}}$ comes from the model estimate.
+Presumably, these hour-to-hour trends reflect the influence of variable ambient conditions, but these data alone are not sufficient to judge what influence: the increase in $\Gamma_{\rm obs}$ could result either from intrinsically larger vortices late in the day or lower wind speeds $U$ advecting the same size vortices past the sensor. Fortunately, the TWINS wind speed data can shed light on this issue. Figure \ref{fig:vortices_and_windspeed} shows the vortices with the maximum, median, and minimum $\Gamma_{\rm obs}$-values (panels (a), (b), and (c), respectively). We estimate the advection speed by taking the median value $U$ between 5- and 3-$\Gamma_{\rm obs}$ before the encounter time $t_0$. This approach returns a wind speed close enough in time to be a plausible estimate of the advection speed while widely enough separated in time that the vortex would significantly influence the wind. We then estimate the apparent diameter $D_{\rm obs} = U \Gamma_{\rm obs}$ with uncertainties as $\sigma_{D} = \left( U \Gamma_{\rm obs} \right) \sqrt{ \left( \sigma_U/U \right)^2 + \left( \sigma_{\Gamma_{\rm obs}}/\Gamma_{\rm obs} \right)^2 }$, where $\sigma_U$, the uncertainty on $U$, is estimated from the scatter in $U$ and $\sigma_{\Gamma_{\rm obs}}$ comes from the model estimate. 
 
 \begin{figure}
+\centering
 \includegraphics[width=0.48\textwidth]{figures/vortices_and_windspeed.png}
 \caption{The linearly-detrended pressure signals (blue dots) and the corresponding horizontal windspeeds (orange). The vertical dashed green lines show the best-fit $\Gamma_{\rm obs}$-values. The horizontal dashed green lines show the median wind speed between 3- and 5-$\Gamma_{\rm obs}$ times before the vortex encounter. Panel (a) illustrates the vortex with the largest $\Gamma_{\rm obs}$-value, (b) the median $\Gamma_{\rm obs}$-value, and (c) the smallest $\Gamma_{\rm obs}$-value.\label{fig:vortices_and_windspeed}}
+\end{figure}
+
+Figure \ref{fig:U_vs_t0-sol_hist} shows the wind speeds associated with the observed vortices, and Figure \ref{fig:Dobs_vs_Gammaobs-DeltaPobs_hist} shows the corresponding distribution of $D_{\rm obs}$-values against  $\Gamma_{\rm obs}$ and $\Delta P_{\rm obs}$, as well as a cumulative histogram. The maximum, minimum, and median values are 1260, 5.43, and $97.3\,{\rm m\ s^{-1}}$, respectively.
+
+Not surprisingly, the $D_{\rm obs}$-values correlate positively with $\Gamma_{\rm obs}$ with scatter resulting from the relatively narrow range of wind speeds. On the other hand, $D_{\rm obs}$ seems to correlate 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/U_vs_t0-sol_hist.png}
+    \caption{Distribution of vortex-associated wind speeds $U$ as a function of time of day (a) and mission sol (b). Panel (c) shows a differential (as opposed to cumulative) histogram of $U$-values.}
+    \label{fig:U_vs_t0-sol_hist}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Dobs_vs_Gammaobs-DeltaPobs_hist.png}
+    \caption{(a) Distribution of inferred vortex diameter $D_{\rm obs}$ from the observed $\Gamma_{\rm obs}$ (blue dots). Uncertainties on $D_{\rm obs}$ suppressed for clarity but are typically about $15\,{\rm m}$ or 10\% of $D_{\rm obs}$. Orange, dashed lines show a range of wind speeds $U$ -- $15$, $10$, and $5\,{\rm m\ s^{-1}}$ from top to bottom. (b) $D_{\rm obs}$ vs. each vortex's $\Delta P_{\rm obs}$. (c) Cumulative histogram of $D_{\rm obs}$, $N(x > D_{\rm obs})$ (blue curve), along with an exponential fit of the form $N \propto e^{D_{\rm obs}/D_0}$ with $D_0 = \left( 130.1 \pm 0.2 \right)\,{\rm m}$.}
+    \label{fig:Dobs_vs_Gammaobs-DeltaPobs_hist}
 \end{figure}
 
 \section{Discussion and Conclusions}
