@@ -378,3 +378,9 @@ def gauss(x, A, x0, sigma):
 def lin_func(p, x):
     m, c = p
     return m*x + c
+
+def velocity_profile(t, t0, Gamma, VT, background_wind):
+    """ Returns wind velocity profile """
+
+    return VT*(t - t0)/(Gamma/2.)/(1. + ((t - t0)/(Gamma/2.))**2) +\
+            background_wind
