@@ -94,7 +94,7 @@ def redchisqg(ydata,ymod,deg=2,sd=None):
     http://goo.gl/8S1Oo
     """
     # Chi-square statistic
-    if(sd==None):
+    if(np.any(sd == None)):
         chisq=np.sum((ydata-ymod)**2)
     else:
         chisq=np.sum( ((ydata-ymod)/sd)**2 )
@@ -373,3 +373,8 @@ def estimate_diameter(sol, t0, Gamma, Gamma_err,
 
 def gauss(x, A, x0, sigma):
     return A * np.exp(-(x - x0) ** 2 / (2 * sigma ** 2))
+
+# Define a function (quadratic in our case) to fit the data with.
+def lin_func(p, x):
+    m, c = p
+    return m*x + c
