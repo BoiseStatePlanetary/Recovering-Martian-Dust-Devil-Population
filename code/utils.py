@@ -333,7 +333,7 @@ def find_vortices(time, convolution, detection_threshold=5):
 def line(x, m, b):
     return m*x + b
 
-def find_wind(cur_sol, t0, Gamma, filename_stem="_model_", num_Gamma=10.,
+def find_wind(cur_sol, filename_stem="_model_",
         dr_wind="/Users/bjackson/Downloads/twins_bundle/data_derived"):
 
     try:
@@ -348,16 +348,19 @@ def find_wind(cur_sol, t0, Gamma, filename_stem="_model_", num_Gamma=10.,
         return None, None, None
 
 def estimate_diameter(sol, t0, Gamma, Gamma_err, 
+        dr_wind="/Users/bjackson/Downloads/twins_bundle/data_derived",
         num_max_gam=5., num_min_gam=3.):
-    wind_LTST, wind_LTST_and_sol, wind_data = find_wind(sol, t0, Gamma)
+    wind_LTST, wind_LTST_and_sol, wind_data = find_wind(sol, dr_wind=dr_wind)
     wind_LTST_and_sol -= 24.*sol
 
     ind = (np.abs(wind_LTST_and_sol - t0)*3600. < num_max_gam*Gamma) &\
-        np.abs((wind_LTST_and_sol - t0)*3600. > num_min_gam*Gamma)
+            ((wind_LTST_and_sol - t0)*3600. < -num_min_gam*Gamma)
 
     if(len(wind_data["HORIZONTAL_WIND_SPEED"][ind]) > 0):
         med = np.median(wind_data["HORIZONTAL_WIND_SPEED"][ind])
-        md = np.nan
+        # As a back-up value, take the point-to-point variation.
+        md = np.median(np.abs(wind_data["HORIZONTAL_WIND_SPEED"][1:] -\
+                wind_data["HORIZONTAL_WIND_SPEED"][0:-1]))
 
         diameter = med*Gamma
         diameter_unc = np.nan
@@ -378,8 +381,9 @@ def lin_func(p, x):
     m, c = p
     return m*x + c
 
-def velocity_profile(t, t0, Gamma, VT, background_wind):
+def velocity_profile(t, t0, VT, U, ract, b, background_wind):
     """ Returns wind velocity profile """
 
-    return VT*(t - t0)/(Gamma/2.)/(1. + ((t - t0)/(Gamma/2.))**2) +\
-            background_wind
+    rprime = np.sqrt(U**2*(t - t0)**2 + b)/ract
+
+    return VT*2.*rprime/(1 + rprime**2) + background_wind
