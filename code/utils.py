@@ -173,7 +173,7 @@ def determine_bounds(vortex, init_params, init_t0_fac=0.0002, init_DeltaP_fac=10
             [np.max(y),  10.*np.abs(init_params[1]), (1+init_t0_fac)*init_params[2], init_DeltaP_fac*init_params[3],
                300./3600])
 
-def retrieve_data(sol, filename_stem="calib", dr=None, nans_in_gaps=False, data_field="PRESSURE"):
+def retrieve_data(sol, filename_stem="_calib_", dr=None, nans_in_gaps=False, data_field="PRESSURE"):
     sol_filename = create_datafilename(sol, filename_stem=filename_stem, dr=dr)
 
     sol_data = np.genfromtxt(sol_filename[0], delimiter=",", dtype=None, names=True)
@@ -333,9 +333,8 @@ def find_vortices(time, convolution, detection_threshold=5):
 def line(x, m, b):
     return m*x + b
 
-def find_wind(cur_sol, t0, Gamma, filename_stem="_model_", num_Gamma=10.):
-    # Wind data in a different folder
-    dr_wind = '/Users/bjackson/Downloads/twins_bundle/data_derived'
+def find_wind(cur_sol, t0, Gamma, filename_stem="_model_", num_Gamma=10.,
+        dr_wind="/Users/bjackson/Downloads/twins_bundle/data_derived"):
 
     try:
         wind_LTST, wind_LTST_and_sol, wind_data =\
