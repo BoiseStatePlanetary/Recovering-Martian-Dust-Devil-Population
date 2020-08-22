@@ -350,28 +350,38 @@ def find_wind(cur_sol, filename_stem="_model_",
 def estimate_diameter(sol, t0, Gamma, Gamma_err, 
         dr_wind="/Users/bjackson/Downloads/twins_bundle/data_derived",
         num_max_gam=5., num_min_gam=3.):
-    wind_LTST, wind_LTST_and_sol, wind_data = find_wind(sol, dr_wind=dr_wind)
-    wind_LTST_and_sol -= 24.*sol
 
-    ind = (np.abs(wind_LTST_and_sol - t0)*3600. < num_max_gam*Gamma) &\
-            ((wind_LTST_and_sol - t0)*3600. < -num_min_gam*Gamma)
+    try: 
+        wind_LTST, wind_LTST_and_sol, wind_data = retrieve_data(sol, 
+                dr=dr_wind, filename_stem="_model_", 
+                data_field="HORIZONTAL_WIND_SPEED")
+        wind_LTST_and_sol -= 24.*sol
 
-    if(len(wind_data["HORIZONTAL_WIND_SPEED"][ind]) > 0):
-        med = np.median(wind_data["HORIZONTAL_WIND_SPEED"][ind])
-        # As a back-up value, take the point-to-point variation.
-        md = np.median(np.abs(wind_data["HORIZONTAL_WIND_SPEED"][1:] -\
-                wind_data["HORIZONTAL_WIND_SPEED"][0:-1]))
+        ind = (np.abs(wind_LTST_and_sol - t0)*3600. < num_max_gam*Gamma) &\
+                ((wind_LTST_and_sol - t0)*3600. < -num_min_gam*Gamma)
 
-        diameter = med*Gamma
-        diameter_unc = np.nan
-        if(len(wind_data["HORIZONTAL_WIND_SPEED"][ind]) > 1):
-            md = mad(wind_data["HORIZONTAL_WIND_SPEED"][ind])
-            diameter_unc = diameter*np.sqrt((md/med)**2 + (Gamma_err/Gamma)**2)
+        if(len(wind_data["HORIZONTAL_WIND_SPEED"][ind]) > 0):
+            med = np.median(wind_data["HORIZONTAL_WIND_SPEED"][ind])
+            # As a back-up value, take the point-to-point variation.
+            md = np.median(np.abs(wind_data["HORIZONTAL_WIND_SPEED"][1:] -\
+                    wind_data["HORIZONTAL_WIND_SPEED"][0:-1]))
 
-        return diameter, diameter_unc, med, md
+            diameter = med*Gamma
+            diameter_unc = np.nan
+            if(len(wind_data["HORIZONTAL_WIND_SPEED"][ind]) > 1):
+                md = mad(wind_data["HORIZONTAL_WIND_SPEED"][ind])
+                diameter_unc =\
+                        diameter*np.sqrt((md/med)**2 + (Gamma_err/Gamma)**2)
 
-    else:
-        return np.nan, np.nan, np.nan, np.nan
+            return diameter, diameter_unc, med, md
+
+        else:
+            return None, None, None, None
+
+    except:
+        print("Sol %i, t0 %f has a problem!" % (sol, t0))
+
+        return None, None, None, None
 
 def gauss(x, A, x0, sigma):
     return A * np.exp(-(x - x0) ** 2 / (2 * sigma ** 2))
