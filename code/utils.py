@@ -394,6 +394,6 @@ def lin_func(p, x):
 def velocity_profile(t, t0, VT, U, ract, b, background_wind):
     """ Returns wind velocity profile """
 
-    rprime = np.sqrt(U**2*(t - t0)**2 + b)/ract
+    rprime = np.sqrt(U**2*(t - t0)**2 + b**2)/ract
 
     return VT*2.*rprime/(1 + rprime**2) + background_wind
