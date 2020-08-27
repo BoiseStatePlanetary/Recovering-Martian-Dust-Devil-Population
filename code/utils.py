@@ -397,3 +397,59 @@ def velocity_profile(t, t0, VT, U, ract, b, background_wind):
     rprime = np.sqrt(U**2*(t - t0)**2 + b**2)/ract
 
     return VT*2.*rprime/(1 + rprime**2) + background_wind
+
+def retrieve_wind_and_pressure(sol, dr, dr_wind, t0, Gamma):
+
+    # Use to calculate the real density
+    Rgas = 1.8892e2 # J/kg/K - from https://atmos.nmsu.edu/education_and_outreach/encyclopedia/gas_constant.htm
+
+    # Convert to hours
+    Gamma /= 3600.
+
+    wind_LTST, wind_LTST_and_sol, wind_data =\
+            find_wind(sol, dr_wind=dr_wind)
+    wind_LTST_and_sol -= 24.*sol
+    ind = np.abs(wind_LTST_and_sol - t0) < 5*Gamma
+    wind_x = (wind_LTST_and_sol[ind] - t0)
+    wind_y = wind_data['HORIZONTAL_WIND_SPEED'][ind]
+
+    sigma = np.median(np.abs(wind_data['HORIZONTAL_WIND_SPEED'][1:] -\
+            wind_data['HORIZONTAL_WIND_SPEED'][0:-1]))
+
+    LTST, LTST_and_sol, sol_data = retrieve_data(sol, dr=dr)
+    LTST_and_sol -= 24.*sol
+    ind = np.abs(LTST_and_sol - t0) < 5*Gamma
+    pressure_x = LTST_and_sol[ind] - t0
+    pressure_y = sol_data['PRESSURE'][ind]
+
+    pressure_temp = sol_data['PRESSURE_TEMP']
+
+    density = np.nanmedian(pressure_y)/(Rgas*np.nanmedian(pressure_temp))
+
+    return wind_x, wind_y, sigma, pressure_x, pressure_y, density
+
+def wind_profile(t, t0, Vobs, U1, U2, b, Gamma_obs):
+
+    Vr = Vobs*np.sqrt(1. + U1**2*(t - t0)**2/b**2)/(1. + (2.*(t - t0)/Gamma_obs)**2)
+    Vr_cos = np.sign(b)*Vobs/(1. + (2.*(t - t0)/Gamma_obs)**2)
+    ret_val = np.sqrt(Vr**2 + 2.*U1*Vr_cos + U1**2)
+
+    ind = t >= t0
+
+    Vr[ind] = Vobs*np.sqrt(1. + U2**2*(t[ind] - t0)**2/b**2)/(1. + (2.*(t[ind] - t0)/Gamma_obs)**2)
+    Vr_cos[ind] = np.sign(b)*Vobs/(1. + (2.*(t[ind] - t0)/Gamma_obs)**2)
+    ret_val[ind] = np.sqrt(Vr[ind]**2 + 2.*U2*Vr_cos[ind] + U2**2)
+
+    return ret_val
+
+def fit_wind_profile(t, wind, sigma, Gamma, p0):
+
+    U1 = np.nanmedian(wind[t < -3.*Gamma])
+    U2 = np.nanmedian(wind[t > 3.*Gamma])
+
+    popt, pcov = curve_fit(lambda t, fit_t0, fit_Vobs, fit_b, fit_Gammaobs:\
+            wind_profile(t, fit_t0, fit_Vobs, U1, U2, fit_b, fit_Gammaobs),
+            t, wind, p0=p0, sigma=sigma*np.ones_like(t))
+    uncertainties = np.sqrt(np.diag(pcov))
+
+    return popt, uncertainties, U1, U2
