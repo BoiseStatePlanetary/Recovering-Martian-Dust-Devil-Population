@@ -434,7 +434,7 @@ def wind_profile(t, t0, Vobs, U1, U2, b, Gamma_obs):
     Vr_cos = np.sign(b)*Vobs/(1. + (2.*(t - t0)/Gamma_obs)**2)
     ret_val = np.sqrt(Vr**2 + 2.*U1*Vr_cos + U1**2)
 
-    ind = t >= t0
+    ind = t > t0
 
     Vr[ind] = Vobs*np.sqrt(1. + U2**2*(t[ind] - t0)**2/b**2)/(1. + (2.*(t[ind] - t0)/Gamma_obs)**2)
     Vr_cos[ind] = np.sign(b)*Vobs/(1. + (2.*(t[ind] - t0)/Gamma_obs)**2)
@@ -453,3 +453,12 @@ def fit_wind_profile(t, wind, sigma, Gamma, p0):
     uncertainties = np.sqrt(np.diag(pcov))
 
     return popt, uncertainties, U1, U2
+
+def calculate_act_values(density, Vobs, DeltaPobs, Diameter):
+    """ Calculate the eyewall values """
+    factor = 1. - 0.25*density*Vobs**2./DeltaPobs
+    Pact = DeltaPobs/factor
+    Vact = np.sqrt(Pact/density)
+    Dact = Diameter/np.sqrt(1. + (Pact/DeltaPobs - 1.))
+
+    return Pact, Vact, Dact
