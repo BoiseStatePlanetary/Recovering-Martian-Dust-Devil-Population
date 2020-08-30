@@ -431,24 +431,26 @@ def retrieve_wind_and_pressure(sol, dr, dr_wind, t0, Gamma):
 def wind_profile(t, t0, Vobs, U1, U2, b, Gamma_obs):
 
     Vr = Vobs*np.sqrt(1. + U1**2*(t - t0)**2/b**2)/(1. + (2.*(t - t0)/Gamma_obs)**2)
-    Vr_cos = np.sign(b)*Vobs/(1. + (2.*(t - t0)/Gamma_obs)**2)
+#   Vr_cos = np.sign(b)*Vobs/(1. + (2.*(t - t0)/Gamma_obs)**2)
+    Vr_cos = Vobs/(1. + (2.*(t - t0)/Gamma_obs)**2)
     ret_val = np.sqrt(Vr**2 + 2.*U1*Vr_cos + U1**2)
 
     ind = t > t0
 
     Vr[ind] = Vobs*np.sqrt(1. + U2**2*(t[ind] - t0)**2/b**2)/(1. + (2.*(t[ind] - t0)/Gamma_obs)**2)
-    Vr_cos[ind] = np.sign(b)*Vobs/(1. + (2.*(t[ind] - t0)/Gamma_obs)**2)
+#   Vr_cos[ind] = np.sign(b)*Vobs/(1. + (2.*(t[ind] - t0)/Gamma_obs)**2)
+    Vr_cos[ind] = Vobs/(1. + (2.*(t[ind] - t0)/Gamma_obs)**2)
     ret_val[ind] = np.sqrt(Vr[ind]**2 + 2.*U2*Vr_cos[ind] + U2**2)
 
     return ret_val
 
-def fit_wind_profile(t, wind, sigma, Gamma, p0):
+def fit_wind_profile(t, wind, sigma, t0, Gamma, p0):
 
     U1 = np.nanmedian(wind[t < -3.*Gamma])
     U2 = np.nanmedian(wind[t > 3.*Gamma])
 
-    popt, pcov = curve_fit(lambda t, fit_t0, fit_Vobs, fit_b, fit_Gammaobs:\
-            wind_profile(t, fit_t0, fit_Vobs, U1, U2, fit_b, fit_Gammaobs),
+    popt, pcov = curve_fit(lambda t, fit_Vobs, fit_b:\
+            wind_profile(t, t0, fit_Vobs, U1, U2, fit_b, Gamma),
             t, wind, p0=p0, sigma=sigma*np.ones_like(t))
     uncertainties = np.sqrt(np.diag(pcov))
 
@@ -462,3 +464,11 @@ def calculate_act_values(density, Vobs, DeltaPobs, Diameter):
     Dact = Diameter/np.sqrt(1. + (Pact/DeltaPobs - 1.))
 
     return Pact, Vact, Dact
+
+def sigma_Pact(sigma_Vobs, sigma_Pobs, Pact, Pobs, Vobs, density):
+    # Calculating the uncertainties on Pact
+    first_factor = 0.25*(Pact/Pobs)**4*(density*Vobs)**2*sigma_Vobs**2
+
+    second_factor = (0.25*(Pact/Pobs)**2*(density*Vobs**2/Pobs) + (Pact/Pobs))**2*sigma_Pobs**2
+
+    return np.sqrt(first_factor + second_factor)
