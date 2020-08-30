@@ -600,12 +600,48 @@ Finally, we must interpret these results in terms of our ability to recover vort
     \label{fig:vortex_recovery}
 \end{figure}
 
+\section{Inferring Encounter Geometries from the Pressure and Velocity Profiles}
+\label{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}
+We assume the vortices correspond to Rankine vortices \citep{1991ExFl...11...73V}, giving pressure $\Delta P$ and tangential wind velocity profiles $V_{\rm r}$:
+\begin{equation}
+    \Delta P(r) = -\frac{\Delta P_{\rm act}}{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2}\label{eqn:radial_lorentzian_profile}
+\end{equation}
+and
+\begin{equation}
+    V_{\rm r}(r) = \frac{ V_{\rm act} \left( \frac{2 r}{D_{\rm act}/2} \right)}{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2},\label{eqn:radial_wind_profile}
+\end{equation}
+where $r$ is the radial distance from the vortex center, $P_{\rm act}$ the central pressure excursion, and $V_{\rm act}$ the peak velocity at a distance $D_{\rm act}$ from the vortex center. Equation \ref{eqn:radial_distance} shows the evolution of the radial distance with time during an encounter. At closest approach, we measure $\Delta P = \Delta P_{\rm obs}$ (Equation \ref{eqn:Pobs}) and 
+\begin{equation}
+    V_{\rm r} = \frac{ V_{\rm act} \left( \frac{2 b}{D_{\rm act}/2} \right)}{1 + \left( \frac{b}{D_{\rm act}/2} \right)^2} = V_{\rm obs}.\label{eqn:Vobs}
+\end{equation} 
+
+Cyclostrophic balance relates the pressure and velocity as \citep{2020Icar..33813523J}:
+\begin{equation}
+    V_{\rm act} = \left( \Delta P_{\rm act}/\rho \right)^{1/2},\label{eqn:cyclostrophic_balance}
+\end{equation}
+where $\rho$ is the atmospheric density. Combining Equations \ref{eqn:Pobs}, \ref{eqn:Vobs}, and \ref{eqn:cyclostrophic_balance} gives
+\begin{equation}
+    P_{\rm act} = \left( 1 - \frac{\rho V_{\rm obs}^2}{4 P_{\rm obs}} \right)^{-1} P_{\rm obs},\label{eqn:solution_for_Pact}
+\end{equation}
+and
+\begin{equation}
+    V_{\rm act} = \left( 1 - \frac{\rho V_{\rm obs}^2}{4 P_{\rm obs}} \right)^{-1/2} \left( P_{\rm obs}/\rho \right)^{1/2}.\label{eqn:solution_for_Vact}
+\end{equation}
+
+We can use these values to infer $b$
+\begin{equation}
+    b = \left( \frac{D_{\rm act}}{2} \right) \sqrt{\frac{P_{\rm act}}{P_{\rm obs}} - 1},
+\end{equation}
+and then plug this into the relationship between the observed diameter and actual $D_{\rm obs} = \sqrt{D_{\rm act}^2 + \left( 2 b\right)^2 }$ \citep{2020Icar..33813523J}:
+\begin{equation}
+    D_{\rm act} = \frac{D_{\rm obs}}{\sqrt{1 + \left( P_{\rm act}/P_{\rm obs} - 1 \right) }}.\label{eqn:actual_diameter}
+\end{equation}
+We can then use these relationships to solve for $b$.
+
 % For N estimate, with about 6 hours per day of dust devil activity (1/4 day),
 %   1 km^{-2} day^{-1} translates into about 0.25 km^{-2}.
 
 % We can compare our estimate for the daily number of vortex encounters and the associated sampling uncertainty from Equations \ref{eqn:number_of_encounters} and \label{eqn:sigma_N} to the actual numbers reported in \citet{2020arXiv200501134S} by plugging in representative values: \citet{2020arXiv200501134S} report typical wind speeds $U \sim 5\,{\rm m\ s^{-1}}$ and vortex activity during about $12\, {\rm hours}$ each sol over about 400 sols; monitoring dust devil tracks around the Insight landing site, \citet{2020GeoRL..4787234P} suggest $N = 0.05\,{\rm km^{-2}\ sol} \times \left(12\,{\rm hours\ sol^{-1}}\right) = 0.025\,{\rm km^{-2}}$ and $D_{\rm act} \approx 10\,{\rm m}$; \citet{2018Icar..299..166J} suggests $P_{\rm act} \approx 1\,{\rm Pa}$; and our analysis here gives $P_{\rm min} \approx 0.3\,{\rm Pa}$. Taken altogether, we estimate Insight could detect vortices out to a distance $b_{\rm max} \approx 8\,{\rm m}$ distance and should have recovered about 
-
-recover the population with $\sigma_N/N \approx 20\%$.
 
 % 2020 May 9 - Check notes in notepad from today's date
 % \section{Effects of Undersampling the Dust Devil Profile}
