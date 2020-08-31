@@ -461,9 +461,13 @@ def calculate_act_values(density, Vobs, DeltaPobs, Diameter):
     factor = 1. - 0.25*density*Vobs**2./DeltaPobs
     Pact = DeltaPobs/factor
     Vact = np.sqrt(Pact/density)
+
+    bact = (Diameter/2.)*np.sqrt(1. - DeltaPobs/fit_Pact)
+    Dact = np.sqrt(Diameter**2 - (2.*bact)**2)
+
     Dact = Diameter/np.sqrt(1. + (Pact/DeltaPobs - 1.))
 
-    return Pact, Vact, Dact
+    return Pact, Vact, Dact, bact
 
 def sigma_Pact(sigma_Vobs, sigma_Pobs, Pact, Pobs, Vobs, density):
     # Calculating the uncertainties on Pact
