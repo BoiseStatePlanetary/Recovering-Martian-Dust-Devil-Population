@@ -314,7 +314,7 @@ def apply_lorentzian_matched_filter(time, filtered_data, st, lorentzian_fwhm, lo
 
     return convolution
 
-def find_vortices(time, convolution, detection_threshold=5):
+def find_vortices(time, convolution, detection_threshold=5, distance=20):
     """Finds outliers """
 
     med = np.median(convolution)
@@ -323,7 +323,7 @@ def find_vortices(time, convolution, detection_threshold=5):
     convolution -= med
     convolution /= md
 
-    ex = find_peaks(convolution)
+    ex = find_peaks(convolution, distance=distance)
     ind = convolution[ex[0]] >= detection_threshold
 
     pk_wds, _, _, _ = peak_widths(convolution, ex[0][ind])
