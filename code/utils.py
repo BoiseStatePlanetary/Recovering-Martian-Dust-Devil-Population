@@ -462,7 +462,7 @@ def calculate_act_values(density, Vobs, DeltaPobs, Diameter):
     Pact = DeltaPobs/factor
     Vact = np.sqrt(Pact/density)
 
-    bact = (Diameter/2.)*np.sqrt(1. - DeltaPobs/fit_Pact)
+    bact = (Diameter/2.)*np.sqrt(1. - DeltaPobs/Pact)
     Dact = np.sqrt(Diameter**2 - (2.*bact)**2)
 
     Dact = Diameter/np.sqrt(1. + (Pact/DeltaPobs - 1.))
