@@ -1,4 +1,4 @@
-# vortex_number, sol, t0, t0_unc, DeltaP, DeltaP_unc, Gamma, Gamma_unc, intercept, intercept_unc, slope, slope_inc, convolution
+# vortex_number, sol, t0, t0_unc, DeltaP, DeltaP_unc, Gamma, Gamma_unc, intercept, intercept_unc, slope, slope_unc, convolution
 0, 14, 12.0302, 0.000106779, 0.698558, 0.0414835, 12.9454, 1.12539, 740.918, 0.00409603, -2.0059, 0.0793729, 5.22843
 1, 14, 12.9698, 8.46418e-05, 0.748218, 0.0365595, 12.4715, 0.890924, 735.75, 0.00355436, -5.03188, 0.0686569, 6.31371
 2, 14, 12.8427, 3.73416e-05, 1.15952, 0.104944, 2.84131, 0.371845, 736.656, 0.00981517, -12.25, 0.768696, 6.63324
