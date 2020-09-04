@@ -476,3 +476,11 @@ def sigma_Pact(sigma_Vobs, sigma_Pobs, Pact, Pobs, Vobs, density):
     second_factor = (0.25*(Pact/Pobs)**2*(density*Vobs**2/Pobs) + (Pact/Pobs))**2*sigma_Pobs**2
 
     return np.sqrt(first_factor + second_factor)
+
+def fit_simple_wind_profile(t, wind, t0, Gamma, sampling, num_samples=3):
+    U1 = np.nanmedian(wind[(t - t0) < -3.*Gamma])
+    U2 = np.nanmedian(wind[(t - t0) > 3.*Gamma])
+
+    ind = np.abs(t - t0) < num_samples/2.*sampling
+    return U1, U2, wind[ind][np.argmax(np.abs(wind[ind] - U1))] - U1
+
