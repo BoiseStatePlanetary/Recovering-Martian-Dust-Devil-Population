@@ -9,6 +9,11 @@ from astropy.convolution import convolve as astropy_convolve
 
 from statsmodels.robust import mad
 
+aspect_ratio = 16./9 # On HD projectors nowadays, this is the aspect ratio.
+                     # so I make my figures using that ratio so they show up nicely in presentations.
+BoiseState_blue = "#0033A0"
+BoiseState_orange = "#D64309"
+
 def create_datafilename(sol, filename_stem="_calib_", dr='/Users/brian/Downloads/ps_bundle/data_calibrated'):
     filenames = glob.glob("%s/*/*%s*.csv" % (dr, filename_stem))
     
@@ -428,6 +433,33 @@ def retrieve_wind_and_pressure(sol, dr, dr_wind, t0, Gamma):
 
     return wind_x, wind_y, sigma, pressure_x, pressure_y, density
 
+def abbrev_retrieve_wind_and_pressure(wind_LTST, wind_LTST_and_sol, wind_data,
+        LTST, LTST_and_sol, sol_data, t0, Gamma):
+    """ Saving a file IO """
+
+    # Use to calculate the real density
+    Rgas = 1.8892e2 # J/kg/K - from https://atmos.nmsu.edu/education_and_outreach/encyclopedia/gas_constant.htm
+
+    # Convert to hours
+    Gamma /= 3600.
+
+    ind = np.abs(wind_LTST_and_sol - t0) < 5*Gamma
+    wind_x = (wind_LTST_and_sol[ind] - t0)
+    wind_y = wind_data['HORIZONTAL_WIND_SPEED'][ind]
+
+    wind_sigma = np.median(np.abs(wind_y[1:] - wind_y[0:-1]))
+
+    ind = np.abs(LTST_and_sol - t0) < 5*Gamma
+    pressure_x = LTST_and_sol[ind] - t0
+    pressure_y = sol_data['PRESSURE'][ind]
+
+    pressure_sigma = np.median(np.abs(pressure_y[1:] - pressure_y[0:-1]))
+
+    pressure_temp = sol_data['PRESSURE_TEMP']
+    density = np.nanmedian(pressure_y)/(Rgas*np.nanmedian(pressure_temp))
+
+    return wind_x, wind_y, wind_sigma, pressure_x, pressure_y, pressure_sigma, density
+
 def wind_profile(t, t0, Vobs, U1, U2, b, Gamma_obs):
 
     Vr = Vobs*np.sqrt(1. + U1**2*(t - t0)**2/b**2)/(1. + (2.*(t - t0)/Gamma_obs)**2)
@@ -483,4 +515,35 @@ def fit_simple_wind_profile(t, wind, t0, Gamma, sampling, num_samples=3):
 
     ind = np.abs(t - t0) < num_samples/2.*sampling
     return U1, U2, wind[ind][np.argmax(np.abs(wind[ind] - U1))] - U1
+
+def make_plot(ax1, ax2, wind_x, wind_y, wind_sigma, pressure_x, pressure_y,
+        pressure_sigma, t0, intercept, slope, DeltaP, Gamma, U1, Vobs, U2):
+
+    ax2.errorbar(wind_x*3600, wind_y, yerr=wind_sigma*np.ones_like(wind_x), 
+            marker='o', color=BoiseState_orange, ls='')
+    ax2.set_ylabel(r'$U\, \left( {\rm m\ s^{-1}} \right)$', fontsize=16, 
+            color=BoiseState_orange)
+    ax2.yaxis.tick_right()
+    ax2.yaxis.set_label_position("right")
+    ax2.tick_params(axis='y', labelcolor=BoiseState_orange)
+    ax2.tick_params(labelsize=16)
+
+    ax1.errorbar(pressure_x*3600, pressure_y, 
+            yerr=pressure_sigma*np.ones_like(pressure_x), marker='s', 
+            color=BoiseState_blue, ls='', lw=3)
+    ax1.set_ylabel(r'$P\, \left( {\rm Pa}\right)$', fontsize=16,
+            color=BoiseState_blue)
+    ax1.tick_params(labelsize=16)
+    ax1.tick_params(axis='y', labelcolor=BoiseState_blue)
+    ax1.plot(pressure_x*3600, modified_lorentzian(pressure_x + t0, intercept, 
+        slope, t0, DeltaP, Gamma/3600.), color=BoiseState_blue, zorder=-1)
+
+    ax2.plot([np.min(wind_x)*3600., -Gamma], [U1, U1], lw=3, 
+            color=BoiseState_orange)
+    ax2.plot([-Gamma, Gamma], [Vobs + U1, Vobs + U1], lw=3, 
+            color=BoiseState_orange)
+    ax2.plot([Gamma, np.max(wind_x)*3600.], [U2, U2], lw=3, 
+            color=BoiseState_orange)
+
+    return
 
