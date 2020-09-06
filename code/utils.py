@@ -546,4 +546,3 @@ def make_plot(ax1, ax2, wind_x, wind_y, wind_sigma, pressure_x, pressure_y,
             color=BoiseState_orange)
 
     return
-
