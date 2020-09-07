@@ -109,6 +109,11 @@ def redchisqg(ydata,ymod,deg=2,sd=None):
     
     return chisq/nu       
 
+def BIC(ydata,ymod,deg=2,sd=None):
+    chisq = redchisqg(ydata,ymod,deg=deg,sd=sd)
+
+    return chisq + deg*np.log(len(ydata))
+
 def condition_vortex(vortex):
     
     _, unq = np.unique(vortex[0], return_index=True)            
@@ -497,7 +502,7 @@ def calculate_act_values(density, Vobs, DeltaPobs, Diameter):
     bact = (Diameter/2.)*np.sqrt(1. - DeltaPobs/Pact)
     Dact = np.sqrt(Diameter**2 - (2.*bact)**2)
 
-    Dact = Diameter/np.sqrt(1. + (Pact/DeltaPobs - 1.))
+    Dact = Diameter/np.sqrt(Pact/DeltaPobs)
 
     return Pact, Vact, Dact, bact
 
@@ -509,12 +514,28 @@ def sigma_Pact(sigma_Vobs, sigma_Pobs, Pact, Pobs, Vobs, density):
 
     return np.sqrt(first_factor + second_factor)
 
-def fit_simple_wind_profile(t, wind, t0, Gamma, sampling, num_samples=3):
+def simple_wind_profile_parameters(t, wind, t0, Gamma, sampling, num_samples=3):
     U1 = np.nanmedian(wind[(t - t0) < -3.*Gamma])
     U2 = np.nanmedian(wind[(t - t0) > 3.*Gamma])
-
     ind = np.abs(t - t0) < num_samples/2.*sampling
-    return U1, U2, wind[ind][np.argmax(np.abs(wind[ind] - U1))] - U1
+    V = wind[ind][np.argmax(np.abs(wind[ind] - U1))] - U1
+
+    return U1, U2, V
+
+def simple_wind_profile(t, wind, t0, Gamma, sampling, num_samples=3):
+    U1, U2, V = simple_wind_profile_parameters(t, wind, t0, Gamma, sampling,
+            num_samples=num_samples)
+
+    simple_wind_profile = np.array([])
+    simple_wind_profile = np.append(simple_wind_profile,
+            U1*np.ones_like(t[(t - t0) < -Gamma]))
+    simple_wind_profile = np.append(simple_wind_profile,
+            (V + U1)*np.ones_like(t[((t - t0) > -Gamma) &\
+                    ((t - t0) < Gamma)]))
+    simple_wind_profile = np.append(simple_wind_profile,
+            U2*np.ones_like(t[(t - t0) > Gamma]))
+
+    return simple_wind_profile
 
 def make_plot(ax1, ax2, wind_x, wind_y, wind_sigma, pressure_x, pressure_y,
         pressure_sigma, t0, intercept, slope, DeltaP, Gamma, U1, Vobs, U2):
