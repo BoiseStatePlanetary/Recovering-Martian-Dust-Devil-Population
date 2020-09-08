@@ -422,21 +422,21 @@ def retrieve_wind_and_pressure(sol, dr, dr_wind, t0, Gamma):
     ind = np.abs(wind_LTST_and_sol - t0) < 5*Gamma
     wind_x = (wind_LTST_and_sol[ind] - t0)
     wind_y = wind_data['HORIZONTAL_WIND_SPEED'][ind]
-
-    sigma = np.median(np.abs(wind_data['HORIZONTAL_WIND_SPEED'][1:] -\
-            wind_data['HORIZONTAL_WIND_SPEED'][0:-1]))
+    wind_sigma = np.median(np.abs(wind_y[1:] - wind_y[0:-1]))
 
     LTST, LTST_and_sol, sol_data = retrieve_data(sol, dr=dr)
     LTST_and_sol -= 24.*sol
     ind = np.abs(LTST_and_sol - t0) < 5*Gamma
     pressure_x = LTST_and_sol[ind] - t0
     pressure_y = sol_data['PRESSURE'][ind]
+    pressure_sigma = np.median(np.abs(pressure_y[1:] - pressure_y[0:-1]))
 
     pressure_temp = sol_data['PRESSURE_TEMP']
 
     density = np.nanmedian(pressure_y)/(Rgas*np.nanmedian(pressure_temp))
 
-    return wind_x, wind_y, sigma, pressure_x, pressure_y, density
+    return wind_x, wind_y, wind_sigma, pressure_x, pressure_y, pressure_sigma,\
+            density
 
 def abbrev_retrieve_wind_and_pressure(wind_LTST, wind_LTST_and_sol, wind_data,
         LTST, LTST_and_sol, sol_data, t0, Gamma):
