@@ -306,10 +306,68 @@ For this study, we will consider two types of dust devil detections and analyses
 
 The atmospheric influence of a dust devil population depends on the areal density of dust devil occurrence and the dust flux for each. Thus, accurately assessing that influence requires accurate estimates of the both.
 
-\section{Time-Series Data and Analysis}
+\section{Time-Series Analysis and Data}
 In this section, we describe our analysis of the APSS time-series. We focus on the pressure time-series ... We also consider the wind time-series
 
+\subsection{Pressure and Wind Models}
+\label{sec:Pressure and Wind Models}
+
+As in previous work \citep[e.g.][]{2016JGRE..121.1514K}, we model the pressure signals using a steady-state modified Lorentzian profile:
+
+\begin{equation}
+    \Delta P(r) = -\frac{\Delta P_{\rm act}}{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2}\label{eqn:radial_lorentzian_profile}
+\end{equation}
+where $r$ is the radial distance from the vortex center, $P_{\rm act}$ the central pressure excursion, and $D_{\rm act}$ is taken as the vortex diameter. The closest approach distance between the vortex center and the APSS sensors $b$ is usually greater than zero. As a result, the minimum observed in the pressure time-series $\Delta P_{\rm obs}$ is not usually as deep as the actual pressure excursion at the vortex center \citep{2018Icar..299..166J, 2019Icar..317..209K}. The pressure time-series for a vortex encounter can be represented by 
+\begin{equation}
+    \Delta P(t) = \frac{-\Delta P_{\rm obs}}{1 + \left( \frac{ t - t_0 }{\Gamma_{\rm obs}/2} \right)^2},\label{eqn:Lorentzian_profile}
+\end{equation}
+where $t$ is the time of each datum, $t_0$ the time of closest approach ($r(t_0) = b$), and $\Gamma_{\rm obs}$ the observed profile full-width/half-max (FWHM). This profile assumes the vortex travels past the sensor on a simple linear trajectory with a unidirectional and constant velocity $U$ (at least during the course of a single encounter). Consequently, the radial distance between the vortex center and the barometer $r(t)$ is assumed to evolve as 
+\begin{equation}
+    r(t) = \sqrt{b^2 + U^2 \left( t - t_0 \right)^2}.\label{eqn:radial_distance}
+\end{equation}
+With these definitions, $\Gamma_{\rm obs} = U^{-1} \sqrt{D_{\rm act}^2 + \left( 2 b \right)^2}$.
+
+We also model the wind speed time-series using a steady-state vortex. The wind speed signal consists both of an ambient wind $U$ and the vortex wind $V(r)$, which is a function of radial distance (and therefore time). For the Rankine vortex model \citep{1991ExFl...11...73V}, $V(r)$ is given by
+\begin{equation}
+    V(r) = V_{\rm act} \frac{2 \left( \frac{r}{D_{\rm act}/2} \right) }{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2},
+\end{equation}
+where $V_{\rm act}$ is the tangential wind speed at the vortex diameter. Similar to the pressure signal, a non-zero $b$ means the maximum wind speed encountered $V_{\rm obs}$ is less than the actual maximum at the vortex diameter. Thus, the observed vortex wind profile is given by 
+\begin{equation}
+    V(r) = V_{\rm obs} \frac{\sqrt{1 + \left( U/b \right)^2 \left( t - t_0 \right)^2}}{1 + \left(\frac{t - t_0}{\Gamma_{\rm obs}/2}\right)^2}.\label{eqn:wind_profile}
+\end{equation}
+The total wind speed observed $W(t)$ is the vector sum of the ambient wind and vortex wind, given by 
+\begin{equation}
+    W(t) = \sqrt{V^2 + 2 U V \cos \theta + U^2},\label{eqn:total_wind_speed}
+\end{equation}
+where $\cos \theta = b/\sqrt{b^2 + U^2\left( t - t_0 \right)^2}$. 
+
+By fitting these models to the pressure and wind time-series, we can directly estimate $\Delta P_{\rm obs}$ and $\Gamma_{\rm obs}$. In addition, we can estimate the ambient wind speed before and after the vortex encounter ($U_1$ and $U_2$), which, as we show below, are often different. 
+
+The observed pressure and excursions ($\Delta P_{\rm obs}$ and $V_{\rm obs}$) are likely to differ from the intrinsic vortex parameters $\Delta P_{\rm act}$ and $V_{\rm act}$ since $b$ is unlikely zero but otherwise unknown \emph{a priori} for any encounter. However, as we show in Appendix \ref{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}, we can estimate the intrinsic from the observed parameters, as well as $b$. To check this approach, we applied these models to many synthetic vortex encounters for a range of encounter geometries, vortex parameters, and time-series noise representative of the observed values. We found that for encounter with $b \lesssim 2 \times D_{\rm act}$, we were able to consistently recover the imposed parameters. Encounters farther than that, and the signals were usually lost in the noise.
+
+As discussed below, the wind time-series have limited time resolution and exhibit correlated noise, both of which make robust model fits difficult. To bolster our results, we fit a second, more simple wind profile:
+\begin{equation}
+    V(r) = \left\{
+        \begin{array}{ll}
+            U_1, & \left( t - t_0 \right) < -\Gamma_{\rm obs}\\
+            V_{\rm obs} + U_1, & -\Gamma_{\rm obs} \leq \left( t - t_0 \right) \geq \Gamma_{\rm obs}\\
+            U_2, & \left( t - t_0 \right) < \Gamma_{\rm obs}\\
+        \end{array}
+    \right.\label{eqn:simple_wind_profile}
+\end{equation}
+(For both this simpler and the full wind profile, $V_{\rm obs}$ may be negative, reflecting cyclonic or anti-cyclonic vortices.) We compare the best-fit $V_{\rm obs}$-values between the two models for each encounter to corroborate our results.
+
+Vortex encounters may also produce excursions in the wind direction (as the tangential wind field passes) and in ambient temperature (as the warm core passes over the sensor) \citep{2016SSRv..203...39M}. APSS does return wind direction and air temperature data. However, we do not model these time-series since the wind direction data essentially replicate the encounter information provided by the wind speeds, and, as in other in-situ studies of vortices, the temperature data show small or negligible excursions during the encounters. In any case, the temperatures would be expected to simply mirror the pressure excursions \citep{2016Icar..271..326L}.
+
+\subsection{Data}
+
 The ``model'' wind data files have a sampling frequency of $0.1\,{\rm Hz}$ (i.e., measurements every 10 seconds), while the ``modelevent'' files have a frequency of $1\,{\rm Hz}$.
+
+In addition to vortex signals and Gaussian (white) noise, the data also exhibit long-term variations of timescales typically much longer (minutes to hours) than the vortex signals -- Figure \ref{fig:data_conditioning_and_fit}(a). To suppress these longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices. Figure \ref{fig:data_conditioning_and_fit}(b) shows the resulting detrended time-series $\Delta P$. Any time-series analysis scheme will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, and we explore its biases and how those influence the final recovered population of vortices in the Appendix (Section \ref{sec:Vortex Recovery Statistics}). Based on that analysis, we chose $W = 3000\,{\rm s}$. 
+
+Next, to recover the pressure signatures of vortices, we employ a matched filter approach \citep[][ch.~13]{Press2007} using a normalized Lorentzian profile with a known FWHW, $\Gamma$; that is, we march a Lorentzian profile, point-by-point, across the time series, convolving it with the time-series. Based on our analysis discussed in the Appendix (Section \ref{sec:Vortex Recovery Statistics}), we chose $\Gamma = 1\,{\rm s}$. This process produces the equivalent of a spectrum, with large positive spikes when the filter encounters other Lorentzian-like signals. We subtract the median value from this raw spectrum and then normalize it by the standard deviation (as estimated by $1.4826\ \times$ the median absolute deviation -- \citealp{doi:10.1080/01621459.1993.10476408}). We consider peaks rising above the detection threshold of 5 to be vortices. Figure \ref{fig:data_conditioning_and_fit}(c) shows this normalized spectrum for the time-series in panel (b), along with the purported vortex signals (vertical dashed orange lines). 
+
+Finally, considering the original, undetrended time-series (e.g., Figure \ref{fig:data_conditioning_and_fit}(a)), we use the Leverberg-Marquardt algorithm \citep[cf.][]{Press2007} to fit the time-series in a window 30-FWHMs wide around each vortex signal. We fit a Lorentzian profile (Equation \ref{eqn:Lorentzian_profile}) combined with a linear trend, returning best fit parameters $t_0$, $\Delta P_{\rm obs}$, and $\Gamma_{\rm obs}$, as well as the background slope and intercept. Fitting such a model to the original, undetrended instead of the detrended time-series avoids the distorting effect of the boxcar filter on the vortex signal while taking into account any background trend. Figure \ref{fig:data_conditioning_and_fit}(d) shows such a fit (with the background intercept subtracted out).
 
 \begin{figure}
     \centering
@@ -324,22 +382,6 @@ We analyzed the pressure time-series collected by Insight's Auxiliary Payload Se
 \citet{2018SSRv..214..109S} and \citet{2020NatGe..13..190B} provide details of the instrument calibration and operation. 
 
 Figure \ref{fig:data_conditioning_and_fit}(a) shows the time-series for sol 392, a representative dataset. The vertical dashed orange lines show the vortex signals.
-
-As in previous work \citep[e.g.][]{2016JGRE..121.1514K}, we model the vortex signals using a steady-state modified Lorentzian profile $L(t)$:
-\begin{equation}
-    L(t) = \frac{-\Delta P_{\rm obs}}{1 + \left( \frac{ t - t_0 }{\Gamma_{\rm obs}/2} \right)^2},\label{eqn:Lorentzian_profile}
-\end{equation}
-where $t$ is the time of each datum, $\Delta P_{\rm obs}$ is the maximum pressure excursion observed (a positive number) at the center of vortex signal, $t_0$ the central time, and $\Gamma_{\rm obs}$ the observed profile full-width/half-max (FWHM). This profile assumes the vortex travels past the sensor on a simple linear trajectory with a unidirectional and constant velocity $U$ (at least during the course of a single encounter). Consequently, the radial distance between the vortex center and the barometer $r(t)$ is assumed to evolve as 
-\begin{equation}
-    r(t) = \sqrt{b^2 + U^2 \left( t - t_0 \right)^2},\label{eqn:radial_distance}
-\end{equation}
-where $b$ is the minimum distance between the vortex center and the barometer, sometimes called the ``miss distance'' \citep[e.g.][]{2018Icar..299..166J}. 
-
-In addition to vortex signals and Gaussian (white) noise, the data also exhibit long-term variations of timescales typically much longer (minutes to hours) than the vortex signals -- Figure \ref{fig:data_conditioning_and_fit}(a). To suppress these longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices. Figure \ref{fig:data_conditioning_and_fit}(b) shows the resulting detrended time-series $\Delta P$. Any time-series analysis scheme will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, and we explore its biases and how those influence the final recovered population of vortices in the Appendix (Section \ref{sec:Vortex Recovery Statistics}). Based on that analysis, we chose $W = 3000\,{\rm s}$. 
-
-Next, to recover the pressure signatures of vortices, we employ a matched filter approach \citep[][ch.~13]{Press2007} using a normalized Lorentzian profile with a known FWHW, $\Gamma$; that is, we march a Lorentzian profile, point-by-point, across the time series, convolving it with the time-series. Based on our analysis discussed in the Appendix (Section \ref{sec:Vortex Recovery Statistics}), we chose $\Gamma = 1\,{\rm s}$. This process produces the equivalent of a spectrum, with large positive spikes when the filter encounters other Lorentzian-like signals. We subtract the median value from this raw spectrum and then normalize it by the standard deviation (as estimated by $1.4826\ \times$ the median absolute deviation -- \citealp{doi:10.1080/01621459.1993.10476408}). We consider peaks rising above the detection threshold of 5 to be vortices. Figure \ref{fig:data_conditioning_and_fit}(c) shows this normalized spectrum for the time-series in panel (b), along with the purported vortex signals (vertical dashed orange lines). 
-
-Finally, considering the original, undetrended time-series (e.g., Figure \ref{fig:data_conditioning_and_fit}(a)), we use the Leverberg-Marquardt algorithm \citep[cf.][]{Press2007} to fit the time-series in a window 30-FWHMs wide around each vortex signal. We fit a Lorentzian profile (Equation \ref{eqn:Lorentzian_profile}) combined with a linear trend, returning best fit parameters $t_0$, $\Delta P_{\rm obs}$, and $\Gamma_{\rm obs}$, as well as the background slope and intercept. Fitting such a model to the original, undetrended instead of the detrended time-series avoids the distorting effect of the boxcar filter on the vortex signal while taking into account any background trend. Figure \ref{fig:data_conditioning_and_fit}(d) shows such a fit (with the background intercept subtracted out).
 
 \section{Results}
 \begin{figure}
@@ -380,7 +422,7 @@ Presumably, these hour-to-hour trends reflect the influence of variable ambient 
 \begin{figure}
 \centering
 \includegraphics[width=0.48\textwidth]{figures/vortices_and_windspeed.png}
-\caption{The linearly-detrended pressure signals (blue dots) and the corresponding horizontal windspeeds (orange). The vertical dashed green lines show the best-fit $\Gamma_{\rm obs}$-values. The horizontal dashed green lines show the median wind speed between 3- and 5-$\Gamma_{\rm obs}$ times before the vortex encounter. Panel (a) illustrates the vortex with the largest $\Gamma_{\rm obs}$-value, (b) the median $\Gamma_{\rm obs}$-value, and (c) the smallest $\Gamma_{\rm obs}$-value.\label{fig:vortices_and_windspeed}}
+\caption{Pressure signals (blue dots) and models (blue lines), along with the corresponding horizontal windspeeds (orange dots). The best-fit wind models based on Equation \ref{eqn:wind_profile} are shown as orange curves, and the simplified wind profile models based on Equation \ref{eqn:simple_wind_profile} are shown as orange horizontal lines. \label{fig:vortices_and_windspeed}}
 \end{figure}
 
 Figure \ref{fig:U_vs_t0-sol_hist} shows the wind speeds associated with the observed vortices; the maximum, median, and minimum values are $19.1\pm2.3$, $7.6\pm1.0$, and $0.5\pm0.2 \,{\rm m\ s^{-1}}$, respectively. Figure \ref{fig:Dobs_vs_Gammaobs-DeltaPobs_hist} shows the distribution of $D_{\rm obs}$-values against $\Gamma_{\rm obs}$ and $\Delta P_{\rm obs}$, as well as a cumulative histogram. The maximum, minimum, and median values are $1100 \pm 240$, $75 \pm 21$, and $4 \pm 1 \,{\rm m}$, respectively. Not surprisingly, the $D_{\rm obs}$-values correlate positively with $\Gamma_{\rm obs}$ with scatter resulting from the relatively narrow range of wind speeds. 
@@ -400,12 +442,16 @@ On the other hand, $D_{\rm obs}$ seems negatively correlated with $P_{\rm obs}$,
     \label{fig:Dobs_vs_Gammaobs-DeltaPobs_hist}
 \end{figure}
 
-\citet{2018Icar..299..166J}, \citet{2019Icar..317..209K}, and \citet{2020Icar..33513389K} developed approaches to de-bias the observed population of vortices and work out the underlying distribution of $\Delta P_{\rm act}$- and $D_{\rm act}$-values. However, they rely on several plausible but untested assumptions about encounter statistics. Fortunately, the available APSS data themselves provide a more direct way of assessing encounter statistics and inferring the intrinsic vortex properties: high-frequency TWINS wind speed data are available for some (but not all) vortex encounters. As discussed in \citet{2018Icar..299..166J} and \citet{2020AeoRe..4400594F}, the tangential wind speed profile $V(r)$ depends on radial distance $r$ in a different way from the pressure profile (assuming a Rankine vortex profile -- \citealp{1991ExFl...11...73V}):
+\citet{2018Icar..299..166J}, \citet{2019Icar..317..209K}, and \citet{2020Icar..33513389K} developed approaches to de-bias the observed population of vortices and work out the underlying distribution of $\Delta P_{\rm act}$- and $D_{\rm act}$-values. However, they rely on several plausible but untested assumptions about encounter statistics. Fortunately, as discussed in Section \ref{sec:Pressure and Wind Models} and Appendix \ref{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}, we can use the observed vortex wind and pressure excursions themselves to work out the intrinsic parameters. The best-fit full and simple wind profile models are illustrated for the three representative vortex encounters in Figure \ref{fig:vortices_and_windspeed}. 
 
-\begin{equation}
-V(r) = V_{\rm T} \frac{2 r / D_{\rm act}}{1 + \left( 2 r / D_{\rm act} \right)^2},\label{eqn:tangential_velocity_profile}
-\end{equation}
-where $V_{\rm T}$ is the velocity at a radial distance $r = D_{\rm act}$.
+Figure \ref{fig:Dact_vs_Pact} shows the inferred $P_{\rm act}$- and $D_{\rm act}$-values. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/Dact_vs_Pact.png}
+    \caption{}
+    \label{fig:Dact_vs_Pact}
+\end{figure}
 
 \section{Discussion and Conclusions}
 \label{sec:Discussion and Conclusions}
@@ -602,17 +648,17 @@ Finally, we must interpret these results in terms of our ability to recover vort
 
 \section{Inferring Encounter Geometries from the Pressure and Velocity Profiles}
 \label{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}
-We assume the vortices correspond to Rankine vortices \citep{1991ExFl...11...73V}, giving pressure $\Delta P$ and tangential wind velocity profiles $V_{\rm r}$:
+We assume the vortices correspond to Rankine vortices \citep{1991ExFl...11...73V}, giving pressure $\Delta P$ and tangential wind velocity profiles $V$:
 \begin{equation}
     \Delta P(r) = -\frac{\Delta P_{\rm act}}{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2}\label{eqn:radial_lorentzian_profile}
 \end{equation}
 and
 \begin{equation}
-    V_{\rm r}(r) = \frac{ V_{\rm act} \left( \frac{2 r}{D_{\rm act}/2} \right)}{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2},\label{eqn:radial_wind_profile}
+    V(r) = \frac{ V_{\rm act} \left( 2 \frac{r}{D_{\rm act}/2} \right)}{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2},\label{eqn:radial_wind_profile}
 \end{equation}
 where $r$ is the radial distance from the vortex center, $P_{\rm act}$ the central pressure excursion, and $V_{\rm act}$ the peak velocity at a distance $D_{\rm act}$ from the vortex center. Equation \ref{eqn:radial_distance} shows the evolution of the radial distance with time during an encounter. At closest approach, we measure $\Delta P = \Delta P_{\rm obs}$ (Equation \ref{eqn:Pobs}) and 
 \begin{equation}
-    V_{\rm r} = \frac{ V_{\rm act} \left( \frac{2 b}{D_{\rm act}/2} \right)}{1 + \left( \frac{b}{D_{\rm act}/2} \right)^2} = V_{\rm obs}.\label{eqn:Vobs}
+    V = \frac{ V_{\rm act} \left( 2\frac{b}{D_{\rm act}/2} \right)}{1 + \left( \frac{b}{D_{\rm act}/2} \right)^2} = V_{\rm obs}.\label{eqn:Vobs}
 \end{equation} 
 
 Cyclostrophic balance relates the pressure and velocity as \citep{2020Icar..33813523J}:
