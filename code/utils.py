@@ -408,7 +408,7 @@ def velocity_profile(t, t0, VT, U, ract, b, background_wind):
 
     return VT*2.*rprime/(1 + rprime**2) + background_wind
 
-def retrieve_wind_and_pressure(sol, dr, dr_wind, t0, Gamma):
+def retrieve_wind_and_pressure(sol, dr, dr_wind, t0, Gamma, num_gamma=5):
 
     # Use to calculate the real density
     Rgas = 1.8892e2 # J/kg/K - from https://atmos.nmsu.edu/education_and_outreach/encyclopedia/gas_constant.htm
@@ -426,7 +426,7 @@ def retrieve_wind_and_pressure(sol, dr, dr_wind, t0, Gamma):
 
     LTST, LTST_and_sol, sol_data = retrieve_data(sol, dr=dr)
     LTST_and_sol -= 24.*sol
-    ind = np.abs(LTST_and_sol - t0) < 5*Gamma
+    ind = np.abs(LTST_and_sol - t0) < num_gamma*Gamma
     pressure_x = LTST_and_sol[ind] - t0
     pressure_y = sol_data['PRESSURE'][ind]
     pressure_sigma = np.median(np.abs(pressure_y[1:] - pressure_y[0:-1]))
