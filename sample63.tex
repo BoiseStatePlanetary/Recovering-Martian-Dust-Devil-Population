@@ -101,6 +101,7 @@
 \newcommand{\largestDeltaPobssol}{65}
 \newcommand{\largestGammaobssol}{20}
 \newcommand{\largestGammaobs}{$\left( 99 \pm 3 \right)\,{\rm s}$}
+\newcommand{\agreeablevortices}{127}
 
 %% Reintroduced the \received and \accepted commands from AASTeX v5.2
 \received{June 1, 2019}
@@ -321,7 +322,7 @@ where $r$ is the radial distance from the vortex center, $P_{\rm act}$ the centr
 \begin{equation}
     \Delta P(t) = \frac{-\Delta P_{\rm obs}}{1 + \left( \frac{ t - t_0 }{\Gamma_{\rm obs}/2} \right)^2},\label{eqn:Lorentzian_profile}
 \end{equation}
-where $t$ is the time of each datum, $t_0$ the time of closest approach ($r(t_0) = b$), and $\Gamma_{\rm obs}$ the observed profile full-width/half-max (FWHM). This profile assumes the vortex travels past the sensor on a simple linear trajectory with a unidirectional and constant velocity $U$ (at least during the course of a single encounter). Consequently, the radial distance between the vortex center and the barometer $r(t)$ is assumed to evolve as 
+where $t$ is the time of each datum, $t_0$ the time of closest approach ($r(t_0) = b$), and $\Gamma_{\rm obs}$ the observed profile full-width/half-max (FWHM). This profile assumes the vortex travels past the sensor on a linear trajectory with a unidirectional and constant velocity $U$ (at least during the course of a single encounter). Consequently, the radial distance between the vortex center and the barometer $r(t)$ is assumed to evolve as 
 \begin{equation}
     r(t) = \sqrt{b^2 + U^2 \left( t - t_0 \right)^2}.\label{eqn:radial_distance}
 \end{equation}
@@ -442,16 +443,16 @@ On the other hand, $D_{\rm obs}$ seems negatively correlated with $P_{\rm obs}$,
     \label{fig:Dobs_vs_Gammaobs-DeltaPobs_hist}
 \end{figure}
 
-\citet{2018Icar..299..166J}, \citet{2019Icar..317..209K}, and \citet{2020Icar..33513389K} developed approaches to de-bias the observed population of vortices and work out the underlying distribution of $\Delta P_{\rm act}$- and $D_{\rm act}$-values. However, they rely on several plausible but untested assumptions about encounter statistics. Fortunately, as discussed in Section \ref{sec:Pressure and Wind Models} and Appendix \ref{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}, we can use the observed vortex wind and pressure excursions themselves to work out the intrinsic parameters. The best-fit full and simple wind profile models are illustrated for the three representative vortex encounters in Figure \ref{fig:vortices_and_windspeed}. 
-
-Figure \ref{fig:Dact_vs_Pact} shows the inferred $P_{\rm act}$- and $D_{\rm act}$-values. 
+\citet{2018Icar..299..166J}, \citet{2019Icar..317..209K}, and \citet{2020Icar..33513389K} developed approaches to de-bias the observed population of vortices and work out the underlying distribution of $\Delta P_{\rm act}$- and $D_{\rm act}$-values. However, they rely on plausible but untested assumptions about encounter statistics. Fortunately, as discussed in Section \ref{sec:Pressure and Wind Models} and Appendix \ref{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}, we can use the observed vortex wind and pressure excursions themselves to work out the intrinsic parameters. The best-fit full and simple wind profile models are illustrated for the three representative vortex encounters in Figure \ref{fig:vortices_and_windspeed}. Figure \ref{fig:Dact_vs_Pact} shows the inferred $P_{\rm act}$- and $D_{\rm act}$-values for the \agreeablevortices\ encounters for which the full and simple wind profile $V_{\rm obs}$-values agree to within 25\%. (For many other encounters, the two profiles return significantly different values, or the Levenberg-Marquardt fitting scheme fails to converge on a value for the full profile.) For the uncertainties, we take half the difference between the values returned using the simple and full wind profile models.
 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/Dact_vs_Pact.png}
-    \caption{}
+    \caption{(a) Distribution of estimated actual vortex diameters $D_{\rm act}$ vs. the pressure excursions $P_{\rm act}$ (blue dots) with uncertainties, along with a power-law fit (dashed, orange line). (b) Cumulative histogram of $P_{\rm act}$-values. (c) Cumulative histogram of $D_{\rm act}$-values.}
     \label{fig:Dact_vs_Pact}
 \end{figure}
+
+Although difficulties robustly modeling the wind profiles makes Figure \ref{fig:Dact_vs_Pact} more sparse than Figure \ref{fig:DeltaPobs_vs_Gammaobs}, interesting patterns still emerge. 
 
 \section{Discussion and Conclusions}
 \label{sec:Discussion and Conclusions}
