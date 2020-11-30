@@ -1,5 +1,16 @@
 % 2020 May 18 - THE MARTIAN ATMOSPHERIC BOUNDARY LAYER - https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2010RG000351
 
+% 2020 Oct 8 - ICC FOV = 120 deg, alpha = 10 * 0.82 mrad/px = 8.2 mrad = 0.14 deg
+% https://mars.nasa.gov/insight/spacecraft/about-the-lander/#cameras
+% https://www.nature.com/articles/s41467-020-14679-1
+%
+% D^{50%}_{\rm act} = 35 m
+
+% Asurvey ~ (120 deg)(35 m)^2/(2*(0.14 deg)^2) = 3.8 km^2
+% Seeing no dust devils means the areal density < 1/3.8 km^2 ~ 
+
+% From Golombek+ (2020 - https://www.nature.com/articles/s41467-020-14679-1):
+% A slope to the north limits the horizon to about 50 m away (Supplementary Fig. 5); it is topped by three rocks (The Pinnacles), and eolian bedforms (Dusty ridge) near the southwest rim of a ~100 m diameter degraded impact crater (Figs. 3–5). To the east-southeast (Fig. 4), the horizon extends about 400 m to the rim of a relatively fresh, ~100 m diameter impact crater (Sunrise) with large eolian bedforms on its rim (The Wave). The rim of a larger (460 m diameter), relatively fresh crater can be seen on the east-southeast horizon ~2.4 km away (Distant Crater in Fig. 6b).
 
 %% Beginning of file 'sample63.tex'
 %%
@@ -102,6 +113,7 @@
 \newcommand{\largestGammaobssol}{20}
 \newcommand{\largestGammaobs}{$\left( 99 \pm 3 \right)\,{\rm s}$}
 \newcommand{\agreeablevortices}{127}
+\newcommand{\vorticeswithnowinds}{56}
 
 %% Reintroduced the \received and \accepted commands from AASTeX v5.2
 \received{June 1, 2019}
@@ -332,21 +344,21 @@ We also model the wind speed time-series using a steady-state vortex. The wind s
 \begin{equation}
     V(r) = V_{\rm act} \frac{2 \left( \frac{r}{D_{\rm act}/2} \right) }{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2},
 \end{equation}
-where $V_{\rm act}$ is the tangential wind speed at the vortex diameter. Similar to the pressure signal, a non-zero $b$ means the maximum wind speed encountered $V_{\rm obs}$ is less than the actual maximum at the vortex diameter. Thus, the observed vortex wind profile is given by 
+where $V_{\rm act}$ is the tangential wind speed at the vortex diameter. Similar to the pressure signal, a non-zero $b$ means the maximum wind speed encountered $V_{\rm obs}$ is less than the actual maximum at the vortex diameter. We model the observed vortex wind profile is given by 
 \begin{equation}
-    V(r) = V_{\rm obs} \frac{\sqrt{1 + \left( U/b \right)^2 \left( t - t_0 \right)^2}}{1 + \left(\frac{t - t_0}{\Gamma_{\rm obs}/2}\right)^2}.\label{eqn:wind_profile}
+    V(r) = V_{\rm obs} \frac{\sqrt{1 + \left( U_1/b \right)^2 \left( t - t_0 \right)^2}}{1 + \left(\frac{t - t_0}{\Gamma_{\rm obs}/2}\right)^2},\label{eqn:wind_profile}
 \end{equation}
-The total wind speed observed $W(t)$ is the vector sum of the ambient wind and vortex wind, given by 
+where $U_1$ is the ambient wind speed before the encounter and which we take as the advective speed for the vortex. Strictly, this model breaks down for $b = 0$, but such an encounter is statistically unlikely \citep{2018Icar..299..166J}. Many of the wind signals exhibit a different ambient wind speed before the encounter ($U_1$) than after the encounter ($U_2$). Thus, the total wind speed observed $W(t)$ is the vector sum of the ambient wind and vortex wind, given by 
 \begin{equation}
-    W(t) = \sqrt{V^2 + 2 U V \cos \theta + U^2},\label{eqn:total_wind_speed}
+    W(t) = \left\{
+    \begin{array}{ll}
+            \sqrt{V^2 + 2 U_1 V \cos \theta + U_1^2}, & \left( t - t_0 \right) \leq 0\\
+            \sqrt{V^2 + 2 U_2 V \cos \theta + U_2^2}, & \left( t - t_0 \right) > 0\\
+    \end{array}\right,\label{eqn:total_wind_speed}
 \end{equation}
-where $\cos \theta = b/\sqrt{b^2 + U^2\left( t - t_0 \right)^2}$. 
+where $\cos \theta = b/\sqrt{b^2 + \left( U_{1/2} \right)^2\left( t - t_0 \right)^2}$. By fitting these models to the pressure and wind time-series, we can directly estimate $\Delta P_{\rm obs}$ and $\Gamma_{\rm obs}$. 
 
-By fitting these models to the pressure and wind time-series, we can directly estimate $\Delta P_{\rm obs}$ and $\Gamma_{\rm obs}$. In addition, we can estimate the ambient wind speed before and after the vortex encounter ($U_1$ and $U_2$), which, as we show below, are often different. 
-
-The observed pressure and excursions ($\Delta P_{\rm obs}$ and $V_{\rm obs}$) are likely to differ from the intrinsic vortex parameters $\Delta P_{\rm act}$ and $V_{\rm act}$ since $b$ is unlikely zero but otherwise unknown \emph{a priori} for any encounter. However, as we show in Appendix \ref{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}, we can estimate the intrinsic from the observed parameters, as well as $b$. To check this approach, we applied these models to many synthetic vortex encounters for a range of encounter geometries, vortex parameters, and time-series noise representative of the observed values. We found that for encounter with $b \lesssim 2 \times D_{\rm act}$, we were able to consistently recover the imposed parameters. Encounters farther than that, and the signals were usually lost in the noise.
-
-As discussed below, the wind time-series have limited time resolution and exhibit correlated noise, both of which make robust model fits difficult. To bolster our results, we fit a second, more simple wind profile:
+As discussed below, the wind time-series have limited time resolution and exhibit correlated noise, both of which make robust model fits difficult. To bolster our results, we also fit a second, more simple wind profile:
 \begin{equation}
     V(r) = \left\{
         \begin{array}{ll}
@@ -356,7 +368,9 @@ As discussed below, the wind time-series have limited time resolution and exhibi
         \end{array}
     \right.\label{eqn:simple_wind_profile}
 \end{equation}
-(For both this simpler and the full wind profile, $V_{\rm obs}$ may be negative, reflecting cyclonic or anti-cyclonic vortices.) We compare the best-fit $V_{\rm obs}$-values between the two models for each encounter to corroborate our results.
+(For both this simpler and the full wind profile, $V_{\rm obs}$ may be negative, reflecting cyclonic or anti-cyclonic vortices.) We compare the fit parameters between the two models for each encounter to corroborate our results.
+
+The observed pressure and excursions ($\Delta P_{\rm obs}$ and $V_{\rm obs}$) are likely to differ from the intrinsic vortex parameters $\Delta P_{\rm act}$ and $V_{\rm act}$ since $b$ is unlikely zero but otherwise unknown \emph{a priori} for any encounter. However, as we show in Appendix \ref{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}, we can estimate the intrinsic values and encounter distance $b$ from the observed parameters. To check this approach, we applied these models to many synthetic vortex encounters for a range of encounter geometries, vortex parameters, and time-series noise representative of the observed values. We found that for encounter with $b \lesssim 2 \times D_{\rm act}$, we were able to consistently recover the imposed parameters. For encounters farther than that, the signals were usually lost in the noise.
 
 Vortex encounters may also produce excursions in the wind direction (as the tangential wind field passes) and in ambient temperature (as the warm core passes over the sensor) \citep{2016SSRv..203...39M}. APSS does return wind direction and air temperature data. However, we do not model these time-series since the wind direction data essentially replicate the encounter information provided by the wind speeds, and, as in other in-situ studies of vortices, the temperature data show small or negligible excursions during the encounters. In any case, the temperatures would be expected to simply mirror the pressure excursions \citep{2016Icar..271..326L}.
 
@@ -443,7 +457,7 @@ On the other hand, $D_{\rm obs}$ seems negatively correlated with $P_{\rm obs}$,
     \label{fig:Dobs_vs_Gammaobs-DeltaPobs_hist}
 \end{figure}
 
-\citet{2018Icar..299..166J}, \citet{2019Icar..317..209K}, and \citet{2020Icar..33513389K} developed approaches to de-bias the observed population of vortices and work out the underlying distribution of $\Delta P_{\rm act}$- and $D_{\rm act}$-values. However, they rely on plausible but untested assumptions about encounter statistics. Fortunately, as discussed in Section \ref{sec:Pressure and Wind Models} and Appendix \ref{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}, we can use the observed vortex wind and pressure excursions themselves to work out the intrinsic parameters. The best-fit full and simple wind profile models are illustrated for the three representative vortex encounters in Figure \ref{fig:vortices_and_windspeed}. Figure \ref{fig:Dact_vs_Pact} shows the inferred $P_{\rm act}$- and $D_{\rm act}$-values for the \agreeablevortices\ encounters for which the full and simple wind profile $V_{\rm obs}$-values agree to within 25\%. (For many other encounters, the two profiles return significantly different values, or the Levenberg-Marquardt fitting scheme fails to converge on a value for the full profile.) For the uncertainties, we take half the difference between the values returned using the simple and full wind profile models.
+\citet{2018Icar..299..166J}, \citet{2019Icar..317..209K}, and \citet{2020Icar..33513389K} developed approaches to de-bias the observed population of vortices and work out the underlying distribution of $\Delta P_{\rm act}$- and $D_{\rm act}$-values. However, they rely on plausible but untested assumptions about encounter statistics. Fortunately, as discussed in Section \ref{sec:Pressure and Wind Models} and Appendix \ref{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}, we can use the observed vortex wind and pressure excursions themselves to work out the intrinsic parameters. The best-fit full and simple wind profile models are illustrated for the three representative vortex encounters in Figure \ref{fig:vortices_and_windspeed}. Figure \ref{fig:Dact_vs_Pact} shows the inferred $P_{\rm act}$- and $D_{\rm act}$-values for the \agreeablevortices\ encounters for which the inferred $P_{\rm act}$ and $D_{\rm act}$ from both the full and simple wind profiles agree to within 25\%. (For many other encounters, the two profiles return significantly different values, or the Levenberg-Marquardt fitting scheme fails to converge on a value for the full profile.) We also require that the inferred $|b|/D_{\rm act} < 10$ and that observed wind speed excursion $V_{\rm obs}$ is more than 3-$\sigma$ different from the pre-encounter ambient wind speed $U_1$. This criterion ensures that we detected a true vortex encounter, rather than simply a pressure excursion. (For \vorticeswithnowinds\ encounters, we found the simple and full wind profile fits agreed but gave $V_{\rm obs}$ statistically consistent with $U_1$.) For the uncertainties on $P_{\rm act}$ and $P_{\rm act}$, we take half the difference between the values returned using the simple and full wind profile models.
 
 \begin{figure}
     \centering
@@ -621,7 +635,7 @@ with $\gamma < 5$ and $D_{\rm min} \ll D_{\rm max}$. For a representative estima
 
 \section{Vortex Recovery Statistics}
 \label{sec:Vortex Recovery Statistics}
-In this section, we describe our analysis of our vortex recovery statistics. We explored the effects of the mean boxcar filter on both the time-series scatter but also on the detected vortices, as well as the effectivenesss of our matched filter approach.
+In this section, we describe our analysis of our vortex recovery statistics. We explored the effects of the mean boxcar filter on both the time-series scatter but also on the detected vortices, as well as the effectiveness of our matched filter approach.
 
 For our study here, the mean boxcar filter  acts as high-pass filter on the APSS pressure time-series and, in principle, should induce little distortion on signals much narrower than the filter window size $W$. However, some vortices have quite long durations (many tens of seconds), and so they may be distorted if we use a small enough window. As a measure of this distortion, we can calculate how much less deep a vortex profile would appear after applying the filter by calculating the convolution of a boxcar function against a Lorentzian profile:
 \begin{equation}
