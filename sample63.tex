@@ -330,21 +330,21 @@ As in previous work \citep[e.g.][]{2016JGRE..121.1514K}, we model the pressure s
 \begin{equation}
     \Delta P(r) = -\frac{\Delta P_{\rm act}}{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2}\label{eqn:radial_lorentzian_profile}
 \end{equation}
-where $r$ is the radial distance from the vortex center, $P_{\rm act}$ the central pressure excursion, and $D_{\rm act}$ is taken as the vortex diameter. The closest approach distance between the vortex center and the APSS sensors $b$ is usually greater than zero. As a result, the minimum observed in the pressure time-series $\Delta P_{\rm obs}$ is not usually as deep as the actual pressure excursion at the vortex center \citep{2018Icar..299..166J, 2019Icar..317..209K}. The pressure time-series for a vortex encounter can be represented by 
-\begin{equation}
-    \Delta P(t) = \frac{-\Delta P_{\rm obs}}{1 + \left( \frac{ t - t_0 }{\Gamma_{\rm obs}/2} \right)^2},\label{eqn:Lorentzian_profile}
-\end{equation}
-where $t$ is the time of each datum, $t_0$ the time of closest approach ($r(t_0) = b$), and $\Gamma_{\rm obs}$ the observed profile full-width/half-max (FWHM). This profile assumes the vortex travels past the sensor on a linear trajectory with a unidirectional and constant velocity $U$ (at least during the course of a single encounter). Consequently, the radial distance between the vortex center and the barometer $r(t)$ is assumed to evolve as 
+where $t$ is the time of each datum, $t_0$ the time of closest approach ($r(t_0) = b$), $r$ is the radial distance from the vortex center, $P_{\rm act}$ the central pressure excursion, and $D_{\rm act}$ is taken as the vortex diameter. $r(t)$ is given by
 \begin{equation}
     r(t) = \sqrt{b^2 + U^2 \left( t - t_0 \right)^2}.\label{eqn:radial_distance}
 \end{equation}
-With these definitions, $\Gamma_{\rm obs} = U^{-1} \sqrt{D_{\rm act}^2 + \left( 2 b \right)^2}$.
+This scheme assumes the vortex travels past the sensor on a linear trajectory with a unidirectional and constant velocity $U$ (at least during the course of a single encounter). The closest approach distance between the vortex center and the APSS sensors $b$ is usually greater than zero. As a result, the minimum observed in the pressure time-series $\Delta P_{\rm obs}$ is not usually as deep as the actual pressure excursion at the vortex center \citep{2018Icar..299..166J, 2019Icar..317..209K}. The pressure time-series for a vortex encounter can therefore be represented by 
+\begin{equation}
+    \Delta P(t) = \frac{-\Delta P_{\rm obs}}{1 + \left( \frac{ t - t_0 }{\Gamma_{\rm obs}/2} \right)^2},\label{eqn:Lorentzian_profile}
+\end{equation}
+where $\Gamma_{\rm obs}$ is the observed profile full-width/half-max (FWHM). With these definitions, $\Gamma_{\rm obs} = U^{-1} \sqrt{D_{\rm act}^2 + \left( 2 b \right)^2}$.
 
-We also model the wind speed time-series using a steady-state vortex. The wind speed signal consists both of an ambient wind $U$ and the vortex wind $V(r)$, which is a function of radial distance (and therefore time). For the Rankine vortex model \citep{1991ExFl...11...73V}, $V(r)$ is given by
+We also model the wind speed time-series. The wind speed signal consists both of an ambient wind $U$ and the vortex wind $V(r)$, which is a function of radial distance (and therefore time). For the Rankine vortex model \citep{1991ExFl...11...73V}, $V(r)$ is given by
 \begin{equation}
     V(r) = V_{\rm act} \frac{2 \left( \frac{r}{D_{\rm act}/2} \right) }{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2},
 \end{equation}
-where $V_{\rm act}$ is the tangential wind speed at the vortex diameter. Similar to the pressure signal, a non-zero $b$ means the maximum wind speed encountered $V_{\rm obs}$ is less than the actual maximum at the vortex diameter. We model the observed vortex wind profile is given by 
+where $V_{\rm act}$ is the tangential wind speed at the vortex diameter. Similar to the pressure signal, a non-zero $b$ means the maximum wind speed encountered $V_{\rm obs}$ is less than the actual maximum at the vortex diameter. We model the observed vortex wind profile as
 \begin{equation}
     V(r) = V_{\rm obs} \frac{\sqrt{1 + \left( U_1/b \right)^2 \left( t - t_0 \right)^2}}{1 + \left(\frac{t - t_0}{\Gamma_{\rm obs}/2}\right)^2},\label{eqn:wind_profile}
 \end{equation}
@@ -354,21 +354,9 @@ where $U_1$ is the ambient wind speed before the encounter and which we take as 
     \begin{array}{ll}
             \sqrt{V^2 + 2 U_1 V \cos \theta + U_1^2}, & \left( t - t_0 \right) \leq 0\\
             \sqrt{V^2 + 2 U_2 V \cos \theta + U_2^2}, & \left( t - t_0 \right) > 0\\
-    \end{array}\right,\label{eqn:total_wind_speed}
+    \end{array},\label{eqn:total_wind_speed}
 \end{equation}
 where $\cos \theta = b/\sqrt{b^2 + \left( U_{1/2} \right)^2\left( t - t_0 \right)^2}$. By fitting these models to the pressure and wind time-series, we can directly estimate $\Delta P_{\rm obs}$ and $\Gamma_{\rm obs}$. 
-
-As discussed below, the wind time-series have limited time resolution and exhibit correlated noise, both of which make robust model fits difficult. To bolster our results, we also fit a second, more simple wind profile:
-\begin{equation}
-    V(r) = \left\{
-        \begin{array}{ll}
-            U_1, & \left( t - t_0 \right) < -\Gamma_{\rm obs}\\
-            V_{\rm obs} + U_1, & -\Gamma_{\rm obs} \leq \left( t - t_0 \right) \geq \Gamma_{\rm obs}\\
-            U_2, & \left( t - t_0 \right) < \Gamma_{\rm obs}\\
-        \end{array}
-    \right.\label{eqn:simple_wind_profile}
-\end{equation}
-(For both this simpler and the full wind profile, $V_{\rm obs}$ may be negative, reflecting cyclonic or anti-cyclonic vortices.) We compare the fit parameters between the two models for each encounter to corroborate our results.
 
 The observed pressure and excursions ($\Delta P_{\rm obs}$ and $V_{\rm obs}$) are likely to differ from the intrinsic vortex parameters $\Delta P_{\rm act}$ and $V_{\rm act}$ since $b$ is unlikely zero but otherwise unknown \emph{a priori} for any encounter. However, as we show in Appendix \ref{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}, we can estimate the intrinsic values and encounter distance $b$ from the observed parameters. To check this approach, we applied these models to many synthetic vortex encounters for a range of encounter geometries, vortex parameters, and time-series noise representative of the observed values. We found that for encounter with $b \lesssim 2 \times D_{\rm act}$, we were able to consistently recover the imposed parameters. For encounters farther than that, the signals were usually lost in the noise.
 
@@ -401,6 +389,17 @@ Figure \ref{fig:data_conditioning_and_fit}(a) shows the time-series for sol 392,
 \section{Results}
 \begin{figure}
     \centering
+    \includegraphics[width=\textwidth]{figures/sol_and_t0_histograms.png}
+    \caption{(a) The number of vortices during each sol $N$ (blue dots). The orange histogram shows the same numbers with bins 35 days wide. (b) The number of vortices during each hour local true solar time (LTST). Orange lines in both panels show Poisson error bars.}
+    \label{fig:sol_and_t0_histograms}
+\end{figure}
+
+The vortices also exhibit sol-to-sol and hour-to-hour variation, as illustrated in Figure \ref{fig:sol_and_t0_histograms}. Panel (a) shows that the maximum daily of vortices occurred on sol 204 of the mission, in the middle of northern spring, while the next maximum occurs on sol 300, near the beginning of northern summer. Although \citet{2020arXiv200501134S} used a different procedure, that study found a broadly similar pattern -- a dip in the occurrence rate centered on sol 100, with an increase going into sol 200 and beyond. 
+
+Regarding the hour-to-hour variations, panel (b) shows that the maximum occurs during the hour centered on 11:00 LTST, with a symmetric decline to either side ($\pm20\%\,{\rm hr^{-1}}$). These results contrast somewhat with those of \citet{2020arXiv200501134S}, which found a peak in vortex occurrence between 11:00 and 12:00 LTST. Different binning shifts the peak around some but not far from 13:00 LTST, so the origin of this discrepancy is not clear. 
+
+\begin{figure}
+    \centering
     \includegraphics[width=\textwidth]{figures/DeltaPobs_vs_Gammaobs.png}
     \caption{(a) The best-fit $\Delta P_{\rm obs}$- and $\Gamma_{\rm obs}$-values (blue dots). Representative error bars are shown as orange crosses. (b) Cumulative histogram of $\Gamma_{\rm obs}$-values, along with the 50\% quantile value ($\Gamma_{\rm obs} = \left( 9.3 \pm 0.2 \right)\,{\rm s}$) shown by the dashed, orange line. (c) Cumulative histogram of $\Delta P_{\rm obs}$-values, along with the 50\% quantile value ($\Delta P_{\rm obs} = \left( 1.13 \pm 0.03 \right)\,{\rm Pa}$) shown by the dashed, orange line. The dash-dotted green line shows a power-law fit to the histogram, with $N \propto \Delta P_{\rm obs}^{-2.45\pm0.02}$.}
     \label{fig:DeltaPobs_vs_Gammaobs}
@@ -413,15 +412,10 @@ Figure \ref{fig:DeltaPobs_vs_Gammaobs}(a) shows the best-fit $\Gamma_{\rm obs}$-
 The flattening of the cumulative histogram for $\Delta P_{\rm obs}$ (Figure \ref{fig:DeltaPobs_vs_Gammaobs}(c)) near $\Delta P_{\rm obs} = 1.1\,{\rm Pa}$ indicates a decline in the number of detected vortices below that value. This decline occurs, at least in part, because of difficulty detecting these more shallow signals against noise  \citep{2018Icar..299..166J}. Given the possible strong dependence of dust-lifting on $\Delta P$, the exact form of the histogram of $\Delta P_{\rm obs}$-values is critical for evaluating the population's atmospheric influence. We fit a power-law to the cumulative histogram with an exponent $\gamma = -2.39\pm0.02$, which suggests the differential histogram has an exponent $\approx -3.39$. This exponent is consistent with the value reported in  \citet{2020arXiv200501134S} for the same dataset and with the value reported in \citet{2018Icar..299..166J} for the vortices detected by the Phoenix Mission. (On a related note, since the best-fit exponent for the $\Delta P_{\rm obs}$-histogram can depend on the chosen binning, we suggest such analyses use cumulative histograms or a data-informed scheme for binning -- \citealp{2016SSRv..203..277L}.)
 
 \begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{figures/sol_and_t0_histograms.png}
-    \caption{(a) The number of vortices during each sol $N$ (blue dots). The orange histogram shows the same numbers with bins 35 days wide. (b) The number of vortices during each hour local true solar time (LTST). Orange lines in both panels show Poisson error bars.}
-    \label{fig:sol_and_t0_histograms}
+\centering
+\includegraphics[width=0.48\textwidth]{figures/vortices_and_windspeed.png}
+\caption{Pressure signals (blue dots) and models (blue lines), along with the corresponding horizontal windspeeds (orange dots). The best-fit wind models based on Equation \ref{eqn:wind_profile} are shown as orange curves, and the simplified wind profile models based on Equation \ref{eqn:simple_wind_profile} are shown as orange horizontal lines. \label{fig:vortices_and_windspeed}}
 \end{figure}
-
-The vortices also exhibit sol-to-sol and hour-to-hour variation, as illustrated in Figure \ref{fig:sol_and_t0_histograms}. Panel (a) shows that the maximum daily of vortices occurred on sol 204 of the mission, in the middle of northern spring, while the next maximum occurs on sol 300, near the beginning of northern summer. Although \citet{2020arXiv200501134S} used a different procedure, that study found a broadly similar pattern -- a dip in the occurrence rate centered on sol 100, with an increase going into sol 200 and beyond. 
-
-Regarding the hour-to-hour variations, panel (b) shows that the maximum occurs during the hour centered on 11:00 LTST, with a symmetric decline to either side ($\pm20\%\,{\rm hr^{-1}}$). These results contrast somewhat with those of \citet{2020arXiv200501134S}, which found a peak in vortex occurrence between 11:00 and 12:00 LTST. Different binning shifts the peak around some but not far from 13:00 LTST, so the origin of this discrepancy is not clear. 
 
 The $\Gamma_{\rm obs}$- and $\Delta P_{\rm obs}$-values exhibit intriguing trends as well -- Figure \ref{fig:Gammaobs_DeltaPobs_vs_TOD_and_sol}. Figure \ref{fig:Gammaobs_DeltaPobs_vs_TOD_and_sol} (c) shows that, binned by the hour, $\Gamma_{\rm obs}$ increases from $2$ to $20\,{\rm s}$ at a rate of $\left( 1\pm0.1 \right)\,{\rm s\ hr^{-1}}$. Figure \ref{fig:Gammaobs_DeltaPobs_vs_TOD_and_sol} (d) shows that $\Delta P_{\rm obs}$ peaks around 12:00 LTST at $\left( 1.3\pm0.05 \right)\,{\rm Pa}$ with minimum values at either end of about $\left( 0.7\pm 0.1 \right)\,{\rm Pa}$ (where the uncertainties come from the error of the mean in the corresponding bin). The values binned by sol (Figure \ref{fig:Gammaobs_DeltaPobs_vs_TOD_and_sol} (a) and (b)) show no obvious trends. 
 
@@ -433,12 +427,6 @@ The $\Gamma_{\rm obs}$- and $\Delta P_{\rm obs}$-values exhibit intriguing trend
 \end{figure}
 
 Presumably, these hour-to-hour trends reflect the influence of variable ambient conditions, but these data alone are not sufficient to judge what influence: the increase in $\Gamma_{\rm obs}$ could result either from intrinsically larger vortices late in the day or lower wind speeds $U$ advecting the same size vortices past the sensor. Fortunately, the TWINS wind speed data can shed light on this issue. Figure \ref{fig:vortices_and_windspeed} shows the vortices with the maximum, median, and minimum $\Gamma_{\rm obs}$-values (panels (a), (b), and (c), respectively). We estimate the advection speed by taking the median value $U$ between 5- and 3-$\Gamma_{\rm obs}$ before the encounter time $t_0$. This approach returns a wind speed close enough in time to be a plausible estimate of the advection speed while widely enough separated in time that the vortex probably did not significantly influence the wind. We then estimate the apparent diameter $D_{\rm obs} = U \Gamma_{\rm obs}$ with uncertainties as $\sigma_{D} = \left( U \Gamma_{\rm obs} \right) \sqrt{ \left( \sigma_U/U \right)^2 + \left( \sigma_{\Gamma_{\rm obs}}/\Gamma_{\rm obs} \right)^2 }$, where $\sigma_U$, the uncertainty on $U$, is estimated from the scatter in $U$ and $\sigma_{\Gamma_{\rm obs}}$ comes from the model estimate. 
-
-\begin{figure}
-\centering
-\includegraphics[width=0.48\textwidth]{figures/vortices_and_windspeed.png}
-\caption{Pressure signals (blue dots) and models (blue lines), along with the corresponding horizontal windspeeds (orange dots). The best-fit wind models based on Equation \ref{eqn:wind_profile} are shown as orange curves, and the simplified wind profile models based on Equation \ref{eqn:simple_wind_profile} are shown as orange horizontal lines. \label{fig:vortices_and_windspeed}}
-\end{figure}
 
 Figure \ref{fig:U_vs_t0-sol_hist} shows the wind speeds associated with the observed vortices; the maximum, median, and minimum values are $19.1\pm2.3$, $7.6\pm1.0$, and $0.5\pm0.2 \,{\rm m\ s^{-1}}$, respectively. Figure \ref{fig:Dobs_vs_Gammaobs-DeltaPobs_hist} shows the distribution of $D_{\rm obs}$-values against $\Gamma_{\rm obs}$ and $\Delta P_{\rm obs}$, as well as a cumulative histogram. The maximum, minimum, and median values are $1100 \pm 240$, $75 \pm 21$, and $4 \pm 1 \,{\rm m}$, respectively. Not surprisingly, the $D_{\rm obs}$-values correlate positively with $\Gamma_{\rm obs}$ with scatter resulting from the relatively narrow range of wind speeds. 
 On the other hand, $D_{\rm obs}$ seems negatively correlated with $P_{\rm obs}$, and a power-law fit using the Levenberg-Marquardt algorithm \citep{Press2007} gives $D_{\rm obs} \propto \Delta P_{\rm obs}^{-0.42\pm0.04}$, where uncertainties come from the covariance matrix. As explained in \citet{2018Icar..299..166J}, for a vortex encounter with any miss distance $b$, we expect $\Delta P_{\rm obs}$ and $D_{\rm obs}$ are related to the vortex's central pressure excursion $\Delta P_{\rm act}$ and diameter $D_{\rm act}$ as $\Delta P_{\rm obs} D_{\rm obs}^2 = \Delta P_{\rm act} D_{\rm act}^2$. Figure \ref{fig:Dobs_vs_Gammaobs-DeltaPobs_hist}(b) could be interpreted, then, as encounters with vortices at a variety of miss distances but all with the same $\Delta P_{\rm act}$- and $D_{\rm act}$-values (the exponent $0.4\pm0.04$ diverges from 0.5 by less than $3-\sigma$). However, such a result is totally unexpected as dust devil diameters are known to span a wide range and would be inconsistent with a variety of studies \citep[cf.][]{2016SSRv..203..277L}. Instead, this result probably only indicates that the range of miss distances plays an important role in setting the observed distribution. 
