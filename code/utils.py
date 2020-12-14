@@ -538,7 +538,7 @@ def simple_wind_profile(t, wind, t0, Gamma, sampling, num_samples=3):
     return simple_wind_profile
 
 def make_plot(ax1, ax2, wind_x, wind_y, wind_sigma, pressure_x, pressure_y,
-        pressure_sigma, t0, intercept, slope, DeltaP, Gamma, U1, Vobs, U2):
+        pressure_sigma, t0, intercept, slope, DeltaP, Gamma):
 
     ax2.errorbar(wind_x*3600, wind_y, yerr=wind_sigma*np.ones_like(wind_x), 
             marker='o', color=BoiseState_orange, ls='')
@@ -558,12 +558,5 @@ def make_plot(ax1, ax2, wind_x, wind_y, wind_sigma, pressure_x, pressure_y,
     ax1.tick_params(axis='y', labelcolor=BoiseState_blue)
     ax1.plot(pressure_x*3600, modified_lorentzian(pressure_x + t0, intercept, 
         slope, t0, DeltaP, Gamma/3600.), color=BoiseState_blue, zorder=-1)
-
-    ax2.plot([np.min(wind_x)*3600., -Gamma], [U1, U1], lw=3, 
-            color=BoiseState_orange)
-    ax2.plot([-Gamma, Gamma], [Vobs + U1, Vobs + U1], lw=3, 
-            color=BoiseState_orange)
-    ax2.plot([Gamma, np.max(wind_x)*3600.], [U2, U2], lw=3, 
-            color=BoiseState_orange)
 
     return
