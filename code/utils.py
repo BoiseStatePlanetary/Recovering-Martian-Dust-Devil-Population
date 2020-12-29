@@ -483,15 +483,15 @@ def wind_profile(t, t0, Vobs, U1, U2, b, Gamma_obs):
 
 def fit_wind_profile(t, wind, sigma, t0, Gamma, p0):
 
-#   U1 = np.nanmedian(wind[t < -5.*Gamma])
-#   U2 = np.nanmedian(wind[t > 5.*Gamma])
+    U1 = np.nanmedian(wind[t < -5.*Gamma])
+    U2 = np.nanmedian(wind[t > 5.*Gamma])
 
-    popt, pcov = curve_fit(lambda t, fit_Vobs, fit_U1, fit_U2, fit_b:\
-            wind_profile(t, t0, fit_Vobs, fit_U1, fit_U2, fit_b, Gamma),
+    popt, pcov = curve_fit(lambda t, fit_Vobs, fit_b:\
+            wind_profile(t, t0, fit_Vobs, U1, U2, fit_b, Gamma),
             t, wind, p0=p0, sigma=sigma*np.ones_like(t))
     uncertainties = np.sqrt(np.diag(pcov))
 
-    return popt, uncertainties
+    return popt, uncertainties, U1, U2
 
 def calculate_act_values(density, Vobs, DeltaPobs, Diameter):
     """ Calculate the eyewall values """
