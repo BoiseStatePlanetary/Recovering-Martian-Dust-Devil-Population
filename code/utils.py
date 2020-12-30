@@ -483,8 +483,10 @@ def wind_profile(t, t0, Vobs, U1, U2, b, Gamma_obs):
 
 def fit_wind_profile(t, wind, sigma, t0, Gamma, p0):
 
-    U1 = np.nanmedian(wind[t < -5.*Gamma])
-    U2 = np.nanmedian(wind[t > 5.*Gamma])
+    num_gammas = 3.
+
+    U1 = np.nanmedian(wind[t < -num_gammas*Gamma])
+    U2 = np.nanmedian(wind[t > num_gammas*Gamma])
 
     popt, pcov = curve_fit(lambda t, fit_Vobs, fit_b:\
             wind_profile(t, t0, fit_Vobs, U1, U2, fit_b, Gamma),
