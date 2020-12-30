@@ -331,25 +331,14 @@ Wind data come from the TWINS instrument, the sensors for which sit on booms loc
 
 Vortex encounters can also produce excursions in ambient temperature (as the warm core passes over the sensor) \citep{2016SSRv..203...39M}, and APSS does return air temperature data. However, we do not model these time-series since the temperature data show small or negligible excursions during the encounters. In any case, the temperatures would be expected to simply mirror the pressure excursions \citep{2016Icar..271..326L}.
 
-\subsection{Searching for Vortex Encounters}
+\subsection{Searching for Vortex Encounters and Fitting Pressure Profiles}
 Both the pressure and wind speed data exhibit turbulent excursions that constitute a source of non-Gaussian noise and complicate our search for vortex encounters. However, the pressure data are both more plentiful and less affected by these excursions, so we search for encounters using the pressure time-series. This approach replicates many prior studies, including previous analyses of InSight data \citep{2020arXiv200501134S, 2021Icar..35514119L}. Figure \ref{fig:data_conditioning_and_fit} depicts our search process in graphical form, and panel (a) shows the raw pressure time-series for sol 392, a representative sol. The vertical dashed orange lines show the vortex signals, whose detection we describe next. Any time-series analysis scheme will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, and we explore biases of our detection scheme and how those influence the final recovered population of vortices in the Appendix (Section \ref{sec:Vortex Recovery Statistics}). 
 
 To suppress longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices. Figure \ref{fig:data_conditioning_and_fit}(b) shows the resulting detrended time-series $\Delta P$. Based on the analysis described in the Appendix (Section \ref{sec:Vortex Recovery Statistics}), we chose $W = 3000\,{\rm s}$. 
 
 Next, we employ a matched filter approach \citep[][ch.~13]{Press2007} using a normalized Lorentzian profile with a known FWHW, $\Gamma$; that is, we march a Lorentzian profile, point-by-point, across the time series, convolving it with the time-series. Based on our analysis in the Appendix (Section \ref{sec:Vortex Recovery Statistics}), we chose $\Gamma = 1\,{\rm s}$. This process produces the equivalent of a spectrum, with large positive spikes when the filter encounters other Lorentzian-like signals. We subtract the median value from this raw spectrum and then normalize it by the standard deviation (as estimated by $1.4826\ \times$ the median absolute deviation -- \citealp{doi:10.1080/01621459.1993.10476408}). We consider peaks rising above the detection threshold of 5 to be possible vortices. Figure \ref{fig:data_conditioning_and_fit}(c) shows this normalized spectrum for the time-series in panel (b), along with the peaks raising above $F \ast P = 5$ (vertical dashed orange lines). 
 
-Finally, considering the original, undetrended time-series (e.g., Figure \ref{fig:data_conditioning_and_fit}(a)), we use the Leverberg-Marquardt algorithm \citep[cf.][]{Press2007} to fit the time-series in a window 30-FWHMs wide around each vortex signal. We fit a Lorentzian profile (Equation \ref{eqn:Lorentzian_profile}) combined with a linear trend, returning best fit parameters $t_0$, $\Delta P_{\rm obs}$, and $\Gamma_{\rm obs}$, as well as the background slope and intercept. Fitting such a model to the original, undetrended instead of the detrended time-series avoids the distorting effect of the boxcar filter on the vortex signal while taking into account any background trend. Figure \ref{fig:data_conditioning_and_fit}(d) shows such a fit (with the background intercept subtracted out).
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{figures/data_conditioning_and_fit.png}
-    \caption{(a) The pressure time-series for sol 392, as blue dots. The vertical orange lines highlight the detected vortex signals. (b) The time-series after application of the mean boxcar filter. Apparent by eye, the scatter in the time-series increases around mid-day. (c) Convolution of the matched filter with the time-series in (b). The horizontal dashed orange line shows the detection threshold of 5. (d) A model fit (solid orange line) to the deepest vortex discovered on sol 392, along with the model fit parameters -- each point's uncertainty is calculated via $1.4826\ \times$ the median absolute deviation in the window centered on that point.}
-    \label{fig:data_conditioning_and_fit}
-\end{figure}
-
-\subsection{Pressure and Wind Models}
-\label{sec:Pressure and Wind Models}
-To assess the vortex properties and encounter geometries, we fit pressure and wind speed profiles to the corresponding time-series that coincide in time with the peaks found by our search. As in previous work \citep[e.g.,][]{2016JGRE..121.1514K}, we assume the pressure structures of vortices are accurately represented by a steady-state modified Lorentzian profile,
+Finally, considering the original, undetrended time-series (e.g., Figure \ref{fig:data_conditioning_and_fit}(a)), we use the Levenberg-Marquardt algorithm \citep[cf.][]{Press2007} to fit the time-series in a window 30-FWHMs wide around each vortex signal. As in previous work \citep[e.g.,][]{2016JGRE..121.1514K}, we assume the pressure structures of vortices are accurately represented by a steady-state modified Lorentzian profile,
 
 \begin{equation}
     \Delta P(r) = -\frac{\Delta P_{\rm act}}{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2}\label{eqn:radial_lorentzian_profile}
@@ -362,9 +351,20 @@ where $t_0$ is the time of closest approach. This scheme assumes the vortex trav
 \begin{equation}
     \Delta P(t) = \frac{-\Delta P_{\rm obs}}{1 + \left( \frac{ t - t_0 }{\Gamma_{\rm obs}/2} \right)^2},\label{eqn:Lorentzian_profile}
 \end{equation}
-where $\Gamma_{\rm obs}$ is the observed profile full-width/half-max (FWHM). With these definitions, $\Gamma_{\rm obs} = U^{-1} \sqrt{D_{\rm act}^2 + \left( 2 b \right)^2}$.
+where $\Gamma_{\rm obs}$ is the observed profile full-width/half-max (FWHM). With these definitions, $\Gamma_{\rm obs} = U^{-1} \sqrt{D_{\rm act}^2 + \left( 2 b \right)^2}$. 
 
-The wind speed signal consists both of an ambient wind $U$ and the vortex wind $V(r)$, which is a function of radial distance (and therefore time). For the Rankine vortex model \citep{1991ExFl...11...73V}, $V(r)$ is given by
+We fit this profile combined with a linear trend, returning best fit parameters $t_0$, $\Delta P_{\rm obs}$, and $\Gamma_{\rm obs}$, as well as the background slope and intercept. Fitting such a model to the original, undetrended data instead of the detrended time-series avoids the distorting effect of the boxcar filter on the vortex signal while taking into account any background trend. Figure \ref{fig:data_conditioning_and_fit}(d) shows such a fit (with the background intercept subtracted out). Section \ref{sec:Results} below presents the results from this analysis.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/data_conditioning_and_fit.png}
+    \caption{(a) The pressure time-series for sol 392, as blue dots. The vertical orange lines highlight the detected vortex signals. (b) The time-series after application of the mean boxcar filter. Apparent by eye, the scatter in the time-series increases around mid-day. (c) Convolution of the matched filter with the time-series in (b). The horizontal dashed orange line shows the detection threshold of 5. (d) A model fit (solid orange line) to the deepest vortex discovered on sol 392, along with the model fit parameters -- each point's uncertainty is calculated via $1.4826\ \times$ the median absolute deviation in the window centered on that point.}
+    \label{fig:data_conditioning_and_fit}
+\end{figure}
+
+\subsection{Fitting Wind Profiles}
+\label{sec:Pressure and Wind Models}
+To assess the intrinsic vortex properties and encounter geometries, we also fit wind speed profiles to the wind speed time-series that coincide in time with the peaks found by our search. The wind speed signal consists both of an ambient wind $U$ and the vortex wind $V(r)$, which is a function of radial distance (and therefore time). For the Rankine vortex model \citep{1991ExFl...11...73V}, $V(r)$ is given by
 \begin{equation}
     V(r) = V_{\rm act} \frac{2 \left( \frac{r}{D_{\rm act}/2} \right) }{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2},
 \end{equation}
@@ -380,11 +380,31 @@ where $U_1$ is the ambient wind speed before the encounter and which we take as 
             \sqrt{V^2 + 2 U_2 V \cos \theta + U_2^2}, & \left( t - t_0 \right) > 0\\
     \end{array},\label{eqn:total_wind_speed}
 \end{equation}
-where $\cos \theta = b/\sqrt{b^2 + \left( U_{1/2} \right)^2\left( t - t_0 \right)^2}$.
+where $\cos \theta = b/\sqrt{b^2 + \left( U_{1/2} \right)^2\left( t - t_0 \right)^2}$. 
 
-As we show in Appendix \ref{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}, we can estimate $\Delta P_{\rm act}$ and $V_{\rm act}$, along with the encounter distance $b$, from the observed parameters. To check this approach, we applied these models to many synthetic vortex encounters for a range of encounter geometries, vortex parameters, and time-series noise representative of the observed values. We found that, for encounters with $b \lesssim 2 \times D_{\rm act}$, we were usually able to recover the assumed parameters. For encounters farther than that, the signals were usually lost in the noise. Future work should explore more robust approaches.
+We fit the pressure and wind speed profiles for each encounter in two separate steps -- first, the pressure, then the wind speed. In so doing, we hold the $\Gamma_{\rm obs}$-value fixed from the pressure profile fit. Experimentation showed this approach most frequently gave reasonable results, and Figure \ref{fig:vortices_and_windspeed} shows several examples of the profile fits. 
+
+As we show in Appendix \ref{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}, we can estimate $\Delta P_{\rm act}$ and $V_{\rm act}$, along with the encounter distance $b$, from the observed parameters. To check this approach, we applied these models to many synthetic vortex encounters for a range of encounter geometries, vortex parameters, and time-series noise representative of the observed values. We found that, for encounters with $b \lesssim D_{\rm act}$, we were able to recover the assumed parameters to within 50\% for the majority of cases. For encounters farther than that, the signals were usually lost in the noise. Future work should explore more robust approaches.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.48\textwidth]{figures/vortices_and_windspeed.png}
+\caption{Pressure data (blue dots) and models (blue lines) and horizontal windspeed data (orange dots) and models. \label{fig:vortices_and_windspeed}}
+\end{figure}
 
 \section{Results}
+\label{sec:Results}
+Figure \ref{fig:DeltaPobs_vs_Gammaobs}(a) shows our collection of best-fit $\Gamma_{\rm obs}$- and $\Delta P_{\rm obs}$-values, along with their respective cumulative histograms. Inspecting an initial tranche of detections by-hand, we found that vortices with best-fit $\Gamma_{\rm obs} > 100\,{\rm s}$ and/or $\Delta P_{\rm obs} < 0.1\,{\rm Pa}$ tended not to resemble true vortices but instead appeared simply to be incoherent pressure excursions, so we dropped \maskedvortices\ of these initial detections, leaving a total of \totalvortices\ vortex signals. The largest $\Delta P_{\rm obs}$-value we found was \largestDeltaPobs\ on sol \largestDeltaPobssol, which seems to correspond to the deepest vortex reported in \citet{2020arXiv200501134S}. The longest-duration vortex occurred on sol \largestGammaobssol\ and lasted \largestGammaobs. The 50\% quantile values are $\Gamma_{\rm obs} = \left( 9.3 \pm 0.2 \right)\,{\rm s}$ and $\Delta P_{\rm obs} = \left( 1.13 \pm 0.03 \right)\,{\rm Pa}$ (indicated by the dashed, orange lines in Figure \ref{fig:DeltaPobs_vs_Gammaobs}). As evident in previous analyses of Mars lander pressure time-series \citep[e.g.][]{2010JGRE..115.0E16E}, there is a marked absence of long-duration/deep (i.e., large $\Delta P_{\rm obs}$) vortices. This absence simply reflects the miss distance effect: most encounters between the barometer and vortex occur some distance from the vortex center ($b > 0$ as in Equation \ref{eqn:radial_distance}), where the pressure profile is more shallow and of longer duration \citep{2018Icar..299..166J}.
+
+The flattening of the cumulative histogram for $\Delta P_{\rm obs}$ (Figure \ref{fig:DeltaPobs_vs_Gammaobs}(c)) near $1.1\,{\rm Pa}$ indicates a decline in the number of detected vortices below that value. This decline occurs, at least in part, because of difficulty detecting these more shallow signals against noise \citep{2018Icar..299..166J}. Given the possible strong dependence of dust-lifting on $\Delta P$, the exact form of the histogram of $\Delta P_{\rm obs}$-values is critical for evaluating the population's atmospheric influence. We fit a power-law to the cumulative histogram with an exponent $\gamma = -2.39\pm0.02$, which suggests the differential histogram has an exponent $\approx -3.39$. This exponent is consistent with the value reported in  \citet{2020arXiv200501134S} for the same dataset and with the value reported in \citet{2018Icar..299..166J} for the vortices detected by the Phoenix Mission. (On a related note, since the best-fit exponent for the $\Delta P_{\rm obs}$-histogram can depend on the chosen binning, we suggest such analyses use cumulative histograms or a data-informed scheme for binning -- \citealp{2016SSRv..203..277L}.)
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/DeltaPobs_vs_Gammaobs.png}
+    \caption{(a) The best-fit $\Delta P_{\rm obs}$- and $\Gamma_{\rm obs}$-values (blue dots). Representative error bars are shown as orange crosses. (b) Cumulative histogram of $\Gamma_{\rm obs}$-values, along with the 50\% quantile value ($\Gamma_{\rm obs} = \left( 9.3 \pm 0.2 \right)\,{\rm s}$) shown by the dashed, orange line. (c) Cumulative histogram of $\Delta P_{\rm obs}$-values, along with the 50\% quantile value ($\Delta P_{\rm obs} = \left( 1.13 \pm 0.03 \right)\,{\rm Pa}$) shown by the dashed, orange line. The dash-dotted green line shows a power-law fit to the histogram, with $N \propto \Delta P_{\rm obs}^{-2.45\pm0.02}$.}
+    \label{fig:DeltaPobs_vs_Gammaobs}
+\end{figure}
+
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/sol_and_t0_histograms.png}
@@ -395,23 +415,6 @@ As we show in Appendix \ref{sec:Inferring Encounter Geometries from the Pressure
 The vortices also exhibit sol-to-sol and hour-to-hour variation, as illustrated in Figure \ref{fig:sol_and_t0_histograms}. Panel (a) shows that the maximum daily of vortices occurred on sol 204 of the mission, in the middle of northern spring, while the next maximum occurs on sol 300, near the beginning of northern summer. Although \citet{2020arXiv200501134S} used a different procedure, that study found a broadly similar pattern -- a dip in the occurrence rate centered on sol 100, with an increase going into sol 200 and beyond. 
 
 Regarding the hour-to-hour variations, panel (b) shows that the maximum occurs during the hour centered on 11:00 LTST, with a symmetric decline to either side ($\pm20\%\,{\rm hr^{-1}}$). These results contrast somewhat with those of \citet{2020arXiv200501134S}, which found a peak in vortex occurrence between 11:00 and 12:00 LTST. Different binning shifts the peak around some but not far from 13:00 LTST, so the origin of this discrepancy is not clear. 
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{figures/DeltaPobs_vs_Gammaobs.png}
-    \caption{(a) The best-fit $\Delta P_{\rm obs}$- and $\Gamma_{\rm obs}$-values (blue dots). Representative error bars are shown as orange crosses. (b) Cumulative histogram of $\Gamma_{\rm obs}$-values, along with the 50\% quantile value ($\Gamma_{\rm obs} = \left( 9.3 \pm 0.2 \right)\,{\rm s}$) shown by the dashed, orange line. (c) Cumulative histogram of $\Delta P_{\rm obs}$-values, along with the 50\% quantile value ($\Delta P_{\rm obs} = \left( 1.13 \pm 0.03 \right)\,{\rm Pa}$) shown by the dashed, orange line. The dash-dotted green line shows a power-law fit to the histogram, with $N \propto \Delta P_{\rm obs}^{-2.45\pm0.02}$.}
-    \label{fig:DeltaPobs_vs_Gammaobs}
-\end{figure}
-
-Figure \ref{fig:DeltaPobs_vs_Gammaobs}(a) shows the best-fit $\Gamma_{\rm obs}$- and $\Delta P_{\rm obs}$-values, along with their respective cumulative histograms. Inspecting an initial tranche of detections by-hand, we found that vortices with best-fit $\Gamma_{\rm obs} > 100\,{\rm s}$ and/or $\Delta P_{\rm obs} < 0.1\,{\rm Pa}$ tended not to resemble true vortices but instead appeared simply to be incoherent pressure excursions, so we dropped \maskedvortices\ of these initial detections, leaving a total of \totalvortices\ vortex signals. The largest $\Delta P_{\rm obs}$-value we found was \largestDeltaPobs\ on sol \largestDeltaPobssol, which seems to the correspond to the deepest vortex reported in \citet{2020arXiv200501134S}. The longest-duration vortex occurred on sol \largestGammaobssol\ and lasted \largestGammaobs. The 50\% quantile values are $\Gamma_{\rm obs} = \left( 9.3 \pm 0.2 \right)\,{\rm s}$ and $\Delta P_{\rm obs} = \left( 1.13 \pm 0.03 \right)\,{\rm Pa}$ (indicated by the dashed, orange lines in Figure \ref{fig:DeltaPobs_vs_Gammaobs}). As evident in previous analyses of Mars lander pressure time-series \citep[e.g.][]{2010JGRE..115.0E16E}, there is a marked absence of long-duration/deep (i.e., large $\Delta P_{\rm obs}$) vortices. This absence simply reflects the miss distance effect: most encounters between the barometer and vortex occur some distance from the vortex center ($b > 0$ as in Equation \ref{eqn:radial_distance}), where the pressure profile is more shallow and of longer duration \citep{2018Icar..299..166J}.
-
-The flattening of the cumulative histogram for $\Delta P_{\rm obs}$ (Figure \ref{fig:DeltaPobs_vs_Gammaobs}(c)) near $\Delta P_{\rm obs} = 1.1\,{\rm Pa}$ indicates a decline in the number of detected vortices below that value. This decline occurs, at least in part, because of difficulty detecting these more shallow signals against noise  \citep{2018Icar..299..166J}. Given the possible strong dependence of dust-lifting on $\Delta P$, the exact form of the histogram of $\Delta P_{\rm obs}$-values is critical for evaluating the population's atmospheric influence. We fit a power-law to the cumulative histogram with an exponent $\gamma = -2.39\pm0.02$, which suggests the differential histogram has an exponent $\approx -3.39$. This exponent is consistent with the value reported in  \citet{2020arXiv200501134S} for the same dataset and with the value reported in \citet{2018Icar..299..166J} for the vortices detected by the Phoenix Mission. (On a related note, since the best-fit exponent for the $\Delta P_{\rm obs}$-histogram can depend on the chosen binning, we suggest such analyses use cumulative histograms or a data-informed scheme for binning -- \citealp{2016SSRv..203..277L}.)
-
-\begin{figure}
-\centering
-\includegraphics[width=0.48\textwidth]{figures/vortices_and_windspeed.png}
-\caption{Pressure data (blue dots) and models (blue lines) and horizontal windspeed data (orange dots) and models. \label{fig:vortices_and_windspeed}}
-\end{figure}
 
 The $\Gamma_{\rm obs}$- and $\Delta P_{\rm obs}$-values exhibit intriguing trends as well -- Figure \ref{fig:Gammaobs_DeltaPobs_vs_TOD_and_sol}. Figure \ref{fig:Gammaobs_DeltaPobs_vs_TOD_and_sol} (c) shows that, binned by the hour, $\Gamma_{\rm obs}$ increases from $2$ to $20\,{\rm s}$ at a rate of $\left( 1\pm0.1 \right)\,{\rm s\ hr^{-1}}$. Figure \ref{fig:Gammaobs_DeltaPobs_vs_TOD_and_sol} (d) shows that $\Delta P_{\rm obs}$ peaks around 12:00 LTST at $\left( 1.3\pm0.05 \right)\,{\rm Pa}$ with minimum values at either end of about $\left( 0.7\pm 0.1 \right)\,{\rm Pa}$ (where the uncertainties come from the error of the mean in the corresponding bin). The values binned by sol (Figure \ref{fig:Gammaobs_DeltaPobs_vs_TOD_and_sol} (a) and (b)) show no obvious trends. 
 
@@ -666,20 +669,20 @@ Cyclostrophic balance relates the pressure and velocity as \citep{2020Icar..3381
 \end{equation}
 where $\rho$ is the atmospheric density. Combining Equations \ref{eqn:Pobs}, \ref{eqn:Vobs}, and \ref{eqn:cyclostrophic_balance} gives
 \begin{equation}
-    P_{\rm act} = \left( 1 - \frac{\rho V_{\rm obs}^2}{4 P_{\rm obs}} \right)^{-1} P_{\rm obs},\label{eqn:solution_for_Pact}
+    \Delta P_{\rm act} = \left( 1 - \frac{\rho V_{\rm obs}^2}{4 \Delta P_{\rm obs}} \right)^{-1} \Delta P_{\rm obs},\label{eqn:solution_for_Pact}
 \end{equation}
 and
 \begin{equation}
-    V_{\rm act} = \left( 1 - \frac{\rho V_{\rm obs}^2}{4 P_{\rm obs}} \right)^{-1/2} \left( P_{\rm obs}/\rho \right)^{1/2}.\label{eqn:solution_for_Vact}
+    V_{\rm act} = \left( 1 - \frac{\rho V_{\rm obs}^2}{4 \Delta P_{\rm obs}} \right)^{-1/2} \left( \Delta P_{\rm obs}/\rho \right)^{1/2}.\label{eqn:solution_for_Vact}
 \end{equation}
 
 We can use these values to infer $b$
 \begin{equation}
-    b = \left( \frac{D_{\rm act}}{2} \right) \sqrt{\frac{P_{\rm act}}{P_{\rm obs}} - 1},
+    b = \left( \frac{D_{\rm act}}{2} \right) \sqrt{\frac{\Delta P_{\rm act}}{\Delta P_{\rm obs}} - 1},
 \end{equation}
 and then plug this into the relationship between the observed diameter and actual $D_{\rm obs} = \sqrt{D_{\rm act}^2 + \left( 2 b\right)^2 }$ \citep{2020Icar..33813523J}:
 \begin{equation}
-    D_{\rm act} = \frac{D_{\rm obs}}{\sqrt{1 + \left( P_{\rm act}/P_{\rm obs} - 1 \right) }}.\label{eqn:actual_diameter}
+    D_{\rm act} = \frac{D_{\rm obs}}{\sqrt{\Delta P_{\rm act}/\Delta P_{\rm obs} }}.\label{eqn:actual_diameter}
 \end{equation}
 We can then use these relationships to solve for $b$.
 
