@@ -112,7 +112,7 @@
 \newcommand{\largestDeltaPobssol}{65}
 \newcommand{\largestGammaobssol}{20}
 \newcommand{\largestGammaobs}{$\left( 99 \pm 3 \right)\,{\rm s}$}
-\newcommand{\agreeablevortices}{127}
+\newcommand{\boverDactltone}{205}
 \newcommand{\vorticeswithnowinds}{56}
 
 %% Reintroduced the \received and \accepted commands from AASTeX v5.2
@@ -370,7 +370,7 @@ To assess the intrinsic vortex properties and encounter geometries, we also fit 
 \end{equation}
 where $V_{\rm act}$ is the tangential wind speed at the vortex diameter. Similar to the pressure signal, a non-zero $b$ means the maximum wind speed encountered $V_{\rm obs}$ is less than the actual maximum at the vortex diameter. We model the observed vortex wind profile as
 \begin{equation}
-    V(r) = V_{\rm obs} \frac{\sqrt{1 + \left( U_1/b \right)^2 \left( t - t_0 \right)^2}}{1 + \left(\frac{t - t_0}{\Gamma_{\rm obs}/2}\right)^2},\label{eqn:wind_profile}
+    V(t) = V_{\rm obs} \frac{\sqrt{1 + \left( U_1/b \right)^2 \left( t - t_0 \right)^2}}{1 + \left(\frac{t - t_0}{\Gamma_{\rm obs}/2}\right)^2},\label{eqn:wind_profile}
 \end{equation}
 where $U_1$ is the ambient wind speed before the encounter and which we take as the advective speed for the vortex. Strictly, this model breaks down for $b = 0$, but such an encounter is statistically unlikely \citep{2018Icar..299..166J}. Many of the wind signals exhibit a different ambient wind speed before the encounter ($U_1$) than after the encounter ($U_2$). Thus, the total wind speed observed $W(t)$ is the vector sum of the ambient wind and vortex wind, given by 
 \begin{equation}
@@ -444,7 +444,7 @@ Figure \ref{fig:U_vs_t0-sol_hist} shows the distribution of advective wind speed
 %     \label{fig:Dobs_vs_Gammaobs-DeltaPobs_hist}
 % \end{figure}
 
-\citet{2018Icar..299..166J}, \citet{2019Icar..317..209K}, and \citet{2020Icar..33513389K} developed approaches to de-bias the observed population of vortices and work out the underlying distribution of $\Delta P_{\rm act}$- and $D_{\rm act}$-values. However, they rely on plausible but untested assumptions about encounter statistics. Fortunately, as discussed in Section \ref{sec:Pressure and Wind Models} and Appendix \ref{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}, we can use the observed vortex wind and pressure excursions themselves to work out the intrinsic parameters. The best-fit full and simple wind profile models are illustrated for the three representative vortex encounters in Figure \ref{fig:vortices_and_windspeed}. Figure \ref{fig:Dact_vs_Pact} shows the inferred $P_{\rm act}$- and $D_{\rm act}$-values for the \agreeablevortices\ encounters for which the inferred $P_{\rm act}$ and $D_{\rm act}$ from both the full and simple wind profiles agree to within 25\%. (For many other encounters, the two profiles return significantly different values, or the Levenberg-Marquardt fitting scheme fails to converge on a value for the full profile.) We also require that the inferred $|b|/D_{\rm act} < 10$ and that observed wind speed excursion $V_{\rm obs}$ is more than 3-$\sigma$ different from the pre-encounter ambient wind speed $U_1$. This criterion ensures that we detected a true vortex encounter, rather than simply a pressure excursion. (For \vorticeswithnowinds\ encounters, we found the simple and full wind profile fits agreed but gave $V_{\rm obs}$ statistically consistent with $U_1$.) For the uncertainties on $P_{\rm act}$ and $P_{\rm act}$, we take half the difference between the values returned using the simple and full wind profile models.
+Next, we couple our pressure profile and wind profile fits (Equations \ref{eqn:Lorentzian_profile} and \ref{eqn:wind_profile}) to infer the actual central pressure excursions $P_{\rm act}$ and vortex diameters $D_{\rm act}$, as well as the the eyewall wind velocities $V_{\rm act}$. For these results, we only included encounters for which the inferred $b/D_{\rm act} \leq 1$, as discussed in Section \ref{sec:Pressure and Wind Models} -- we found \boverDactltone\ such vortex encounters. The best-fit wind profile models are illustrated for the three representative vortex encounters in Figure \ref{fig:vortices_and_windspeed}, Figure \ref{fig:Dact_vs_Pact} shows the distribution of inferred $P_{\rm act}$- and $D_{\rm act}$-values. The 
 
 \begin{figure}
     \centering
@@ -658,7 +658,7 @@ and
 \begin{equation}
     V(r) = \frac{ V_{\rm act} \left( 2 \frac{r}{D_{\rm act}/2} \right)}{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2},\label{eqn:radial_wind_profile}
 \end{equation}
-where $r$ is the radial distance from the vortex center, $P_{\rm act}$ the central pressure excursion, and $V_{\rm act}$ the peak velocity at a distance $D_{\rm act}$ from the vortex center. Equation \ref{eqn:radial_distance} shows the evolution of the radial distance with time during an encounter. At closest approach, we measure $\Delta P = \Delta P_{\rm obs}$ (Equation \ref{eqn:Pobs}) and 
+where $r$ is the radial distance from the vortex center, $P_{\rm act}$ the central pressure excursion, and $V_{\rm act}$ the peak velocity at a distance $D_{\rm act}$ from the vortex center. Equation \ref{eqn:radial_distance} shows the evolution of the radial distance with time during an encounter. At closest approach $r = b$ and we measure $\Delta P = \Delta P_{\rm obs}$ (Equation \ref{eqn:Pobs}) and 
 \begin{equation}
     V = \frac{ V_{\rm act} \left( 2\frac{b}{D_{\rm act}/2} \right)}{1 + \left( \frac{b}{D_{\rm act}/2} \right)^2} = V_{\rm obs}.\label{eqn:Vobs}
 \end{equation} 
@@ -684,7 +684,6 @@ and then plug this into the relationship between the observed diameter and actua
 \begin{equation}
     D_{\rm act} = \frac{D_{\rm obs}}{\sqrt{\Delta P_{\rm act}/\Delta P_{\rm obs} }}.\label{eqn:actual_diameter}
 \end{equation}
-We can then use these relationships to solve for $b$.
 
 % For N estimate, with about 6 hours per day of dust devil activity (1/4 day),
 %   1 km^{-2} day^{-1} translates into about 0.25 km^{-2}.
