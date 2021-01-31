@@ -379,7 +379,12 @@ def estimate_diameter(sol, t0, Gamma, Gamma_err,
             diameter = med*Gamma
             diameter_unc = np.nanstd(wind_data["HORIZONTAL_WIND_SPEED"][ind])
             if(len(wind_data["HORIZONTAL_WIND_SPEED"][ind]) > 1):
-                md = mad(wind_data["HORIZONTAL_WIND_SPEED"][ind])
+                print(wind_data["HORIZONTAL_WIND_SPEED"][ind])
+
+                # 2021 Jan 31 -- Conservatively take the largest of either
+                # the point-to-point scatter or the MAD of the wind speeds
+                # between -5 and -3 Gamma.
+                md = max(md, mad(wind_data["HORIZONTAL_WIND_SPEED"][ind]))
                 diameter_unc =\
                         diameter*np.sqrt((md/med)**2 + (Gamma_err/Gamma)**2)
 
@@ -506,13 +511,20 @@ def calculate_act_values(density, Vobs, DeltaPobs, Diameter):
 
     return Pact, Vact, Dact, bact
 
-def sigma_Pact(sigma_Vobs, sigma_Pobs, Pact, Pobs, Vobs, density):
-    # Calculating the uncertainties on Pact
-    first_factor = 0.25*(Pact/Pobs)**4*(density*Vobs)**2*sigma_Vobs**2
+def sigma_act(sigma_Vobs, sigma_Pobs, sigma_Dobs, sigma_b, 
+        Pact, Vact, Dact, Pobs, Vobs, Dobs, b, density):
+    # Calculating the uncertainties on Pact and Vact
 
-    second_factor = (0.25*(Pact/Pobs)**2*(density*Vobs**2/Pobs) + (Pact/Pobs))**2*sigma_Pobs**2
+    sigma_Pact = np.sqrt((Pact/Pobs)**2.*(density*Vobs/2.)**2.*sigma_Vobs**2. +\
+            (Pact/Pobs)**2.*(1. + (Pact/Pobs)*(density*Vobs**2/4./Pobs))**2.*\
+            sigma_Pobs**2)
 
-    return np.sqrt(first_factor + second_factor)
+    sigma_Vact = (Vact/Pact)/2.*sigma_Pact
+
+    sigma_Dact = np.sqrt((Dobs/Dact)**2*sigma_Dobs**2 +\
+            (2.*b/Dact)**2*sigma_b**2)
+
+    return sigma_Pact, sigma_Vact, sigma_Dact
 
 def simple_wind_profile_parameters(t, wind, t0, Gamma, sampling, num_samples=3):
     U1 = np.nanmedian(wind[(t - t0) < -3.*Gamma])
