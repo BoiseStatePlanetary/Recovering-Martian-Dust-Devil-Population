@@ -374,17 +374,19 @@ def estimate_diameter(sol, t0, Gamma, Gamma_err,
             med = np.nanmedian(wind_data["HORIZONTAL_WIND_SPEED"][ind])
             # As a back-up value, take the point-to-point variation.
             md = np.nanmedian(np.abs(wind_data["HORIZONTAL_WIND_SPEED"][1:] -\
-                    wind_data["HORIZONTAL_WIND_SPEED"][0:-1]))
+                    wind_data["HORIZONTAL_WIND_SPEED"][0:-1]))/\
+                    np.sqrt(len(wind_data["HORIZONTAL_WIND_SPEED"][ind]))
 
             diameter = med*Gamma
             diameter_unc = np.nanstd(wind_data["HORIZONTAL_WIND_SPEED"][ind])
             if(len(wind_data["HORIZONTAL_WIND_SPEED"][ind]) > 1):
-                print(wind_data["HORIZONTAL_WIND_SPEED"][ind])
 
                 # 2021 Jan 31 -- Conservatively take the largest of either
                 # the point-to-point scatter or the MAD of the wind speeds
                 # between -5 and -3 Gamma.
-                md = max(md, mad(wind_data["HORIZONTAL_WIND_SPEED"][ind]))
+                md = max(md, 
+                        mad(wind_data["HORIZONTAL_WIND_SPEED"][ind])/\
+                        np.sqrt(len(wind_data["HORIZONTAL_WIND_SPEED"][ind])))
                 diameter_unc =\
                         diameter*np.sqrt((md/med)**2 + (Gamma_err/Gamma)**2)
 
