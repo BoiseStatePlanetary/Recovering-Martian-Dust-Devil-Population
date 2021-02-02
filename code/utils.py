@@ -531,7 +531,7 @@ def sigma_act(sigma_Vobs, sigma_Pobs, sigma_Dobs, sigma_b,
 
     sigma_Dact = np.sqrt((Dobs/Dact)**2*sigma_Dobs**2 +\
             (2.*b/Dact)**2*sigma_b**2)
-
+    
     return sigma_Pact, sigma_Vact, sigma_Dact
 
 def simple_wind_profile_parameters(t, wind, t0, Gamma, sampling, num_samples=3):
