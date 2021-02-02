@@ -384,7 +384,7 @@ def estimate_diameter(sol, t0, Gamma, Gamma_err,
                 # chi-squared
                 chisq = redchisqg(wind_data["HORIZONTAL_WIND_SPEED"][ind],
                         np.ones_like(wind_data["HORIZONTAL_WIND_SPEED"][ind])*\
-                                md, deg=1)
+                                med, deg=1, sd=md)
                 md *= np.sqrt(chisq)
 
                 diameter_unc =\
@@ -499,6 +499,12 @@ def fit_wind_profile(t, wind, sigma, t0, Gamma, p0):
             wind_profile(t, t0, fit_Vobs, U1, U2, fit_b, Gamma),
             t, wind, p0=p0, sigma=sigma*np.ones_like(t))
     uncertainties = np.sqrt(np.diag(pcov))
+
+    # 2021 Feb 1 - Inflate uncertainties
+    model = wind_profile(t, t0, popt[0], U1, U2, popt[1], Gamma)
+
+    chisq = redchisqg(wind, model, deg=2, sd=sigma)
+    uncertainties *= np.sqrt(chisq)
 
     return popt, uncertainties, U1, U2
 
