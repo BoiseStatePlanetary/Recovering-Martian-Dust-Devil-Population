@@ -697,13 +697,20 @@ and
     V_{\rm act} = \left( 1 - \frac{\rho V_{\rm obs}^2}{4 \Delta P_{\rm obs}} \right)^{-1/2} \left( \Delta P_{\rm obs}/\rho \right)^{1/2}.\label{eqn:solution_for_Vact}
 \end{equation}
 
-We can use these values to infer $b$
+We can then solve for $D_{\rm act}$:
 \begin{equation}
-    b = \left( \frac{D_{\rm act}}{2} \right) \sqrt{\frac{\Delta P_{\rm act}}{\Delta P_{\rm obs}} - 1},
+    D_{\rm act} = \sqrt{ D_{\rm obs}^2 - \left( 2 b\right)^2 }.\label{eqn:actual_diameter}
 \end{equation}
-and then plug this into the relationship between the observed diameter and actual $D_{\rm obs} = \sqrt{D_{\rm act}^2 + \left( 2 b\right)^2 }$ \citep{2020Icar..33813523J}:
+
+To determine the uncertainties on the actual parameters, we propagate uncertainties from the model-fit observed parameters $\sigma_{\Delta P_{\rm obs}}$, $\sigma_{D_{\rm obs}}$, $b$, and $\sigma_{V_{\rm obs}}$:
 \begin{equation}
-    D_{\rm act} = \frac{D_{\rm obs}}{\sqrt{\Delta P_{\rm act}/\Delta P_{\rm obs} }}.\label{eqn:actual_diameter}
+    \sigma_{\rm \Delta P_{\rm act}} = \sqrt{ \left( \frac{\partial \Delta P_{\rm act}}{\partial \Delta P_{\rm obs}} \sigma_{\Delta P_{\rm obs}} \right)^2 + \left( \frac{\partial \Delta P_{\rm act}}{\partial V_{\rm obs}} \sigma_{V_{\rm obs}} \right)^2 } = \left( \frac{\Delta P_{\rm act}}{\Delta P_{\rm obs}} \right) \sqrt{ \frac{1}{4} \rho^2 V_{\rm obs}^2 \sigma_{\Delta P_{\rm obs}}^2 + \left[ 1 + \left( \frac{\Delta P_{\rm act}}{\Delta P_{\rm obs}} \right) \left( \frac{\rho V_{\rm obs}^2}{4 \Delta P_{\rm obs}^2} \right) \right]^2 \sigma_{V_{\rm obs}}^2 }
+\end{equation}
+\begin{equation}
+    \sigma_{\rm V_{\rm act}} = \left( \frac{\partial V_{\rm act}}{\partial \Delta P_{\rm act}} \right) \sigma_{\Delta P_{\rm act}} = \left( \frac{V_{\rm act}}{2\Delta P_{\rm act}} \right) \sigma_{\Delta P_{\rm act}}
+\end{equation}
+\begin{equation}
+    \sigma_{D_{\rm act}} = \sqrt{ \left( \frac{\partial D_{\rm act}}{\partial D_{\rm obs}} \sigma_{D_{\rm obs}} \right)^2 + \left( \frac{\partial D_{\rm act}}{\partial b} \sigma_{b}\right)^2 } = \sqrt{ \left( \frac{D_{\rm obs}}{D_{\rm act}} \sigma_{D_{\rm obs}}\right)^2 + \left( \frac{2b}{D_{\rm act}} \sigma_{b} \right)^2 }
 \end{equation}
 
 % For N estimate, with about 6 hours per day of dust devil activity (1/4 day),
