@@ -580,3 +580,11 @@ def make_plot(ax1, ax2, wind_x, wind_y, wind_sigma, pressure_x, pressure_y,
         slope, t0, DeltaP, Gamma/3600.), color=BoiseState_blue, zorder=-1)
 
     return
+
+def inflate_errors(popt, uncertainties, U1, U2, Gamma, time, data, sigma,
+        t0=0.):
+    mod = wind_profile(time, t0, popt[0], U1, U2, popt[1], Gamma)
+    chisq = redchisqg(data, mod, sd=sigma)
+
+    return sigma*np.sqrt(chisq)
+
