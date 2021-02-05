@@ -324,10 +324,11 @@ The atmospheric influence of a dust devil population depends on the areal densit
 \section{Time-Series Analysis}
 In this section, we describe our analysis of the pressure and wind speed time-series. We first describe the data themselves. Next, we discuss our search for vortex signals using the pressure time-series and explore its biases and completeness, which \citet{2015JGRE..120..401J} showed are important for inferring the underlying occurrence rates from the observations. Next, we describe how we modeled the pressure and wind speed profiles of individual vortex encounters, which, as we show, allows us to determine not just the observed pressure and wind excursions but also to infer the encounter geometries and intrinsic vortex parameters \citep[cf.][]{2016Icar..271..326L}. We also discuss the statistical distributions and correlations of vortex parameters and compare them to predictions and previous work. 
 
-\subsection{Data}
+\subsection{Time-Series Data}
+\label{sec:Time-Series Data}
 The pressure measurements from the APSS are taken at $20\, {\rm Hz}$ with a nominal precision of $50\, {\rm mPa\ Hz^{−1/2}}$ or better, much higher frequency and precision than available from some previous Mars landers \citep[e.g.,][]{2010JGRE..115.0E16E}. As we discuss below, turbulent excursions given an effective scatter in the pressure data between $0.2$ and $0.5\,{\rm Pa}$, depending on ambient conditions. In any case, such specs make APSS ideal for studying turbulent signals in the martian boundary layer \citep{2018SSRv..214..109S}. APSS has measured pressures nearly non-stop since sol 14 of the mission, and for our study, we considered data up through sol 477 of the mission, amounting to almost 82 GB. The data are available from NASA's Atmosphere's PDS Node - \url{https://atmos.nmsu.edu/data_and_services/atmospheres_data/INSIGHT/insight.html}. PDS provides several sets of data files for APSS, and we used the CSV files in the ``data\_calibrated'' folder.
 
-Wind data come from the TWINS instrument, the sensors for which sit on booms located on the InSight platform and facing opposite directions about a meter above the solar panels \citep{2020NatGe..13..190B}. TWINS acquires data at $0.1\, {\rm Hz}$ and $1\, {\rm Hz}$ with an accuracy of $1\, {\rm m\ s^{-1}}$ for wind speed and $22.5^\circ$ for wind direction. Since the wind direction data give constraints that are, in principle, redundant and less robust than the wind speed data, we do not include the direction data in our analysis. TWINS has also provided a dataset spanning nearly the whole time from sol 14 to 477, amounting to more than 18 GB. For our work here, we focus on the higher time resolution ($1\, {\rm Hz}$) wind data, which is more limited in extent, often only spanning the mid- to late afternoon for a given sol. The wind measurements involve modeled reconstructions, as described in  \citep{Banfield2018}, and we used the cSV files in the ``data\_derived'' folder. The higher time resolution files are labeled as ``modelevent''. (The lower resolution files are labeled as ``model'').
+Wind data come from the TWINS instrument, the sensors for which sit on booms located on the InSight platform and facing opposite directions about a meter above the solar panels \citep{2020NatGe..13..190B}. TWINS acquires data at $0.1\, {\rm Hz}$ and $1\, {\rm Hz}$ with an accuracy of $1\, {\rm m\ s^{-1}}$ for wind speed and $22.5^\circ$ for wind direction. Since the wind direction data give constraints that are, in principle, redundant and less robust than the wind speed data, we do not include the direction data in our analysis. TWINS has also provided a dataset spanning nearly the whole time from sol 14 to 477, amounting to more than 18 GB. For our work here, we focus on the higher time resolution ($1\, {\rm Hz}$) wind data, which is somewhat more limited in extent, often only spanning the mid- to late afternoon for a given sol. The wind measurements involve modeled reconstructions, as described in  \citep{Banfield2018}, and we used the CSV files in the ``data\_derived'' folder. The higher time resolution files are labeled as ``modelevent''. (The lower resolution files are labeled as ``model'').
 
 Vortex encounters can also produce excursions in ambient temperature (as the warm core passes over the sensor) \citep{2016SSRv..203...39M}, and APSS does return air temperature data. However, we do not model these time-series since the temperature data show small or negligible excursions during the encounters. In any case, the temperatures would be expected to simply mirror the pressure excursions \citep{2016Icar..271..326L}.
 
@@ -392,8 +393,8 @@ As we show in Appendix \ref{sec:Inferring Encounter Geometries from the Pressure
 \caption{Pressure data (blue dots) and models (blue lines) and horizontal windspeed data (orange dots) and models. \label{fig:vortices_and_windspeed}}
 \end{figure}
 
-\section{Results}
-\label{sec:Results}
+\subsection{Vortex Statistics}
+\label{sec:Vortex Statistics}
 Figure \ref{fig:DeltaPobs_vs_Gammaobs}(a) shows our collection of best-fit $\Gamma_{\rm obs}$- and $\Delta P_{\rm obs}$-values, along with their respective cumulative histograms. Inspecting an initial tranche of detections by-hand, we found that vortices with best-fit $\Gamma_{\rm obs} > 100\,{\rm s}$ and/or $\Delta P_{\rm obs} < 0.1\,{\rm Pa}$ tended not to resemble true vortices but instead appeared simply to be incoherent pressure excursions, so we dropped \maskedvortices\ of these initial detections, leaving the \totalvortices\ vortex signals depicted in Figure \ref{fig:DeltaPobs_vs_Gammaobs}. The largest $\Delta P_{\rm obs}$-value we found was \largestDeltaPobs\ on sol \largestDeltaPobssol, which seems to correspond to the deepest vortex reported in \citet{2020arXiv200501134S}. The longest-duration vortex occurred on sol \largestGammaobssol\ and lasted \largestGammaobs. The 50\% quantile values are $\Gamma_{\rm obs} = \left( 9.3 \pm 0.2 \right)\,{\rm s}$ and $\Delta P_{\rm obs} = \left( 1.13 \pm 0.03 \right)\,{\rm Pa}$ (indicated by the dashed, orange lines in Figure \ref{fig:DeltaPobs_vs_Gammaobs}). As evident in previous analyses of Mars lander pressure time-series \citep[e.g.,][]{2010JGRE..115.0E16E}, there is a marked absence of long-duration/deep (i.e., large $\Delta P_{\rm obs}$) vortices. This absence simply reflects the miss distance effect: most encounters between the barometer and vortex occur some distance from the vortex center ($b > 0$ as in Equation \ref{eqn:radial_distance}), where the pressure profile is more shallow and of longer duration \citep{2018Icar..299..166J}.
 
 The flattening of the cumulative histogram for $\Delta P_{\rm obs}$ (Figure \ref{fig:DeltaPobs_vs_Gammaobs}c) near $1.1\,{\rm Pa}$ indicates a decline in the number of detected vortices below that value. This decline occurs, at least in part, because of difficulty detecting these more shallow signals against noise \citep{2018Icar..299..166J}. Given the possible strong dependence of dust-lifting on $\Delta P$, the exact form of the histogram of $\Delta P_{\rm obs}$-values is critical for evaluating the population's atmospheric influence. We fit a power-law to the cumulative histogram with an exponent $\gamma = -2.39\pm0.02$, which indicates the differential histogram has an exponent $\approx -3.39$. This exponent is consistent with the value reported in \citet{2020arXiv200501134S} for the same dataset and with the value reported in \citet{2018Icar..299..166J} for the vortices detected by the Phoenix Mission. (On a related note, since the best-fit exponent for a differential histogram can depend on the chosen binning, we suggest such analyses use cumulative histograms or a data-informed scheme for binning -- \citealp{2016SSRv..203..277L}.)
@@ -448,7 +449,7 @@ Figure \ref{fig:U_vs_t0-sol_hist} shows the distribution of advective wind speed
 
 Next, we couple our pressure profile and wind profile fits (Equations \ref{eqn:Lorentzian_profile} and \ref{eqn:wind_profile}) to infer the actual central pressure excursions $\Delta P_{\rm act}$ and vortex diameters $D_{\rm act}$, as well as the the eyewall wind velocities $V_{\rm act}$. The wind speed data showed considerable turbulent excursions not captured by our model, so as we fit the wind speed models, we inflated the data point and model parameter uncertainties by multiplying by the square root of the reduced $chi^2$-values, effectively imposing $\chi^2 = 1$ \citep[cf.][]{Press2007}. We also propagated the uncertainties from the pressure and wind profile fit parameters into uncertainties on the actual parameters, as described in \ref{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}. For these results, we only included encounters for which the inferred $b/D_{\rm act} \leq 1$, $V_{\rm obs}/\sigma \geq 3$, and with well-defined uncertainties on the actual values -- we found \boverDactltone\ such vortex encounters. 
 
-The best-fit wind profile models are illustrated for the three representative vortex encounters in Figure \ref{fig:vortices_and_windspeed}, Figure \ref{fig:Dact_vs_Pact} shows the distribution of inferred $\Delta P_{\rm act}$- and $D_{\rm act}$-values. The minimum, median, and maximum values for $P_{\rm act}$ are $1.20\pm0.12$, $3.33\pm0.18$, and $16.6\pm4.53\,{\rm Pa}$, respectively, and for $D_{\rm act}$ are $7.70\pm2.19$, $59.1\pm17.6$, and $517\pm181\,{\rm m}$. Panels (b) and (c) show the cumulative histograms for $P_{\rm act}$ and $D_{\rm act}$, along with power-law fits. The fit for $P_{\rm act}$ appears to be significantly better than that for $D_{\rm act}$ and corresponds to a differential histogram with a power-law index $\gamma = -2.5$, significantly more shallow than the differential histogram for $P_{\rm obs}$ (with $\gamma = -3.39$). This result is qualitatively inconsistent with theoretical expectations that the distribution of actual pressure drops is steeper than (i.e., the magnitude of the power-law exponent is larger) or the same as the distribution of observed drops \citep{2014JAtS...71.4461L, 2018Icar..299..166J, 2019Icar..317..209K}.
+The best-fit wind profile models are illustrated for the three representative vortex encounters in Figure \ref{fig:vortices_and_windspeed}, Figure \ref{fig:Dact_vs_Pact} shows the distribution of inferred $\Delta P_{\rm act}$- and $D_{\rm act}$-values. The minimum, median, and maximum values for $P_{\rm act}$ are $1.20\pm0.12$, $3.33\pm0.18$, and $16.6\pm4.5\,{\rm Pa}$, respectively, and for $D_{\rm act}$ are $7.70\pm2.19$, $59.1\pm17.6$, and $517\pm181\,{\rm m}$. Panels (b) and (c) show the cumulative histograms for $P_{\rm act}$ and $D_{\rm act}$, along with power-law fits. The fit for $P_{\rm act}$ appears to be significantly better than that for $D_{\rm act}$ and corresponds to a differential histogram with a power-law index $\gamma = -2.28$, significantly more shallow than the differential histogram for $P_{\rm obs}$ (with $\gamma = -3.39$). This result is qualitatively inconsistent with theoretical expectations that the distribution of actual pressure drops is steeper than (i.e., the magnitude of the power-law exponent is larger) or the same as the distribution of observed drops \citep{2014JAtS...71.4461L, 2018Icar..299..166J, 2019Icar..317..209K}.
 
 \begin{figure}
     \centering
@@ -457,7 +458,7 @@ The best-fit wind profile models are illustrated for the three representative vo
     \label{fig:Dact_vs_Pact}
 \end{figure}
 
-This inconsistency most likely arises from our choice to filter out distant encounters ($b/D_{\rm act} > 1$) and low-signal vortices ($V_{\rm obs}/\sigma < 5$). All else being equal, vortices with small $\Delta P_{\rm act}$ are also likely to have small $V_{\rm act}$ and therefore to register with small $V_{\rm obs}$ in an encounter. \citet{2020Icar..33813523J} also suggested that $D_{\rm act} \propto \Delta P_{\rm act}^{1/2}$, meaning small $\Delta P_{\rm act}$ are more likely to have $b/D_{\rm act} > 1$. Indeed, a power-law fit to the distribution of $D_{\rm act}$ vs.~$\Delta P_{\rm act}$ gives $D_{\rm act} \propto \Delta P_{\rm act}^{-0.34}$, although the distribution is also statistically consistent with no correlation as well. 
+This inconsistency likely arises from our choice to filter out distant encounters ($b/D_{\rm act} > 1$) and low-signal vortices ($V_{\rm obs}/\sigma < 5$). All else being equal, vortices with small $\Delta P_{\rm act}$ are also likely to have small $V_{\rm act}$ and therefore to register with small $V_{\rm obs}$ in an encounter. \citet{2020Icar..33813523J} also suggested that $D_{\rm act} \propto \Delta P_{\rm act}^{1/2}$, meaning small $\Delta P_{\rm act}$ are more likely to have $b/D_{\rm act} > 1$. Indeed, a power-law fit to the distribution of $D_{\rm act}$ vs.~$\Delta P_{\rm act}$ gives $D_{\rm act} \propto \Delta P_{\rm act}^{-0.34}$, although the distribution is also statistically consistent with no correlation as well. 
 
 \begin{figure}
     \centering
@@ -466,19 +467,37 @@ This inconsistency most likely arises from our choice to filter out distant enco
     \label{fig:all_actual_values_vs_t0}
 \end{figure}
 
-In spite of these observational biases, we can still infer eyewall velocities $V_{\rm act}$ and look at trends with time-of-day $t_0$. Figure \ref{fig:all_actual_values_vs_t0} shows how $\Delta P_{\rm act}$, $D_{\rm act}$, and $V_{\rm act}$ as functions of time-of-day $t_0$. The min, median, and maximum values for $V_{\rm act}$ are 7.62, 15.2, and $37.4\,{\rm m\ s^{-1}}$. The trends for all parameters with $t_0$ seem reasonable: many of the largest values for all parameters occur in the late afternoon, although the very largest values for each do not always occur late in the day. 
+In spite of these observational biases, we can still infer eyewall velocities $V_{\rm act}$ and look at trends with time-of-day $t_0$. Figure \ref{fig:all_actual_values_vs_t0} shows how $\Delta P_{\rm act}$, $D_{\rm act}$, and $V_{\rm act}$ as functions of time-of-day $t_0$. The min, median, and maximum values for $V_{\rm act}$ are $9.17\pm0.48$, $15.6\pm1.0$, and $37.4\pm5.1\,{\rm m\ s^{-1}}$. The trends for all parameters with $t_0$ seem reasonable: many of the largest values for all parameters occur in the late afternoon, although the very largest values for each do not always occur late in the day. 
 
-Of most interest may be the cumulative histogram of $V_{\rm act}$-values, Figure \ref{fig:}. Although the exact conditions for vortices to lift dust on Mars are unclear, previous work has suggested several threshold wind velocities. Based on lab simulations, \citet{2003JGRE..108.5041G} proposed $20-30\,{\rm m\ s^{-1}}$. Results from a study tracking the motions of dust clots within martian dust devils agreed with that estimate \citep{2011GeoRL..3824206C}. Other studies suggest much higher thresholds \citep[cf.][]{202006JGRE..11112002C06}. If $V_{\rm act} = 20\,{\rm m\ s^{-1}}$ were the appropriate threshold for dust lifting, for example, then we might expect only 20\% of vortices to loft dust and to be bonafide dust devils. \citet{}
+Of most interest may be the cumulative histogram of $V_{\rm act}$-values, Figure \ref{fig:cum_hist_Vact}. Although the exact conditions for vortices to lift dust on Mars are unclear, previous work has suggested several threshold wind velocities. Based on lab simulations, \citet{2003JGRE..108.5041G} proposed $20-30\,{\rm m\ s^{-1}}$. Results from a study tracking the motions of dust clots within martian dust devils agreed with that estimate \citep{2011GeoRL..3824206C}. Other studies suggest much higher thresholds \citep[cf.][]{2006JGRE..11112002C06}. If $V_{\rm act} = 20\,{\rm m\ s^{-1}}$ were the appropriate threshold for dust lifting, for example, then we might expect only 20\% of vortices to loft dust and to be bonafide dust devils. 
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{figures/cum_hist_Vact.png}
-    \caption{The fractional cumulative histogram of inferred $V_{\rm act}$-values. For example, about 80\% of the vortices we analyzed have $V_{\rm act} \leq 20\,{\rm m\ s^{-1}}$.}
+    \caption{The fractional cumulative histogram of inferred $V_{\rm act}$-values. For example, about 20\% of the vortices we analyzed have $V_{\rm act} \geq 20\,{\rm m\ s^{-1}}$.}
     \label{fig:cum_hist_Vact}
 \end{figure}
 
 % 30 m/s threshold
 % \citep{2003JGRE..108.5041G, 2006JGRE..11112002C, 2011GeoRL..3824206C}
+
+\subsection{Inferring Dust Devil Density from the Time-Series Analysis}
+\label{sec:Inferring Dust Devil Density from the Time-Series Analysis}
+
+\section{Image Analysis}
+\label{sec:Image Analysis}
+
+% Image Data including contrast and how that translates into optical depth
+
+% Brief description of camera including FOV and distance to horizon
+
+% Surveyed area
+
+% TOD of observations
+
+% Wind speeds during observations
+
+% Upper limit on dust devil density
 
 \section{Discussion and Conclusions}
 \label{sec:Discussion and Conclusions}
@@ -613,6 +632,8 @@ Although the dust flux $q$ likely depends on $D$ itself, the dependence is unkno
 with $\gamma < 5$ and $D_{\rm min} \ll D_{\rm max}$. For a representative estimate, we can take $q = 2.07\times10^{−5}\,{\rm kg\ m^{-2}\ s^{-1}}$, $n_0 = 0.05\,{\rm km^{-2}\ hr^{-1}}$, $\gamma = 1$, $t = 25\,{\rm hrs}$, $\Delta_{\rm FOV} = 65^\circ$, $\alpha = 1\,{\rm mrad}$, and $D_{\rm max} = 100\,{\rm m}$, giving an estimate $\langle Q \rangle \approx 4 {\rm g\ hr^{-1}}$.
 
 \acknowledgments
+
+We acknowledge helpful input from Don Banfield.
 
 %% To help institutions obtain information on the effectiveness of their 
 %% telescopes the AAS Journals has created a group of keywords for telescope 
