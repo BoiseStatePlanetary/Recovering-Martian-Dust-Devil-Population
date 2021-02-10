@@ -469,7 +469,9 @@ This inconsistency likely arises from our choice to filter out distant encounter
 
 In spite of these observational biases, we can still infer eyewall velocities $V_{\rm act}$ and look at trends with time-of-day $t_0$. Figure \ref{fig:all_actual_values_vs_t0} shows how $\Delta P_{\rm act}$, $D_{\rm act}$, and $V_{\rm act}$ as functions of time-of-day $t_0$. The min, median, and maximum values for $V_{\rm act}$ are $9.17\pm0.48$, $15.6\pm1.0$, and $37.4\pm5.1\,{\rm m\ s^{-1}}$. The trends for all parameters with $t_0$ seem reasonable: many of the largest values for all parameters occur in the late afternoon, although the very largest values for each do not always occur late in the day. 
 
-Of most interest may be the cumulative histogram of $V_{\rm act}$-values, Figure \ref{fig:cum_hist_Vact}. Although the exact conditions for vortices to lift dust on Mars are unclear, previous work has suggested several threshold wind velocities. Based on lab simulations, \citet{2003JGRE..108.5041G} proposed $20-30\,{\rm m\ s^{-1}}$. Results from a study tracking the motions of dust clots within martian dust devils agreed with that estimate \citep{2011GeoRL..3824206C}. Other studies suggest much higher thresholds \citep[cf.][]{2006JGRE..11112002C06}. If $V_{\rm act} = 20\,{\rm m\ s^{-1}}$ were the appropriate threshold for dust lifting, for example, then we might expect only 20\% of vortices to loft dust and to be bonafide dust devils. 
+Of most interest may be the cumulative histogram of $V_{\rm act}$-values, Figure \ref{fig:cum_hist_Vact}. Although the exact conditions for vortices to lift dust on Mars are unclear, previous work has suggested several threshold wind velocities. Based on lab simulations, \citet{2003JGRE..108.5041G} proposed $20-30\,{\rm m\ s^{-1}}$. Results from a study tracking the motions of dust clots within martian dust devils agreed with that estimate \citep{2011GeoRL..3824206C}. Other studies suggest much higher thresholds \citep[cf.][]{2006JGRE..11112002C}. If $V_{\rm act} = 20\,{\rm m\ s^{-1}}$ were the appropriate threshold for dust lifting, for example, then we might expect only 20\% of vortices to loft dust and to be bonafide dust devils. 
+
+Dustless vortices are certainly common on Earth and Mars, and there is no requirement that a vortex lofts dust, even when it is available. In a terrestrial field experiment, \citet{LORENZ20151} found about 40\% of encountered vortices exhibited signatures consistent with dust loading. \citet{2016Icar..278..180S} surveyed 245 vortices encountered by the Mars Science Laboratory and found only two with clear signatures of dust-loading. Indeed, \citet{2020GeoRL..4787234P} conducted survey of images from InSight's ICC and found no signs of dust-bearing vortices, even though they reported more than 9000 vortex encounters. Given the observations of active trail formation observed in the vicinity of InSight \citep{2016Icar..266..315R, 2020GeoRL..4787234P}, this result seems surprising. As we discuss in the next section, however, the infrequent observations and small viewing area of ICC images conspire to reduce the significance of the non-detection of dust devils. In any case, we can combine the lack of observed dusty vortices with our time-series analysis to constrain, for example, the threshold wind velocities required for dust lifting on Mars. First, however, we need to calculate the underlying areal density of vortices from the encounter statistics in Figure \ref{fig:sol_and_t0_histograms}. 
 
 \begin{figure}
     \centering
@@ -483,6 +485,13 @@ Of most interest may be the cumulative histogram of $V_{\rm act}$-values, Figure
 
 \subsection{Inferring Dust Devil Density from the Time-Series Analysis}
 \label{sec:Inferring Dust Devil Density from the Time-Series Analysis}
+
+For this analysis, we make several simplifying assumptions:
+
+If all encountered vortices had the same diameter $D$, advective speed $U$, the number of vortices per unit area, which can be estimated from the number of vortex detections per unit time, $\nu$, via
+\begin{equation}
+    \nu = N U D. \label{eqn:simple_number_of_encounters}
+\end{equation}
 
 \section{Image Analysis}
 \label{sec:Image Analysis}
@@ -513,11 +522,7 @@ With these choices, the maximum distance out to which we could detect a vortex i
     b_{\rm max} = \left( \frac{D_{\rm act}}{2} \right) \sqrt{ \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 }. \label{eqn:bmax}
 \end{equation} 
 
-As discussed in Section \ref{sec:Introduction}, the quantity of meteorological interest is $N$, the number of vortices per unit area, which can be estimated from the total number of vortex detections, $k$, via
-\begin{equation}
-    k = 2 N U T b_{\rm max} = N U T D_{\rm act} \sqrt{ \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 }, \label{eqn:number_of_encounters}
-\end{equation}
-where $T$ is the total duration of the survey (which may consist of multiple observational sequences spread over many sols). (If $N$ and $U$ evolve with time (as they usually do), this estimate can be converted into an integral over time.) A reasonable assumption is that vortex encounters represent a Poisson process \citep[cf.][]{Press2007}, and so we can estimate the uncertainty on $k$ as $\sigma_k = \sqrt{k}$ and therefrom the uncertainty $\sigma_N$ via
+A reasonable assumption is that vortex encounters represent a Poisson process \citep[cf.][]{Press2007}, and so we can estimate the uncertainty on $k$ as $\sigma_k = \sqrt{k}$ and therefrom the uncertainty $\sigma_N$ via
 \begin{equation}
     \frac{\sigma_N}{N} = \frac{\sigma_k}{k} = k^{-1/2} = \left ( N U T D_{\rm act} \right)^{-1/2} \left( \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 \right)^{-1/4}.
     \label{eqn:sigma_N}
