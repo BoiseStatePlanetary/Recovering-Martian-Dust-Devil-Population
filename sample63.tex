@@ -488,10 +488,11 @@ Dustless vortices are certainly common on Earth and Mars, and there is no requir
 
 For this analysis, we make several simplifying assumptions:
 
-If all encountered vortices had the same diameter $D$, advective speed $U$, the number of vortices per unit area, which can be estimated from the number of vortex detections per unit time, $\nu$, via
+If all encountered vortices had the same advective speed $U$, diameter $D_{\rm act}$, and central pressure excursion $\Delta P_{r\m act}$, the areal density of vortices $N$ can be estimated from the number of vortex detections per unit time, $\nu$, via
 \begin{equation}
-    \nu = N U D. \label{eqn:simple_number_of_encounters}
+    \nu = k/T = N U \left( 2 b_{\rm max} \right) \label{eqn:simple_number_of_encounters}
 \end{equation}
+where $k$ is the total number of encounters during the observing period $T$ and $b_{\rm max}$ is the maximum radial encounter distance for which a pressure signal will register (Equation \ref{eqn:bmax}). In principle, calculating $N$ from the observed encounters requires integrating over the population. Unfortunately, the small number of vortices for which we were able to robustly estimate the actual parameters severely limits our ability to integrate over the population. Moreover, we expect these parameters to vary with time-of-day and season. In lieu of this more complete evaluation, we instead calculate the population average for $U$ and $b_{\rm max}$ and then use that average value to solve for $N$ from the $nu$-values depicted in Figure \ref{fig:sol_and_t0_histograms}, panels (a) and (b). Figure \ref{fig:} show the resulting areal density estimates.
 
 \section{Image Analysis}
 \label{sec:Image Analysis}
