@@ -488,17 +488,30 @@ Dustless vortices are certainly common on Earth and Mars, and there is no requir
 
 For this analysis, we make several simplifying assumptions:
 
-If all encountered vortices had the same advective speed $U$, diameter $D_{\rm act}$, and central pressure excursion $\Delta P_{r\m act}$, the areal density of vortices $N$ can be estimated from the number of vortex detections per unit time, $\nu$, via
+\begin{enumerate}
+
+    \item For the advective speed, we use not the pre-encounter wind velocities considered in, for example, Equation \ref{eqn:total_wind_speed} but the hour-by-hour or sol-by-sol average speeds illustrated in Figure \ref{fig:advective_speeds} because we are interested in the advection of a population of vortices, not the individual vortices.
+    
+\end{enumerate}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/advective_speeds.png}
+    \caption{The hour-by-hour average wind speeds $\langle U \rangle$ for each sol. Brighter (yellower) colors represent higher speeds.}
+    \label{fig:advective_speeds}
+\end{figure}
+
+If all encountered vortices had the same advective speed $U$, diameter $D_{\rm act}$, and central pressure excursion $\Delta P_{r\m act}$, the areal density of vortices $n$ can be estimated from the number of vortex detections per unit time, $\nu$, via
 \begin{equation}
-    \nu = k/T = N U \left( 2 b_{\rm max} \right) \label{eqn:simple_number_of_encounters}
+    \nu = k/T = n U \left( 2 b_{\rm max} \right) \label{eqn:simple_number_of_encounters}
 \end{equation}
-where $k$ is the total number of encounters during the observing period $T$ and $b_{\rm max}$ is the maximum radial encounter distance for which a pressure signal will register (Equation \ref{eqn:bmax}). In principle, calculating $N$ from the observed encounters requires integrating over the population. Unfortunately, the small number of vortices for which we were able to robustly estimate the actual parameters severely limits our ability to integrate over the population. Moreover, we expect these parameters to vary with time-of-day and season. In lieu of this more complete evaluation, we instead calculate the population average for $U$ and $b_{\rm max}$ and then use that average value to solve for $N$ from the $nu$-values depicted in Figure \ref{fig:sol_and_t0_histograms}, panels (a) and (b). Figure \ref{fig:} show the resulting areal density estimates.
+where $k$ is the total number of encounters during the observing period $T$ and $b_{\rm max}$ is the maximum radial encounter distance for which a pressure signal will register (Equation \ref{eqn:bmax}). In principle, calculating $N$ from the observed encounters requires integrating over the population. Unfortunately, the small number of vortices for which we were able to robustly estimate the actual parameters severely limits our ability to integrate over the population. Moreover, we expect these parameters to vary with time-of-day and season. In lieu of this more complete evaluation, we instead calculate the population average for $b_{\rm max}$ and then use that average value to solve for $n$ from the encounter rates depicted in Figure \ref{fig:sol_and_t0_histograms}, panels (a) and (b). Figure \ref{fig:areal_density} show the resulting areal density estimates.
 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/areal_density.png}
-    \caption{Caption}
-    \label{fig:my_label}
+    \caption{(a) Areal density by sol binned as in panel (a) of Figure \ref{fig:sol_and_t0_histograms}. (b) Areal density by hour with the same binning as in panel (b) of Figure \ref{fig:sol_and_t0_histograms}.}
+    \label{fig:areal_density}
 \end{figure}
 
 \section{Image Analysis}
