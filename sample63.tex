@@ -114,6 +114,7 @@
 \newcommand{\largestGammaobs}{$\left( 99 \pm 3 \right)\,{\rm s}$}
 \newcommand{\boverDactltone}{88}
 \newcommand{\vorticeswithnowinds}{56}
+\newcommand{\numICCimages}{1527}
 
 %% Reintroduced the \received and \accepted commands from AASTeX v5.2
 \received{June 1, 2019}
@@ -321,7 +322,7 @@ For this study, we will consider two types of dust devil detections and analyses
 
 The atmospheric influence of a dust devil population depends on the areal density of dust devil occurrence and the dust flux for each. Thus, accurately assessing that influence requires accurate estimates of the both.
 
-\section{Time-Series Analysis}
+\section{Meteorological Time-Series Analysis}
 In this section, we describe our analysis of the pressure and wind speed time-series. We first describe the data themselves. Next, we discuss our search for vortex signals using the pressure time-series and explore its biases and completeness, which \citet{2015JGRE..120..401J} showed are important for inferring the underlying occurrence rates from the observations. Next, we describe how we modeled the pressure and wind speed profiles of individual vortex encounters, which, as we show, allows us to determine not just the observed pressure and wind excursions but also to infer the encounter geometries and intrinsic vortex parameters \citep[cf.][]{2016Icar..271..326L}. We also discuss the statistical distributions and correlations of vortex parameters and compare them to predictions and previous work. 
 
 \subsection{Time-Series Data}
@@ -486,14 +487,6 @@ Dustless vortices are certainly common on Earth and Mars, and there is no requir
 \subsection{Inferring Dust Devil Density from the Time-Series Analysis}
 \label{sec:Inferring Dust Devil Density from the Time-Series Analysis}
 
-For this analysis, we make several simplifying assumptions:
-
-\begin{enumerate}
-
-    \item For the advective speed, we use not the pre-encounter wind velocities considered in, for example, Equation \ref{eqn:total_wind_speed} but the hour-by-hour or sol-by-sol average speeds illustrated in Figure \ref{fig:advective_speeds} because we are interested in the advection of a population of vortices, not the individual vortices.
-    
-\end{enumerate}
-
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/advective_speeds.png}
@@ -505,7 +498,7 @@ If all encountered vortices had the same advective speed $U$, diameter $D_{\rm a
 \begin{equation}
     \nu = k/T = n U \left( 2 b_{\rm max} \right) \label{eqn:simple_number_of_encounters}
 \end{equation}
-where $k$ is the total number of encounters during the observing period $T$ and $b_{\rm max}$ is the maximum radial encounter distance for which a pressure signal will register (Equation \ref{eqn:bmax}). In principle, calculating $N$ from the observed encounters requires integrating over the population. Unfortunately, the small number of vortices for which we were able to robustly estimate the actual parameters severely limits our ability to integrate over the population. Moreover, we expect these parameters to vary with time-of-day and season. In lieu of this more complete evaluation, we instead calculate the population average for $b_{\rm max}$ and then use that average value to solve for $n$ from the encounter rates depicted in Figure \ref{fig:sol_and_t0_histograms}, panels (a) and (b). Figure \ref{fig:areal_density} show the resulting areal density estimates. We find the estimated areal densities largely follow increases and decreases in the encounter rate. The peak in the hour-by-hour density at 13:00 LTST is slightly more pronounced than the peak in the corresponding encounter rate 
+where $k$ is the total number of encounters during the observing period $T$ and $b_{\rm max}$ is the maximum radial encounter distance for which a pressure signal will register (Equation \ref{eqn:bmax}). For the advective speed, we use not the pre-encounter wind velocities considered in, for example, Equation \ref{eqn:total_wind_speed} but the hour-by-hour or sol-by-sol average speeds illustrated in Figure \ref{fig:advective_speeds} because we are interested in the advection of a population of vortices, not the individual vortices. In principle, calculating $N$ from the observed encounters requires integrating over the population. Unfortunately, the small number of vortices for which we were able to robustly estimate the actual parameters severely limits our ability to integrate over the population.  Moreover, we expect these parameters to vary with time-of-day and season. In lieu of this more complete evaluation, we instead calculate the population average for $b_{\rm max}$ and then use that average value to solve for $n$ from the encounter rates depicted in Figure \ref{fig:sol_and_t0_histograms}, panels (a) and (b). Figure \ref{fig:areal_density} show the resulting areal density estimates. We find the estimated areal densities largely follow increases and decreases in the encounter rate. The peak in the hour-by-hour density at 13:00 LTST is slightly more pronounced than the peak in the corresponding encounter rate because of a slightly higher average advective speed around 12:00 LTST. 
 
 \begin{figure}
     \centering
@@ -517,13 +510,22 @@ where $k$ is the total number of encounters during the observing period $T$ and 
 \section{Image Analysis}
 \label{sec:Image Analysis}
 
+In this section, we describe our analysis of image data from InSight to search for the passage of dust devils. To cut to the chase, our survey detected no active dust devils, and so we are able only to provide an upper limit on their activity based on the geometry of the observations, the image contrast, and the timing of observations.
+
+\begin{figure}
+    \centering
+    \includegraphics{}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+% Brief description of camera including FOV and distance to horizon and surveyed area
+For our visual dust devil survey, we use observations from InSight's Instrument Context Camera (ICC) because that camera is mostly consistently pointed toward the horizon, in the southern direction in fact. ICC has a field-of-view (FOV) of $124^\circ\times124^\circ$ and sits about $0.8\,{\rm m}$ off the surface \citep{2018SSRv..214..105M}. The local topography limits the horizon for the Instrument Deployment Camera (IDC) toward the south to no more than $300\,{\rm m}$ \citep{2020E&SS....701248G}. Since ICC is even closer to the ground ($0.7\,{\rm m}$ vs.~IDC's $1.5\,{\rm m}$), the view is even more limited. Consequently, in any given image, ICC surveys less than $\frac{1}{2} \pi \left(124^\circ/180^\circ\right) \left( 300\,{\rm m} \right)^2 \approx 0.1\,{\rm km^2}$.
+
+% How many images and TOD of observations
+As of this manuscript's preparation, the NASA PDS archive for InSight's ICC contains images spanning sols 1 to 476 (although many sols lack images), totaling \numICCimages\ images. Figure \ref{} shows an example, and Figure shows \ref{} the sols and times of day when images are available. 
+
 % Image Data including contrast and how that translates into optical depth
-
-% Brief description of camera including FOV and distance to horizon
-
-% Surveyed area
-
-% TOD of observations
 
 % Wind speeds during observations
 
@@ -659,7 +661,7 @@ with $\gamma < 5$ and $D_{\rm min} \ll D_{\rm max}$. For a representative estima
 
 \acknowledgments
 
-We acknowledge helpful input from Don Banfield.
+We acknowledge helpful input from Don Banfield, and Matthew Golombek.
 
 %% To help institutions obtain information on the effectiveness of their 
 %% telescopes the AAS Journals has created a group of keywords for telescope 
