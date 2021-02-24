@@ -510,26 +510,33 @@ where $k$ is the total number of encounters during the observing period $T$ and 
 \section{Image Analysis}
 \label{sec:Image Analysis}
 
-In this section, we describe our analysis of image data from InSight to search for the passage of dust devils. To cut to the chase, our survey detected no active dust devils, and so we are able only to provide an upper limit on their activity based on the geometry of the observations, the image contrast, and the timing of observations.
-
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/Example-Image_Insight-Combined-Analysis.png}
-    \caption{(a) An example image from the Instrument Context Camera (ICC). (b) The times and sols when ICC collected images.}
+    \caption{(a) Example of an Instrument Context Camera (ICC) image. (b) Times and sols during which images were collected throughout the InSight mission.}
     \label{fig:Example-Image_Insight-Combined-Analysis}
 \end{figure}
+
+In this section, we describe our analysis of image data from InSight to search for the passage of dust devils. To cut to the chase, our survey detected no active dust devils, but we can provide an upper limit on their activity based on the geometry, frequency, and timing of observations.
 
 % How many images and TOD of observations
 
 For our visual dust devil survey, we use observations from InSight's Instrument Context Camera (ICC) because that camera is mostly consistently pointed toward the horizon, in the southern direction in fact. ICC has a field-of-view (FOV) of $124^\circ\times124^\circ$ and sits about $0.8\,{\rm m}$ off the surface \citep{2018SSRv..214..105M} -- Figure \ref{fig:Example-Image_Insight-Combined-Analysis} (a) shows an example image. As of this manuscript's preparation, the NASA PDS archive for InSight's ICC contains images spanning sols 1 to 476 (although many sols lack images), totaling \numICCimages\ images. Figure \ref{fig:Example-Image_Insight-Combined-Analysis} (b) shows the sols and times when images are available. Even though none of the images show active dust devils, we can still translate them into an upper limit on dust devil activity by considering the area and times surveilled. 
 
 % Brief description of camera including FOV and distance to horizon and surveyed area
-The local topography limits the horizon for the Instrument Deployment Camera (IDC) toward the south to no more than about $300\,{\rm m}$ \citep{2020E&SS....701248G}. Since ICC is even closer to the ground ($0.7\,{\rm m}$ vs.~IDC's $1.5\,{\rm m}$), the view is even more limited. Consequently, in any given image, ICC surveys less than $\frac{1}{2} \pi \left(124^\circ/180^\circ\right) \left( 300\,{\rm m} \right)^2 \approx 0.1\,{\rm km^2}$. 
+The local topography limits the horizon for the Instrument Deployment Camera (IDC) toward the south to about $2.4\,{\rm km}$ \citep{2020E&SS....701248G}. Since ICC is even closer to the ground ($0.7\,{\rm m}$ vs.~IDC's $1.5\,{\rm m}$), the view is even more limited. However, as an upper limit, we can estimate the area surveilled as $\frac{1}{2} \pi \left(124^\circ/180^\circ\right) \left( 2.4\,{\rm km} \right)^2 \approx 6.2\,{\rm km^2}$. 
 
 % Wind speeds during observations
-Each image also has an effective integration time equal to the time for a dust devil to move through the region visible (assuming the lifetime of the dust devil). Consider, for example, a case in which the ambient wind is carrying dust devils laterally across the FOV. If the wind speed is very slow, then 
+Each image also has an effective integration time equal to the time for a dust devil to move through the region visible (assuming the lifetime of the dust devil is long by comparison). The maximum crossing time would be equal to the time for a dust devil to cross along the horizon, no farther away than $2.4\,{\rm km}$. With an FOV of $124^\circ$, this distance is $\pi \left(124^\circ/180^\circ\right) \left( 2.4\,{\rm km} \right) \approx 2.6\,{\rm km}$. The time to cross this distance will depend on the ambient wind speed, and so for our calculation, we will take the median wind speed during the observational period. 
 
 % Upper limit on dust devil density
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/areal_occurrence_rate.png}
+    \caption{The blue curve shows the allowed maximum areal occurrence rate, while the dashed orange lines show the maximum and typical values reported in \citet{2020GeoRL..4787234P}.}
+    \label{fig:areal_occurrence_rate}
+\end{figure}
 
 % Image Data including contrast and how that translates into optical depth
 
