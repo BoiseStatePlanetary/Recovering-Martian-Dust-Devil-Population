@@ -514,22 +514,24 @@ In this section, we describe our analysis of image data from InSight to search f
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/Insight_Combined_Analysis.png}
-    \caption{The times and sols when the Instrument Context Camera (ICC) collected images.}
-    \label{fig:Insight_Combined_Analysis}
+    \includegraphics[width=\textwidth]{figures/Example-Image_Insight-Combined-Analysis.png}
+    \caption{(a) An example image from the Instrument Context Camera (ICC). (b) The times and sols when ICC collected images.}
+    \label{fig:Example-Image_Insight-Combined-Analysis}
 \end{figure}
 
-% Brief description of camera including FOV and distance to horizon and surveyed area
-For our visual dust devil survey, we use observations from InSight's Instrument Context Camera (ICC) because that camera is mostly consistently pointed toward the horizon, in the southern direction in fact. ICC has a field-of-view (FOV) of $124^\circ\times124^\circ$ and sits about $0.8\,{\rm m}$ off the surface \citep{2018SSRv..214..105M}. The local topography limits the horizon for the Instrument Deployment Camera (IDC) toward the south to no more than $300\,{\rm m}$ \citep{2020E&SS....701248G}. Since ICC is even closer to the ground ($0.7\,{\rm m}$ vs.~IDC's $1.5\,{\rm m}$), the view is even more limited. Consequently, in any given image, ICC surveys less than $\frac{1}{2} \pi \left(124^\circ/180^\circ\right) \left( 300\,{\rm m} \right)^2 \approx 0.1\,{\rm km^2}$.
-
 % How many images and TOD of observations
-As of this manuscript's preparation, the NASA PDS archive for InSight's ICC contains images spanning sols 1 to 476 (although many sols lack images), totaling \numICCimages\ images. Figure \ref{} shows an example, and Figure shows \ref{Insight_Combined_Analysis} the sols and times of day when images are available. 
 
-% Image Data including contrast and how that translates into optical depth
+For our visual dust devil survey, we use observations from InSight's Instrument Context Camera (ICC) because that camera is mostly consistently pointed toward the horizon, in the southern direction in fact. ICC has a field-of-view (FOV) of $124^\circ\times124^\circ$ and sits about $0.8\,{\rm m}$ off the surface \citep{2018SSRv..214..105M} -- Figure \ref{fig:Example-Image_Insight-Combined-Analysis} (a) shows an example image. As of this manuscript's preparation, the NASA PDS archive for InSight's ICC contains images spanning sols 1 to 476 (although many sols lack images), totaling \numICCimages\ images. Figure \ref{fig:Example-Image_Insight-Combined-Analysis} (b) shows the sols and times when images are available. Even though none of the images show active dust devils, we can still translate them into an upper limit on dust devil activity by considering the area and times surveilled. 
+
+% Brief description of camera including FOV and distance to horizon and surveyed area
+The local topography limits the horizon for the Instrument Deployment Camera (IDC) toward the south to no more than about $300\,{\rm m}$ \citep{2020E&SS....701248G}. Since ICC is even closer to the ground ($0.7\,{\rm m}$ vs.~IDC's $1.5\,{\rm m}$), the view is even more limited. Consequently, in any given image, ICC surveys less than $\frac{1}{2} \pi \left(124^\circ/180^\circ\right) \left( 300\,{\rm m} \right)^2 \approx 0.1\,{\rm km^2}$. 
 
 % Wind speeds during observations
+Each image also has an effective integration time equal to the time for a dust devil to move through the region visible (assuming the lifetime of the dust devil). Consider, for example, a case in which the ambient wind is carrying dust devils laterally across the FOV. If the wind speed is very slow, then 
 
 % Upper limit on dust devil density
+
+% Image Data including contrast and how that translates into optical depth
 
 \section{Discussion and Conclusions}
 \label{sec:Discussion and Conclusions}
