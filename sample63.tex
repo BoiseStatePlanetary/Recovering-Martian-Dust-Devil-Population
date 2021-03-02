@@ -498,7 +498,14 @@ If all encountered vortices had the same advective speed $U$, diameter $D_{\rm a
 \begin{equation}
     \nu = k/T = n U \left( 2 b_{\rm max} \right) \label{eqn:simple_number_of_encounters}
 \end{equation}
-where $k$ is the total number of encounters during the observing period $T$ and $b_{\rm max}$ is the maximum radial encounter distance for which a pressure signal will register (Equation \ref{eqn:bmax}). For the advective speed, we use not the pre-encounter wind velocities considered in, for example, Equation \ref{eqn:total_wind_speed} but the hour-by-hour or sol-by-sol average speeds illustrated in Figure \ref{fig:advective_speeds} because we are interested in the advection of a population of vortices, not the individual vortices. In principle, calculating $N$ from the observed encounters requires integrating over the population. Unfortunately, the small number of vortices for which we were able to robustly estimate the actual parameters severely limits our ability to integrate over the population.  Moreover, we expect these parameters to vary with time-of-day and season. In lieu of this more complete evaluation, we instead calculate the population average for $b_{\rm max}$ and then use that average value to solve for $n$ from the encounter rates depicted in Figure \ref{fig:sol_and_t0_histograms}. Figure  
+where $k$ is the total number of encounters during the observing period $T$ and $b_{\rm max}$ is the maximum radial encounter distance for which a pressure signal will register (Equation \ref{eqn:bmax}). For the advective speed, we use not the pre-encounter wind velocities considered in, for example, Equation \ref{eqn:total_wind_speed} but the hour-by-hour or sol-by-sol average speeds illustrated in Figure \ref{fig:advective_speeds} because we are interested in the advection of a population of vortices, not the individual vortices. In principle, calculating $N$ from the observed encounters requires integrating over the population. Unfortunately, the small number of vortices for which we were able to robustly estimate the actual parameters severely limits our ability to integrate over the population.  Moreover, we expect these parameters to vary with time-of-day and season. In lieu of this more complete evaluation, we instead calculate the population average for $b_{\rm max}$ and then use that average value to solve for $n$ from the encounter rates depicted in Figure \ref{fig:sol_and_t0_histograms}. Figure \ref{fig:areal_occurrence_rate} shows our estimate for the areal occurrence rate for vortices.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/areal_occurrence_rate.png}
+    \caption{The solid blue curve shows the areal occurrence rate for vortices (``vortex rate''). The dashed, orange line shows the allowed maximum rate for dust devils inferred from the image analysis (``max image rate''). The dash-dot green line show the median rate reported in \citet{2020GeoRL..4787234P} (``P20 rate'').}
+    \label{fig:areal_occurrence_rate}
+\end{figure}
 
 % Figure \ref{fig:areal_density} show the resulting areal density estimates. We find the estimated areal densities largely follow increases and decreases in the encounter rate. The peak in the hour-by-hour density at 13:00 LTST is slightly more pronounced than the peak in the corresponding encounter rate because of a slightly higher average advective speed around 12:00 LTST. 
 
@@ -532,13 +539,6 @@ The local topography limits the horizon for the Instrument Deployment Camera (ID
 The chances of spotting a dust devil also depend on the time for a dust devil to move through the region visible (assuming the lifetime of the dust devil is long by comparison). The maximum crossing time would give us the greatest chance to spot a dust devil and therefore the largest occurrence density consistent with no detections. This maximum time is equal to the time for a dust devil to cross along the horizon, no farther away than $2.4\,{\rm km}$. With an FOV of $124^\circ$, this distance is $\pi \left(124^\circ/180^\circ\right) \left( 2.4\,{\rm km} \right) \approx 2.6\,{\rm km}$. The time to cross this distance will depend on the ambient wind speed, and so for our calculation, we will take the median wind speed during each observational period. The resulting upper limits on the areal occurrence rate are shown in Figure \ref{fig:areal_occurrence_rate}. (Given that most sols have only one or a few images available, the areal occurrence rate binned by sol is much less informative and so we do not include it.)
 
 % Upper limit on dust devil density
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{figures/areal_occurrence_rate.png}
-    \caption{The blue curve shows the allowed maximum areal occurrence rate, while the dashed orange lines show the maximum and typical values reported in \citet{2020GeoRL..4787234P}.}
-    \label{fig:areal_occurrence_rate}
-\end{figure}
 
 % Image Data including contrast and how that translates into optical depth
 
