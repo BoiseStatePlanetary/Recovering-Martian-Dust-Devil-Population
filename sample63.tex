@@ -340,7 +340,7 @@ To suppress longer-term signals and facilitate detection of the vortices, we app
 
 Next, we employ a matched filter approach \citep[][ch.~13]{Press2007} using a normalized Lorentzian profile with a known FWHW, $\Gamma$; that is, we march a Lorentzian profile, point-by-point, across the time series, convolving it with the time-series. Based on our analysis in the Appendix (Section \ref{sec:Vortex Recovery Statistics}), we chose $\Gamma = 1\,{\rm s}$. This process produces the equivalent of a spectrum, with large positive spikes when the filter encounters other Lorentzian-like signals. We subtract the median value from this raw spectrum and then normalize it by the standard deviation (as estimated by $1.4826\ \times$ the median absolute deviation -- \citealp{doi:10.1080/01621459.1993.10476408}). We consider peaks rising above the detection threshold of 5 to be possible vortices. Figure \ref{fig:data_conditioning_and_fit}(c) shows this normalized spectrum for the time-series in panel (b), along with the peaks raising above $F \ast P = 5$ (vertical dashed orange lines). 
 
-Finally, considering the original, undetrended time-series (e.g., Figure \ref{fig:data_conditioning_and_fit}(a)), we use the Levenberg-Marquardt algorithm \citep[cf.][]{Press2007} to fit the time-series in a window 30-FWHMs wide around each vortex signal. As in previous work \citep[e.g.,][]{2016JGRE..121.1514K}, we assume the pressure structures of vortices are accurately represented by a steady-state modified Lorentzian profile,
+Finally, considering the original, undetrended time-series (e.g., Figure \ref{fig:data_conditioning_and_fit}a), we use the Levenberg-Marquardt algorithm \citep[cf.][]{Press2007} to fit the time-series in a window 30-FWHMs wide around each vortex signal. As in previous work \citep[e.g.,][]{2016JGRE..121.1514K}, we assume the pressure structures of vortices are accurately represented by a steady-state modified Lorentzian profile,
 
 \begin{equation}
     \Delta P(r) = -\frac{\Delta P_{\rm act}}{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2}\label{eqn:radial_lorentzian_profile}
@@ -355,7 +355,7 @@ where $t_0$ is the time of closest approach. This scheme assumes the vortex trav
 \end{equation}
 where $\Gamma_{\rm obs}$ is the observed profile full-width/half-max (FWHM). With these definitions, $\Gamma_{\rm obs} = U^{-1} \sqrt{D_{\rm act}^2 + \left( 2 b \right)^2}$. 
 
-We fit this profile combined with a linear trend, returning best fit parameters $t_0$, $\Delta P_{\rm obs}$, and $\Gamma_{\rm obs}$, as well as the background slope and intercept. Fitting such a model to the original, undetrended data instead of the detrended time-series avoids the distorting effect of the boxcar filter on the vortex signal while taking into account any background trend. Figure \ref{fig:data_conditioning_and_fit}(d) shows such a fit (with the background intercept subtracted out). Section \ref{sec:Results} below presents the results from this analysis.
+We fit this profile combined with a linear trend, returning best fit parameters $t_0$, $\Delta P_{\rm obs}$, and $\Gamma_{\rm obs}$, as well as the background slope and intercept. Fitting such a model to the original, undetrended data instead of the detrended time-series avoids the distorting effect of the boxcar filter on the vortex signal while taking into account any background trend. Figure \ref{fig:data_conditioning_and_fit}(d) shows such a fit (with the background intercept subtracted out).
 
 \begin{figure}
     \centering
@@ -448,7 +448,7 @@ Figure \ref{fig:U_vs_t0-sol_hist} shows the distribution of advective wind speed
 
 % 2021 Feb 4 - Double-checked the calib_event data. Wind speeds are recorded at 1 Hz instead of 0.5 Hz. Probably not going to make a big difference in my results.
 
-Next, we couple our pressure profile and wind profile fits (Equations \ref{eqn:Lorentzian_profile} and \ref{eqn:wind_profile}) to infer the actual central pressure excursions $\Delta P_{\rm act}$ and vortex diameters $D_{\rm act}$, as well as the the eyewall wind velocities $V_{\rm act}$. The wind speed data showed considerable turbulent excursions not captured by our model, so as we fit the wind speed models, we inflated the data point and model parameter uncertainties by multiplying by the square root of the reduced $chi^2$-values, effectively imposing $\chi^2 = 1$ \citep[cf.][]{Press2007}. We also propagated the uncertainties from the pressure and wind profile fit parameters into uncertainties on the actual parameters, as described in \ref{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}. For these results, we only included encounters for which the inferred $b/D_{\rm act} \leq 1$, $V_{\rm obs}/\sigma \geq 3$, and with well-defined uncertainties on the actual values -- we found \boverDactltone\ such vortex encounters. 
+Next, we couple our pressure profile and wind profile fits (Equations \ref{eqn:Lorentzian_profile} and \ref{eqn:wind_profile}) to infer the actual central pressure excursions $\Delta P_{\rm act}$ and vortex diameters $D_{\rm act}$, as well as the the eyewall wind velocities $V_{\rm act}$. The wind speed data showed considerable turbulent excursions not captured by our model, so as we fit the wind speed models, we inflated the data point and model parameter uncertainties by multiplying by the square root of the reduced $\chi^2$-values, effectively imposing $\chi^2 = 1$ \citep[cf.][]{Press2007}. We also propagated the uncertainties from the pressure and wind profile fit parameters into uncertainties on the actual parameters, as described in \ref{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}. For these results, we only included encounters for which the inferred $b/D_{\rm act} \leq 1$, $V_{\rm obs}/\sigma \geq 3$, and with well-defined uncertainties on the actual values -- we found \boverDactltone\ such vortex encounters. 
 
 The best-fit wind profile models are illustrated for the three representative vortex encounters in Figure \ref{fig:vortices_and_windspeed}, Figure \ref{fig:Dact_vs_Pact} shows the distribution of inferred $\Delta P_{\rm act}$- and $D_{\rm act}$-values. The minimum, median, and maximum values for $P_{\rm act}$ are $1.20\pm0.12$, $3.33\pm0.18$, and $16.6\pm4.5\,{\rm Pa}$, respectively, and for $D_{\rm act}$ are $7.70\pm2.19$, $59.1\pm17.6$, and $517\pm181\,{\rm m}$. Panels (b) and (c) show the cumulative histograms for $P_{\rm act}$ and $D_{\rm act}$, along with power-law fits. The fit for $P_{\rm act}$ appears to be significantly better than that for $D_{\rm act}$ and corresponds to a differential histogram with a power-law index $\gamma = -2.28$, significantly more shallow than the differential histogram for $P_{\rm obs}$ (with $\gamma = -3.39$). This result is qualitatively inconsistent with theoretical expectations that the distribution of actual pressure drops is steeper than (i.e., the magnitude of the power-law exponent is larger) or the same as the distribution of observed drops \citep{2014JAtS...71.4461L, 2018Icar..299..166J, 2019Icar..317..209K}.
 
@@ -469,10 +469,6 @@ This inconsistency likely arises from our choice to filter out distant encounter
 \end{figure}
 
 In spite of these observational biases, we can still infer eyewall velocities $V_{\rm act}$ and look at trends with time-of-day $t_0$. Figure \ref{fig:all_actual_values_vs_t0} shows how $\Delta P_{\rm act}$, $D_{\rm act}$, and $V_{\rm act}$ as functions of time-of-day $t_0$. The min, median, and maximum values for $V_{\rm act}$ are $9.17\pm0.48$, $15.6\pm1.0$, and $37.4\pm5.1\,{\rm m\ s^{-1}}$. The trends for all parameters with $t_0$ seem reasonable: many of the largest values for all parameters occur in the late afternoon, although the very largest values for each do not always occur late in the day. 
-
-Of most interest may be the cumulative histogram of $V_{\rm act}$-values, Figure \ref{fig:cum_hist_Vact}. Although the exact conditions for vortices to lift dust on Mars are unclear, previous work has suggested several threshold wind velocities. Based on lab simulations, \citet{2003JGRE..108.5041G} proposed $20-30\,{\rm m\ s^{-1}}$. Results from a study tracking the motions of dust clots within martian dust devils agreed with that estimate \citep{2011GeoRL..3824206C}. Other studies suggest much higher thresholds \citep[cf.][]{2006JGRE..11112002C}. If $V_{\rm act} = 20\,{\rm m\ s^{-1}}$ were the appropriate threshold for dust lifting, for example, then we might expect only 20\% of vortices to loft dust and to be bonafide dust devils. 
-
-Dustless vortices are certainly common on Earth and Mars, and there is no requirement that a vortex lofts dust, even when it is available. In a terrestrial field experiment, \citet{LORENZ20151} found about 40\% of encountered vortices exhibited signatures consistent with dust loading. \citet{2016Icar..278..180S} surveyed 245 vortices encountered by the Mars Science Laboratory and found only two with clear signatures of dust-loading. Indeed, \citet{2020GeoRL..4787234P} conducted survey of images from InSight's ICC and found no signs of dust-bearing vortices, even though they reported more than 9000 vortex encounters. Given the observations of active trail formation observed in the vicinity of InSight \citep{2016Icar..266..315R, 2020GeoRL..4787234P}, this result seems surprising. As we discuss in the next section, however, the infrequent observations and small viewing area of ICC images conspire to reduce the significance of the non-detection of dust devils. In any case, we can combine the lack of observed dusty vortices with our time-series analysis to constrain, for example, the threshold wind velocities required for dust lifting on Mars. First, however, we need to calculate the underlying areal density of vortices from the encounter statistics in Figure \ref{fig:sol_and_t0_histograms}. 
 
 \begin{figure}
     \centering
@@ -498,7 +494,8 @@ If all encountered vortices had the same advective speed $U$, diameter $D_{\rm a
 \begin{equation}
     \nu = k/T = n U \left( 2 b_{\rm max} \right) \label{eqn:simple_number_of_encounters}
 \end{equation}
-where $k$ is the total number of encounters during the observing period $T$ and $b_{\rm max}$ is the maximum radial encounter distance for which a pressure signal will register (Equation \ref{eqn:bmax}). For the advective speed, we use not the pre-encounter wind velocities considered in, for example, Equation \ref{eqn:total_wind_speed} but the hour-by-hour or sol-by-sol average speeds illustrated in Figure \ref{fig:advective_speeds} because we are interested in the advection of a population of vortices, not the individual vortices. In principle, calculating $N$ from the observed encounters requires integrating over the population. Unfortunately, the small number of vortices for which we were able to robustly estimate the actual parameters severely limits our ability to integrate over the population.  Moreover, we expect these parameters to vary with time-of-day and season. In lieu of this more complete evaluation, we instead calculate the population average for $b_{\rm max}$ and then use that average value to solve for $n$ from the encounter rates depicted in Figure \ref{fig:sol_and_t0_histograms}. Figure \ref{fig:areal_occurrence_rate} shows our estimate for the areal occurrence rate for vortices.
+
+where $k$ is the total number of encounters during the observing period $T$ and $b_{\rm max} = \left( \frac{D_{\rm act}}{2} \right) \sqrt{ \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 }$ is the maximum radial encounter distance for which a pressure signal will register. For the advective speed, we use not the pre-encounter wind velocities considered in, for example, Equation \ref{eqn:total_wind_speed} but the hour-by-hour or sol-by-sol average speeds illustrated in Figure \ref{fig:advective_speeds} because we are interested in the advection of a population of vortices, not the individual vortices. In principle, calculating $N$ from the observed encounters requires integrating over the population. Unfortunately, the small number of vortices for which we were able to robustly estimate the actual parameters severely limits our ability to integrate over the population.  Moreover, we expect these parameters to vary with time-of-day and season. In lieu of this more complete evaluation, we instead calculate the population average for $b_{\rm max}$ and then use that average value to solve for $n$ from the encounter rates depicted in Figure \ref{fig:sol_and_t0_histograms}. Figure \ref{fig:areal_occurrence_rate} shows our estimate for the areal occurrence rate for vortices.
 
 \begin{figure}
     \centering
@@ -530,7 +527,7 @@ In this section, we describe our analysis of image data from InSight to search f
 
 % How many images and TOD of observations
 
-For our visual dust devil survey, we use observations from InSight's Instrument Context Camera (ICC) because that camera is mostly consistently pointed toward the horizon. ICC has a field-of-view (FOV) of $124^\circ\times124^\circ$ and sits about $0.7\,{\rm m}$ off the surface \citep{2018SSRv..214..105M} -- Figure \ref{fig:Example-Image_Insight-Combined-Analysis} (a) shows an example image. As of this manuscript's preparation, the NASA PDS archive for ICC contains images spanning sols 1 to 476 (although many sols lack images), totaling \numICCimages\ images. Figure \ref{fig:Example-Image_Insight-Combined-Analysis} (b) shows the sols and times when images are available. Even though none of the images show active dust devils, we can still translate them into an upper limit on dust devil activity by considering the area and times surveilled. 
+For our visual dust devil survey, we use observations from InSight's Instrument Context Camera (ICC) because that camera is mostly consistently pointed toward the horizon. ICC has a field-of-view (FOV) of $124^\circ\times124^\circ$ and sits about $0.7\,{\rm m}$ off the surface \citep{2018SSRv..214..105M} -- Figure \ref{fig:Example-Image_Insight-Combined-Analysis}(a) shows an example image. As of this manuscript's preparation, the NASA PDS archive for ICC contains images spanning sols 1 to 476 (although many sols lack images), totaling \numICCimages\ images. Figure \ref{fig:Example-Image_Insight-Combined-Analysis}(b) shows the sols and times when images are available. Even though none of the images show active dust devils, we can still translate them into an upper limit on dust devil activity by considering the area and times surveilled. 
 
 % Brief description of camera including FOV and distance to horizon and surveyed area
 The local topography limits the horizon for the Instrument Deployment Camera (IDC) toward the south to about $2.4\,{\rm km}$ \citep{2020E&SS....701248G}. Since ICC is even closer to the ground ($0.7\,{\rm m}$ vs.~IDC's $1.5\,{\rm m}$), the view is even more limited. However, as an upper limit, we can estimate the area surveilled as $\frac{1}{2} \pi \left(124^\circ/180^\circ\right) \left( 2.4\,{\rm km} \right)^2 \approx 6.2\,{\rm km^2}$. 
@@ -541,149 +538,35 @@ The chances of spotting a dust devil also depend on the time for it to cross thr
 \section{Discussion and Conclusions}
 \label{sec:Discussion and Conclusions}
 
-\subsection{Comparison to Previous Studies}
+Altogether, these results invite several interesting conclusions which are bolstered by and contrasted with previous studies. The lack of observed dust devils in the ICC imagery indicates that the martian vortices are frequently dustless and therefore invisible (at least to the limit of the image contrast). Dustless vortices are certainly common on Earth, and there is no requirement that a vortex lofts dust, even when it is available. In a terrestrial field experiment, \citet{LORENZ20151} found about 40\% of encountered vortices exhibited signatures consistent with dust loading. \citet{2016Icar..278..180S} surveyed 245 vortices encountered by the Mars Science Laboratory and found only two with clear signatures of dust-loading. Figure \ref{fig:areal_occurrence_rate} shows the maximum areal occurrence rates for dust devils allowed by the image survey, and comparing to the rates of vortex occurrence suggests no more than 35\% of the encountered vortices could have lofted dust and still not have registered in the images, roughly consistent with the terrestrial results. 
+
+% Indeed, \citet{2020GeoRL..4787234P} conducted survey of images from InSight's ICC and found no signs of dust-bearing vortices, even though they reported more than 6000 vortex encounters. Given the observations of active trail formation observed in the vicinity of InSight \citep{2016Icar..266..315R, 2020GeoRL..4787234P}, this result seems surprising. As we discuss in the next section, however, the infrequent observations and small viewing area of ICC images conspire to reduce the significance of the non-detection of dust devils. In any case, we can combine the lack of observed dusty vortices with our time-series analysis to constrain, for example, the threshold wind velocities required for dust lifting on Mars. First, however, we need to calculate the underlying areal density of vortices from the encounter statistics in Figure \ref{fig:sol_and_t0_histograms}. 
+
+% Inferring threshold wind speeds -- check that you didn't already!
+
+In fact, based on our non-detection of active dust devils and distribution of $V_{\rm act}$-values, we can estimate a minimum wind speed required to loft dust. If only 35\% of vortices lofted dust, Figure \ref{fig:cum_hist_Vact} suggests a threshold of $19\,{\rm m\ s^{-1}}$. Of course, this value is a minimum since an even smaller fraction of dusty vortices would still be consistent with our null detection among the ICC images, but it appears consistent with other work. Based on lab simulations, \citet{2003JGRE..108.5041G} proposed $20-30\,{\rm m\ s^{-1}}$. Results from a study tracking the motions of dust clots within martian dust devils agreed with that estimate \citep{2011GeoRL..3824206C}. Other studies suggest much higher thresholds \citep[cf.][]{2006JGRE..11112002C}, however. 
+
+We can also consider thresholds required to form tracks on the martian surface. As a vortex travels over the surface, it may disrupt the surficial sediment, revealing a brighter or darker surface beneath. Previous studies have used observations either in-situ or from orbit of these so-called dust devil tracks to infer the diameters, lifetimes, and occurrence rates of dust devils \citep{}. However, a vortex may leave a track without lofting significant dust, and not all dust devils leave discernible tracks \citep{2005JGRE..110.6002G}.
 
 % Lorenz+ (2021)
 %   Very good agreement with overall encounter rates
 
-\citet{2021Icar..35514119L} conducted a survey of InSight meteorological data very similar to this one, recovering 853 events with pressure excursions exceeding $0.8\,{\rm Pa}$ over the first 300 sols of the InSight mission and amounting to 2-3 encounters per sol similar to our encounter rates (Figure \ref{fig:sol_and_t0_histograms} (b)). Although that study analyzed the pressure profiles of individual vortex encounters and the ambient wind speeds adjacent to an encounter, it did not model the vortex wind profiles. That study did consider the seismic signals from vortex passes as well. Unfortunately, \citet{2021Icar..35514119L} did not explicitly estimate an areal occurrence rate for vortices for direect comparison to our results. However, that study did estimate the fractional surface area occulted by vortices $F$ by dividing the total duration of encounters to the total duration of data collections during the hours when vortices are active, giving $F \approx 0.07\%$. Performing the same calculation for our detections, we find $F \approx 0.08\%$, indicating good agreement between our results.
+\citet{2021Icar..35514119L} conducted a survey of InSight meteorological data very similar to this one, recovering 853 events with pressure excursions exceeding $0.8\,{\rm Pa}$ over the first 300 sols of the InSight mission and amounting to 2-3 encounters per sol similar to our encounter rates (Figure \ref{fig:sol_and_t0_histograms}b). Although that study analyzed the pressure profiles of individual vortex encounters and the ambient wind speeds adjacent to an encounter, it did not model the vortex wind profiles. That study did consider the seismic signals from vortex passes as well. Unfortunately, \citet{2021Icar..35514119L} did not explicitly estimate an areal occurrence rate for vortices for direect comparison to our results. However, that study did estimate the fractional surface area occulted by vortices $F$ by dividing the total duration of encounters to the total duration of data collections during the hours when vortices are active, giving $F \approx 0.07\%$. Performing the same calculation for our detections, we find $F \approx 0.08\%$, indicating good agreement between our results.
 
 % Spiga+ (2021)
 
-\citet{2021JGRE..12606511S}'s survey also resembles this survey but reported a much higher vortex encounter rate: 6000 in the mission's first 400 sols. The reasons for this different encounter rate are not entirely clear but probably arise from our different detection schemes. \citet{2021JGRE..12606511S} fit a straight-line to 1000-second windows surrounding each data point in the pressure time-series and then recorded excursions greater than $0.35\,{\rm Pa}$ as encounters. This less conservative criterion for detection may explain the larger number of putative encounters. In any case, our encounter rate (\totalvortices\ vortices over 477 sols) is about seven times smaller than the rate reported in \citet{2021JGRE..12606511S}. This higher rate corresponds to an areal occurrence rate about seven times higher than we infer (Figure \ref{fig:areal_occurrence_rate}) or about $0.28\,{\rm km^{-2}\ hour^{-1}}$ and suggests perhaps only 1 out of about 28 vortices (0.28/0.01) is a visually detectable dust devil, which would make martian vortices much less likely to be dusty than terrestrial ones \citep{LORENZ20151}.
+\citet{2021JGRE..12606511S}'s survey also resembles this survey but reported a much higher vortex encounter rate: 6000 in the mission's first 400 sols. The reasons for this different encounter rate are not entirely clear but probably arise from our different detection schemes. \citet{2021JGRE..12606511S} fit a straight-line to 1000-second windows surrounding each data point in the pressure time-series and then recorded excursions greater than $0.35\,{\rm Pa}$ as encounters. This less conservative criterion for detection may explain the larger number of putative encounters. In any case, our encounter rate (\totalvortices\ vortices over 477 sols) is about seven times smaller than the rate reported in \citet{2021JGRE..12606511S}. This higher rate corresponds to an areal occurrence rate about seven times higher than we infer (Figure \ref{fig:areal_occurrence_rate}) or about $0.28\,{\rm km^{-2}\ hour^{-1}}$ and suggests perhaps only 1 out of about 28 vortices (0.28/0.01) is a visually detectable dust devil, which would make martian vortices much less likely to loft dust than terrestrial ones \citep{LORENZ20151}.
 
 % Perrin+ (2020)
 
 % Studies of other sites
 
-What do these choices mean about our ability to accurately recover the vortex population? The answer will depend, in part, on the properties of the vortex population itself, and \citet{2018Icar..299..166J} discuss many of the relevant details. In brief, in order for our scheme to detect a vortex with given $\Delta P_{\rm act}$- and $D_{\rm act}$-values, it must register in the time-series with 
-\begin{equation}
-    \Delta P_{\rm obs} &=& \frac{\Delta P_{\rm act}}{1 + \left(2b/D_{\rm act}\right)^2} &>& P_{\rm min},\label{eqn:Pobs} 
-\end{equation}
-where $b$ is the closest approach distance between the sensor and the vortex center and $P_{\rm min}$ is the minimum pressure excursion detectable. Figure \ref{fig:vortex_recovery} shows that, for $\log \Gamma/\Gamma_{\rm obs} < 0.5$ at least, $\Delta P_{\rm obs} \gtrsim 0.3 \sigma_P$. In other words, for the typical APSS pressure time-series with $\sigma_P \lesssim 1\,{\rm Pa}$ (Figure \ref{fig:Pobsprime-sigmaP_vs_W}(b)), we could, in principle, recover vortices with $\Delta P_{\rm obs} \approx 0.3\,{\rm Pa}$. Since the sampling rate for the APSS barometer (1 Hz) means we cannot detect devils with durations $\Gamma_{\rm obs} < 1\,{\rm s}$, we take $\Gamma = 1\,{\rm s}$ for our matched filter, meaning the limit imposed by $\Gamma/\Gamma_{\rm obs}$ is easily dealt with.
-
-With these choices, the maximum distance out to which we could detect a vortex is given by
-\begin{equation}
-    b_{\rm max} = \left( \frac{D_{\rm act}}{2} \right) \sqrt{ \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 }. \label{eqn:bmax}
-\end{equation} 
-
-A reasonable assumption is that vortex encounters represent a Poisson process \citep[cf.][]{Press2007}, and so we can estimate the uncertainty on $k$ as $\sigma_k = \sqrt{k}$ and therefrom the uncertainty $\sigma_N$ via
-\begin{equation}
-    \frac{\sigma_N}{N} = \frac{\sigma_k}{k} = k^{-1/2} = \left ( N U T D_{\rm act} \right)^{-1/2} \left( \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 \right)^{-1/4}.
-    \label{eqn:sigma_N}
-\end{equation}
-
-\section{Camera Model}
-To begin with, we outline the very basic characteristics of our model camera. By design, the considerations here are simplistic and general, rendering them applicable to a wide range of imaging systems. Consider a camera angled to have a clear view of the horizon and with a horizontal field-of-view $\Delta_{\rm FOV}$ centered on azimuth $\lambda$ and an angular resolution $\alpha$ measured in angle per pixel (Figure \ref{fig:Awedge}). Consider also a dust devil with a fixed diameter $D$, height $H$, and a sufficient contrast against the image background that it can be detected. Such a dust devil could be resolved at a distance from the camera $r_{\rm max} = D/\alpha$. For example, to resolve a dust devil with $D = 10\,{\rm m}$ with three pixels across, if $\alpha = 0.3\,{\rm mrad\ pix^{-1}} \times 3\,{\rm pix} \approx 1\,{\rm mrad}$ (similar to the Mars 2020 Mastcam-Z - \citealp{2017E&SS....4..396B}), $r_{\rm max} \approx 10\,{\rm km}$.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{figures/Awedge.jpg}
-    \caption{Observational geometry. The camera has a field-of-view is $\Delta_{\rm FOV}$ and an angular resolution $\alpha$ which allows it to resolve dust devils of diameter $D$ out to a radial distance $r_{\rm max}$. The area surveyed is $A_{\rm wedge}$.}
-    \label{fig:Awedge}
-\end{figure}
-
-In principle, the camera could detect this dust devil if it traversed the pie-wedge of terrain centered on $\lambda$ and having an area 
-\begin{equation}
-    A_{\rm wedge} = \frac{\Delta_{\rm FOV} r_{\rm max}^2}{2} = \frac{\Delta_{\rm FOV}D^2}{2 \alpha^2}.
-    \label{eqn:A_wedge}
-\end{equation}
-Taking the same $D$ and $\alpha$-values as above, along with $\Delta_{\rm FOV} = \pi/2\,{\rm rad}$ gives $A_{\rm wedge} \sim 100\,{\rm km^2}$. If dust devils traveled very slowly (or not at all) from their origin point, then the survey would only include devils that appeared within this wedge. However, as pointed out in \citet{2014JAtS...71.4461L}, advection of dust devils through a survey site increases the effective area surveyed. 
-
-Consider a fixed, unidirectional wind of speed $U$ crossing perpendicularly through the pie-wedge. If the dust devil under consideration has a lifetime $\tau$, then it will travel a distance $L = \tau U$ before dissipating. Thus, the wind field can advect dust devils into the camera's field-of-view acting as a conveyor belt with area
-\begin{equation}
-    A_{\rm adv} = r_{\rm max} L = \frac{D U \tau}{\alpha}.
-    \label{eqn:A_adv}
-\end{equation}
-Again, typical values $D \sim 10\,{\rm m}$, $U \sim 10\,{\rm m\ s^{-1}}$, $\tau \sim 100\,{\rm s}$, and $\alpha \sim 1\,{\rm mrad}$ gives $A_{\rm adv} \sim 10\,{\rm km^2} \ll A_{\rm wedge}$. Although both areas contribute, we neglect $A_{\rm adv}$ compared to $A_{\rm wedge}$, and we use this estimate for the area surveyed $A_{\rm survey} \approx A_{\rm wedge}$ to determine how the inferred population of dust devils depends on the survey parameters.
-
-\section{Imaging Surveys for Distant Dust Devils}
-First, we consider the accuracy with which we could infer the occurrence rate of dust devils detected very distant from the instrument suite and that register only on the camera instrument. We can relate the areal density $N$ (dust devils per unit area) for a certain period of interest from the total number of dust devils observed in a single image $k$:
-\begin{equation}
-   N = \frac{k}{A_{\rm survey}} = \left( \frac{2 \alpha^2}{\Delta_{\rm FOV} D^2} \right)\ k.
-    \label{eqn:areal_occurrence}
-\end{equation}
-
-If we assume that dust devil occurrence is a Poisson process, then we can estimate the standard deviation or uncertainty on $k$ as $\sigma_k = \sqrt{k}$ and the uncertainty $\sigma_N$ on our estimate of $N$ via
-\begin{equation}
-    \frac{\sigma_N}{N} = \frac{\sigma_k}{k} = k^{-1/2} = \sqrt{2} N^{-1/2} D^{-1}\ \Delta_{\rm FOV}^{-1/2} \alpha.
-    \label{eqn:sigma_N}
-\end{equation}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{figures/DDs_vs_Delta.jpg}
-    \caption{The expected range of dust devils recovered in an image as a function of field-of-view $\Delta_{\rm FOV}$ (filled blue region). The survey precision, $\sigma_N/N$ is shown as a dash-dot, orange line. The calculation here assumes $N = 0.03\,{\rm km^{-2}}$, $D = 10\,{\rm m}$, and $\alpha = 1\,{\rm mrad}$.}
-    \label{fig:DDs_vs_Delta}
-\end{figure}
-
-% Usually, we would design our survey so that we achieve a sufficiently precise estimate for the quantity of physical significance $N$. In other words, we would require $\sigma_N/N < T$, some threshold. We can see that Equation \ref{eqn:sigma_N} provides the specific requirements to achieve the desired threshold. For instance, we can take some typical values from \citet{2006JGRE..11112S09G} and estimate what minimum angular resolution is required of our camera to achieve $T = 0.1$:
-% \begin{equation}
-%     \alpha < 2^{-1/2} T \left( n t \right)^{1/2} D\ \Delta_{\rm FOV}^{1/2} = 2^{-1/2} \left( 0.1 \right) \big[ \left( 0.05\,{\rm km^{-2}\ hr^{-1}} \right) \left( 1\,{\rm hr} \right) \big]^{1/2} \left( 10\,{\rm m} \right) \left( \pi/2\,{\rm rad} \right)^{1/2} \approx 0.2\,{\rm mrad}.
-%     \label{eqn:alpha_example}
-% \end{equation}
-% Such an angular resolution is about ten times better than is usually achieved -- the MER Hazcams used for the survey in \citet{2006JGRE..11112S09G} had a resolution of $2\,{\rm mrad/pix}$ \citep{2003JGRE..108.8071M}.
-
-Another application of Equation \ref{eqn:sigma_N} might instead involve assuming requiring a minimum survey accuracy $T = \sigma_N/N$ and asking, for a given camera field-of-view, what angular resolution is required. Figure \ref{fig:alpha_vs_Delta} shows the result: an accuracy of $T = 50\%$ can be achieved with $\Delta_{\rm FOV} = 150^\circ$ and a modest $\alpha = 1\,{\rm mrad}$ (i.e., resolving a dust devil with pixels across if the pixels each have a resolution of $0.3\,{\rm mrad\, pix^{-1}}$), again for $N = 0.03\,{\rm km^{-2}}$.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{figures/alpha_vs_Delta.jpg}
-    \caption{The $\Delta_{\rm FOV}$-$\alpha$ combinations required to achieve a desired survey accuracy $T = \sigma_N/N$. The calculation here assumes $N = 0.03\,{\rm km^{-2}}$ and $D = 10\,{\rm m}$.}
-    \label{fig:alpha_vs_Delta}
-\end{figure}
-
-However, dust devils are usually active only for a few hours during each day (or sol on Mars) -- \citet{2006JGRE..11112S09G} found negligible activity before 9 a.m. LTST or after 5 p.m. LTST. Moreover, the occurrence rate itself seemed to evolve over the course of the active phase, increasing from $0.005\,{\rm km^{-2}\ hr^{-1}}$ early in the morning to  $0.05\,{\rm km^{-2}\ hr^{-1}}$ around noon. This mid-day peak agrees with meteorological predictions that dust devil activity should increase as the planetary boundary layer deepens with increasing surface heating \citep{doi:10.1029/2010RG000351}. Accurately estimating the occurrence rate requires a survey duration not longer than the timescale of variability, i.e., about an hour. Therefore, the 25-hours of survey required to recover $n = 0.05\,{\rm km^{-2}\ hr^{-1}}$ to 10\% accuracy would have to be spread into 1-hour surveys around noon spanning 25 sols. (And, of course, smaller occurrence rates would require additional time.) 
-
-Similarly, \citet{2006JGRE..11112S09G} reported an occurrence rate that varied with season and $L_{\rm S}$. Assuming sufficient daily coverage to accurately capture the daily occurrence rate (i.e., a large enough value for $n t$), we can ask what $\Delta_{\rm FOV}$ might be required to recover the seasonal variability by looking at the expected variation in $n t$. From its peak in spring to the peak in summer, $n t$ dropped from $0.11\,{\rm km^{-2}}$ to $0.05\,{\rm km^{-2}}$, which would require a precision $\sigma_n/n \sim 0.5$. Solving Equation \ref{eqn:sigma_n} gives $\Delta_{\rm FOV} \approx 65^\circ$. Considering instead the maximum $\Delta_{\rm FOV} = 360^\circ$ and an areal occurrence $nt = 0.11\,{\rm km^{-2}}$ suggests we could recover dozens of 10-m wide dust devils. 
-
-Importantly, all these calculations up till now have assumed a single dust devil diameter, $D$. In fact, dust devils span a range of diameters - \citet{2006JGRE..11112S09G} reported values between 2 and $276\,{\rm m}$, while orbital studies have reported devils hundreds of meters across \citep{2008Icar..197...39S}. However, the distribution of diameters appears to follow a steep power law, with an exponent between 1 and 2 \citep{2016SSRv..203..277L}. Consequently, the majority of devils reported in \citet{2006JGRE..11112S09G} lay between 10 and $20\,{\rm m}$, and so $n$ is dominated by devils in this range and the calculations presented so far may be considered reasonably representative. In addition, for a given angular resolution, larger dust devils can be recovered from farther away, an observational bias that has been previously pointed out \citep{2012Icar..219..556K, 2013Icar..226..964L}.
-
-On the other hand, given that larger dust devils are less common, they may be intrinsically less likely to be recovered. Equation \ref{eqn:areal_occurrence_rate} may be adapted to allow for a distribution of dust devils by diameter by simply taking $n$ to represent the areal occurrence rate in a narrow range of diameters and $k$ to represent the number of devils observed within that same range of diameters. From Equation \ref{eqn:areal_occurrence_rate}, we can see that if $n$ were a steeply declining function of $D$ (e.g., $n \propto D^{-3}$), then the total number of devils recovered with smaller diameters would exceed the number with larger diameters in proportion to $D^{-1}$.
-
-More than simply counting dust devils, a survey might consider also assessing dust devil dynamics. In their survey, \citet{2006JGRE..11112S09G} constructed 21-frame short movies of dust devils in order to estimate their advective motions. By tracking the motions of visually distinct eddies within dust devils, they also estimated vertical velocities, ranging from $0.2$ to $8.8\,{\rm m\ s^{-1}}$, and therefrom the atmospheric dust flux. 
-
-In addition to sufficient time resolution (the movies analyzed in \citealt{2006JGRE..11112S09G} had a few seconds between frames), such an estimate requires sufficient angular resolution. Eddies within a dust devil span a range of sizes but all smaller than the host devil itself. In order for the motion of such an eddy to be resolvable, it must span a few pixels. At a minimum, the devil itself must be larger, occupying many times as pixels as the eddy, a minimum number of pixels $p_{\rm min}$.
-
-In order for a dust devil with diameter $D$ to occupy $p_{\rm min}$ pixels, it must pass within a radial distance $r$ of the camera, given by 
-\begin{equation}
-    r \le \frac{D}{p_{\rm min} \alpha}.
-    \label{eqn:encounter_distance}
-\end{equation}
-Passing within that radial distance requires the devil to pass through a pie-wedge area $A$ smaller than that corresponding to $r_{\rm max}$ but with the same opening angle $\Delta_{\rm FOV}$.
-
-The time between encounters with such a dust devil $\tau_{\rm enc}$ can be estimated using $r$:
-\begin{equation}
-    \tau_{\rm enc} = \left( n A \right)^{-1} = \bigg[ \left( \frac{n \Delta_{\rm FOV}}{2} \right) \left( \frac{D}{p_{\rm min} \alpha } \right)^2 \bigg]^{-1}.
-    \label{eqn:tau}
-\end{equation}
-For example, if we require a 10-m dust devil occupies 10 pixels (i.e., passes within $1\,{\rm km}$ of a camera with $\alpha = 1\,{\rm mrad}$ and $\Delta_{\rm FOV} = 65^\circ$), with $n = 0.05\,{\rm km^{-2}\ hr^{-1}}$, $\tau_{\rm enc} = 35\,{\rm hrs}$. In other words, a survey would require 35 hours of observation for such a small devil to pass so close to the camera. Assuming the same occurrence rate for 100-m devils, the same encounter distance would only require $\tau_{\rm enc} \approx 20\,{\rm min}$. However, the relative rarity of such large dust devils means encounters with such large devils would occur rarely. Figure \ref{fig:encounter_time} shows the encounter times for different diameters and various fields-of-view.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{figures/encounter_time.jpg}
-    \caption{The times between dust devil encounters close enough the devils can be clearly resolved for a range of diameters and fields-of-view $\Delta_{\rm FOV}$. All other parameters are the same as in previous figures.}
-    \label{fig:encounter_time}
-\end{figure}
-
-\section{Assessing the Dust Flux}
-Accurate recovery of the dust devil population, in particular the largest devils, may be critical to assess the contribution of dust devils to the martian dust budget. By tracking vertical velocities and optical depths within imaged dust devils, \citet{2006JGRE..11112S09G} estimated dust flux values $q$ for 300 devils, with values ranging between $3.95\times10^{−9}$ and $4.59\times10^{−4}\,{\rm kg\ m^{-2}\ s^{-1}}$ with an average $2.07\times10^{−5}\,{\rm kg\ m^{-2}\ s^{-1}}$, although no information is given regarding the dependence on diameter or any other parameter. Assuming this dust flux applies uniformly across diameter, it suggests the total dust contribution for a devil scales with that devil's areal footprint, i.e.~with $D^2$. We can use these values to explore how well we can estimate the dust flux for a given dust devil population.
-
-Taking the areal occurrence rate of dust devils with a diameter within a small interval around $D$ as $dn/dD = n_0 D^{-\gamma}$ with $\gamma$ between 1 and 2 \citep{2016SSRv..203..277L}. (As before, the area of an individual dust devil does not factor into the areal occurrence rate.) This expression translates into a number of devils observed during a survey of duration $t$ and within a narrow range of diameters $dk/dD = \left( dn/dD \right) A_{\rm survey} t$. Taking the rate of dust mass lifting for a single devil as $Q = q\ \pi D^2$, we can estimate the population-weighted rate as 
-\begin{equation}
-    Q_{\rm tot} = \int_{D_{\rm min}}^{D_{\rm max}} \left( \frac{dk}{dD} \right) q\ \pi D^2 dD = \int_{D_{\rm min}}^{D_{\rm max}} n_0 D^{-\gamma} \left( \frac{t \Delta_{\rm FOV} D^2}{2 \alpha^2} \right) q \pi D^2\ dD.
-    \label{eqn:dust_lifted}
-\end{equation}
-Although the dust flux $q$ likely depends on $D$ itself, the dependence is unknown, and so for simplicity, we will assume $q = {\rm const.}$, yielding 
-\begin{equation}
-    \langle Q \rangle = \pi q n_0 \left( \frac{t \Delta_{\rm FOV}}{2 \alpha^2} \right) \left( \frac{D_{\rm max}^{5 - \gamma} - D_{\rm min}^{5 - \gamma}}{5 - \gamma} \right) \approx \left( \frac{ \pi q n_0 }{2 \left( 5 - \gamma \right)} \right) \left( \frac{t \Delta_{\rm FOV}}{\alpha^2} \right) D_{\rm max}^{5 - \gamma},
-    \label{eqn:solved_dust_lifted}
-\end{equation}
-with $\gamma < 5$ and $D_{\rm min} \ll D_{\rm max}$. For a representative estimate, we can take $q = 2.07\times10^{−5}\,{\rm kg\ m^{-2}\ s^{-1}}$, $n_0 = 0.05\,{\rm km^{-2}\ hr^{-1}}$, $\gamma = 1$, $t = 25\,{\rm hrs}$, $\Delta_{\rm FOV} = 65^\circ$, $\alpha = 1\,{\rm mrad}$, and $D_{\rm max} = 100\,{\rm m}$, giving an estimate $\langle Q \rangle \approx 4 {\rm g\ hr^{-1}}$.
+% What to improve in the future? 
+%  Gaussian process analysis of the wind speeds
 
 \acknowledgments
 
-We acknowledge helpful input from Don Banfield, and Matthew Golombek.
+We acknowledge helpful input from Don Banfield and Matthew Golombek.
 
 %% To help institutions obtain information on the effectiveness of their 
 %% telescopes the AAS Journals has created a group of keywords for telescope 
