@@ -117,12 +117,12 @@
 \newcommand{\numICCimages}{1527}
 
 %% Reintroduced the \received and \accepted commands from AASTeX v5.2
-\received{June 1, 2019}
-\revised{January 10, 2019}
-\accepted{\today}
+% \received{\today}
+% \revised{}
+% \accepted{\today}
 %% Command to document which AAS Journal the manuscript was submitted to.
 %% Adds "Submitted to " the argument.
-\submitjournal{PSJ}
+\submitjournal{Planetary Science Journal}
 
 %% For manuscript that include authors in collaborations, AASTeX v6.3
 %% builds on the \collaboration command to allow greater freedom to 
@@ -188,7 +188,7 @@
 
 \begin{document}
 
-\title{Inferring Vortex and Meteorological Statistics from InSight}
+\title{Inferring Vortex and Dust Devil Statistics from InSight}
 
 %% LaTeX will automatically break titles if they run longer than
 %% one line. However, you may use \\ to force a line break if
@@ -250,7 +250,7 @@
 Boise State University\\ 
 1910 University Drive, Boise ID 83725-1570 USA}
 \author[0000-0002-7200-5682]{Cl\'{e}ment Perrin}
-\affiliation{Universit\'{e} de Paris, Institut de Physique du Globe de Paris, CNRS, Paris, France}
+\affiliation{Laboratoire de Plan\'{e}tologie et G\'{e}odynamique, UMR6112, OSUNA UMS3281, Univ. Nantes, Univ. Angers, CNRS, 2 rue de la Houssini\`{e}re - BP 92208, 44322 Nantes Cedex 3, France}
 \author[0000-0003-1219-0641]{S\'{e}bastien Rodriguez}
 \affiliation{Universit\'{e} de Paris, Institut de Physique du Globe de Paris, CNRS, Paris, France}
 \affiliation{Institut Universitaire de France, Paris, France}
@@ -268,7 +268,7 @@ Boise State University\\
 
 %% Mark off the abstract in the ``abstract'' environment. 
 \begin{abstract}
-The InSight Mission has operated on the surface of Mars for nearly two Earth years, returning hundreds of sols worth of data, including detections of the first Marsquakes. The lander also deployed an exquisitely sensitive meteorological instrument package to assess the influence of the atmosphere on the geophysical measurements, as well as imaging cameras to monitor both instrument deployment and local surface activity. In addition to their relevance to InSight geoscience, these latter instruments have detected a variety of boundary layer phenomena, including small-scale vortices. These vortices register as short-lived ($<$ tens of seconds), negative ($<$ a few \% ambient) pressure excursions in the barometric time-series collected by InSight. These vortices closely resemble dust devils, which shape climate and air quality on Mars. Although our analysis shows InSight encountered more than 900 vortices and collected more than 1000 images of the martian surface, no active dust devils were imaged. In spite of the lack of dust devil detections, we can leverage the vortex detections and InSight’s daily wind speed measurements to learn about the boundary layer processes that create dust devils. In this study, we discuss our analysis of InSight’s meteorological data to assess the statistics of vortex and dust devil activity. We also infer encounter distances for the vortices and, therefrom, the maximum wind speeds within the vortices. Surveying the available imagery, we place upper limits on what fraction of vortices carry dust (i.e., how many are bonafide dust devils) and estimate threshold wind speeds for dust lifting. Comparing our results to detections of dust devil tracks seen in space-based observations of the InSight landing site, we can also infer thresholds and frequency of track formation by vortices.
+The InSight mission has operated on the surface of Mars for nearly two Earth years, returning hundreds of sols worth of data, including detections of the first Marsquakes. The lander also deployed an exquisitely sensitive meteorological instrument package to assess the influence of the atmosphere on the geophysical measurements, as well as imaging cameras to monitor both instrument deployment and local surface activity. In addition to their relevance to InSight geoscience, these latter instruments have detected a variety of boundary layer phenomena, including small-scale vortices. These vortices register as short-lived ($<$ tens of seconds), negative ($<$ a few \% ambient) pressure excursions in the barometric time-series collected by InSight. These vortices closely resemble those that could generate dust devils, which shape climate and air quality on Mars. Although our analysis shows InSight encountered more than 900 vortices and collected more than 1000 images of the martian surface, no active dust devils were imaged. In spite of the lack of \textit{in situ} dust devil detections, we can leverage the vortex detections and InSight’s daily wind speed measurements to learn about the boundary layer processes that create dust devils. In this study, we discuss our analysis of InSight’s meteorological data to assess the statistics of vortex and dust devil activity. We also infer encounter distances for the vortices and, therefrom, the maximum wind speeds within the vortices. Surveying the available imagery, we place upper limits on what fraction of vortices carry dust (i.e., how many are bonafide dust devils) and estimate threshold wind speeds for dust lifting. Comparing our results to detections of dust devil tracks seen in space-based observations of the InSight landing site, we can also infer thresholds and frequency of track formation by vortices.
 \end{abstract}
 
 %% Keywords should appear after the \end{abstract} command. 
@@ -293,17 +293,17 @@ The InSight Mission has operated on the surface of Mars for nearly two Earth yea
 
 \section{Introduction} \label{sec:Introduction}
 % XXX Where did InSight land? XXX
-The InSight spacecraft landed on Elysium Planitia ($4.5^\circ$ N, $135.6^\circ$ E) on 2018 Nov 28, carrying suites both of geophysical \citep{2020NatGe..13..183B} and meteorological instruments \citep{2020NatGe..13..190B}. Since wind gusts and other atmospheric boundary layer phenomena can perturb the geophysical measurments, particularly the seismometry, these meteorological instruments provide crucial information for mission's foci, including an exploration of Mars' interior structure and thermal state and constraining its present-day seismicity. As an added benefit, the meteorological instrumentation, the Auxiliary Payload Sensor Suite (APSS), characterize active boundary layer processes. \citet{2018SSRv..214..109S} discusses the wide range of meteorological applications and insights that the mission may yield. For instance, wind speeds measured by InSight's Temperature and Winds for InSight (TWINS) instrument may be combined with measurements of the surface (from the RADiometer RAD instrument) and near-surface temperatures (from TWINS) to assess the accuracy and applicability of theoretical predictions of surface layer heat and momentum transport developed for Earth. InSight's cameras, the Instrument Deployment Camera (IDC) and Instrument Context Camera (ICC), may also reveal active sediment transport, observations of which, when combined with wind speeds from TWINS, can constrain threshold conditions for aeolian activity on Mars \citep{2012Natur.485..339B}.
+The InSight spacecraft landed on Elysium Planitia ($4.5^\circ$ N, $135.6^\circ$ E -- \citealp{2020E&SS....701248G}) on 2018 Nov 28, carrying suites both of geophysical \citep{2020NatGe..13..183B} and meteorological instruments \citep{Banfield2019,2020NatGe..13..190B}. Since wind gusts and other atmospheric boundary layer phenomena can perturb the geophysical measurements, particularly the seismic signals, these meteorological instruments provide crucial information for mission's foci, including an exploration of Mars' interior structure and thermal state and constraining its present-day seismicity. As an added benefit, the meteorological instrumentation, the Auxiliary Payload Sensor Suite (APSS), characterize active boundary layer processes. \citet{2018SSRv..214..109S} discusses the wide range of meteorological applications and insights that the mission may yield. For instance, wind speeds measured by InSight's Temperature and Winds for InSight (TWINS) instrument may be combined with measurements of the surface (from the RADiometer RAD instrument) and near-surface temperatures (from TWINS) to assess the accuracy and applicability of theoretical predictions of surface layer heat and momentum transport developed for Earth. InSight's cameras \citep{2018SSRv..214..105M}, the Instrument Deployment Camera (IDC) and Instrument Context Camera (ICC), may also reveal active sediment transport, observations of which, when combined with wind speeds from TWINS, can constrain threshold conditions for aeolian activity on Mars \citep{2012Natur.485..339B}.
 
-InSight also promises to help elucidate one of the most dramatic and significant aeolian interactions on Mars, dust devils. These atmospheric apparitions arise when a convective cell draws in surrounding air which, as it conserves vorticity, spins up into a small-scale (10s to 100s of meters) whirlwind that then collects and lofts surficial dust into the atmosphere. Dust devils also frequently rearrange sediment on the martian surface, leaving long and narrow bright or dark tracks in their wakes \citep{2016SSRv..203..143R}. Observations of dust devils on Mars extend back to the Viking missions \citep{1985Sci...230..175T}, and they have since been observed in imagery from almost all landed missions to Mars. Some dust devils have even been large enough to be seen from orbiting spacecraft \citep[e.g.,][]{2011GeoRL..3824206C}.
+InSight also promises to help elucidate one of the most dramatic and significant aeolian interactions on Mars, dust devils. These atmospheric apparitions arise when a convective cell draws in surrounding air which, as it conserves vorticity, spins up into a small-scale (10s to 100s of meters) whirlwind that then collects and lifts surficial dust into the atmosphere. Dust devils also frequently rearrange sediment on the martian surface, leaving long and narrow bright or dark tracks in their wakes \citep{2016SSRv..203..143R}. Observations of dust devils on Mars extend back to the Viking missions \citep{1985Sci...230..175T}, and they have since been observed in imagery from almost all landed missions to Mars. Some dust devils have even been large enough to be seen from orbiting spacecraft \citep[e.g.,][]{2011GeoRL..3824206C}.
 
-As convective vortices, dust devils may register not just in imagery but also in meteorological time-series if a lander passes through or near the vortex -- the convective cells register a short-lived (few seconds), negative pressure excursions, accompanied by perturbations to the observed wind speed and direction \citep{2016Icar..271..326L}. Consequently, studies also going back to Viking have analyzed such meteorological data, identifying hundreds and even thousands of such encounters \citep{2016SSRv..203..277L}.
+As convective vortices, dust devils may register not just in imagery but also in meteorological time-series if a vortex passes over or near the lander -- the convective cells produce short-lived (few seconds), negative pressure excursions, accompanied by perturbations to the observed wind speed and direction \citep{2016Icar..271..326L}. Consequently, studies also going back to Viking have analyzed such meteorological data, identifying hundreds and even thousands of such encounters \citep{2016SSRv..203..277L}.
 
-One significant drawback of such studies, though, is that, without simultaneous imagery or pyranometry, judging whether the encountered convective vortex actually carries dust is difficult. Indeed, such dustless  vortices are common on both Mars and Earth, and there is no requirement that a vortex lofts dust, even when dust is available. In a terrestrial field experiment, \citet{LORENZ20151} found about 40\% of encountered vortices exhibited signatures consistent with dust loading. \citet{2016Icar..278..180S} reported 245 vortices encountered by the Mars Science Laboratory and found only two with clear signatures of dust-loading. 
+One significant drawback of such studies, though, is that, without simultaneous imagery or pyranometry, judging whether the encountered convective vortex actually carries dust is difficult. Indeed, such dustless vortices are common on both Mars and Earth, and there is no requirement that a vortex lifts dust, even when dust is available. In a terrestrial field experiment, \citet{LORENZ20151} found about 40\% of encountered vortices exhibited signatures consistent with dust loading. \citet{2016Icar..278..180S} reported 245 vortices encountered by the Mars Science Laboratory and found only two with clear signatures of dust-loading. 
 
-Moreover, the exact conditions that allow a vortex to loft dust are unclear. Boundary layer fluid mechanics suggests inter-particle cohesion conspires with gravity to give a threshold wind velocity for dust lifting that falls with particle diameter before rising again \citep{1985wagp.book.....G}. However, seminal laboratory simulations described in \citet{2010Icar..206..306N} show instead that the smallest particles are lofted even with very small velocities. 
+Moreover, the exact conditions that allow a vortex to lift dust are unclear. Boundary layer fluid mechanics suggests inter-particle cohesion conspires with gravity to give a threshold wind velocity for dust lifting that falls with particle diameter before rising again \citep{1985wagp.book.....G}. However, seminal laboratory simulations described in \citet{2010Icar..206..306N} show instead that the smallest particles are lofted even with very small velocities. 
 
-Worse still, exactly how much dust devils contribute to the martian atmosphere remains highly uncertain. According to \citet{2016SSRv..203...89F}, dust devils may contribute between 25\% and 75\% of the total dust flux in the martian atmosphere. Since Mars' atmosphere is so thin and provides so little greenhouse warming compared to Earth's, the aerosols suspended in Mars' atmosphere absorb and scatter significant amounts of radiation, contributing perhaps tens of degrees K of warming \citep{2002Icar..157..259S, 2004JGRE..10911006B}. Thus, accurately assessing both the amount of dust lifted by a dust devil and the frequency with which dust devils occur on Mars are critical to understanding Mars' climate and dust cycle.
+Worse still, exactly how much dust devils contribute to the lifting of dust into the martian atmosphere remains highly uncertain. According to \citet{2016SSRv..203...89F}, dust devils may contribute between 25\% and 75\% of the total dust flux in the martian atmosphere. Since Mars' atmosphere is so thin and provides so little greenhouse warming compared to Earth's, the aerosols suspended in Mars' atmosphere absorb and scatter significant amounts of radiation, contributing perhaps tens of degrees K of warming \citep{2002Icar..157..259S, 2004JGRE..10911006B}. Thus, accurately assessing both the amount of dust lifted by a dust devil and the frequency with which dust devils occur on Mars are critical to understanding Mars' climate and dust cycle.
 
 In this study, we analyze the pressure and wind speed data collected by InSight's APSS both to probe the structures of individual vortices and to estimate their occurrence rates. To assess how frequently the vortices actually carry dust, we also survey the available InSight imagery. We compare our results both to other recent studies of the InSight meteorological data \citep{2021Icar..35514119L, 2021JGRE..12606511S}. Our study differs from these previous ones in several ways: more data were made available since those studies were completed (almost 100 sols more), and we employ several novel detection and time-series analysis schemes. These differences produced some results that agree with those previous studies and some which differed. We also compared our occurrence rates to analysis of space-based observations of tracks left in the region around InSight \citep{2016Icar..266..315R, 2020GeoRL..4787234P}, which allows us to assess how frequently vortices leave tracks on the martian surface. 
 
@@ -315,15 +315,15 @@ In this section, we describe our analysis of the pressure and wind speed time-se
 
 \subsection{Time-Series Data}
 \label{sec:Time-Series Data}
-The pressure measurements from the APSS are taken at $20\, {\rm Hz}$ with a nominal precision of $50\, {\rm mPa\ Hz^{−1/2}}$ or better, much higher frequency and precision than available from some previous Mars landers \citep[e.g.,][]{2010JGRE..115.0E16E}. As we discuss below, turbulent excursions given an effective scatter in the pressure data between $0.2$ and $0.5\,{\rm Pa}$, depending on ambient conditions. In any case, such specs make APSS ideal for studying turbulent signals in the martian boundary layer \citep{2018SSRv..214..109S}. APSS has measured pressures nearly non-stop since sol 14 of the mission, and for our study, we considered data up through sol 477 of the mission, amounting to almost 82 GB. The data are available from NASA's Atmosphere's PDS Node - \url{https://atmos.nmsu.edu/data_and_services/atmospheres_data/INSIGHT/insight.html}. PDS provides several sets of data files for APSS, and we used the CSV files in the ``data\_calibrated'' folder.
+The pressure measurements from the APSS are taken at $10\, {\rm Hz}$ with a nominal precision of $50\, {\rm mPa\ Hz^{−1/2}}$ or better, much higher frequency and precision than available from some previous Mars landers \citep[e.g.,][]{2010JGRE..115.0E16E}. As we discuss below, turbulent excursions given an effective scatter in the pressure data between $0.2$ and $0.5\,{\rm Pa}$, depending on ambient conditions. In any case, such specs make APSS ideal for studying turbulent signals in the martian boundary layer \citep{2018SSRv..214..109S}. APSS has measured pressures nearly non-stop since sol 14 of the mission, and for our study, we considered data up through sol 477 of the mission, amounting to almost 82 GB. The data are available from NASA's Atmosphere's PDS Node - \url{https://atmos.nmsu.edu/data_and_services/atmospheres_data/INSIGHT/insight.html}. PDS provides several sets of data files for APSS, and we used the CSV files in the ``data\_calibrated'' folder.
 
-Wind data come from the TWINS instrument, the sensors for which sit on booms located on the InSight platform and facing opposite directions about a meter above the solar panels \citep{2020NatGe..13..190B}. TWINS acquires data at $0.1\, {\rm Hz}$ and $1\, {\rm Hz}$ with an accuracy of $1\, {\rm m\ s^{-1}}$ for wind speed and $22.5^\circ$ for wind direction. Since the wind direction data give constraints that are, in principle, redundant and less robust than the wind speed data, we do not include the direction data in our analysis. TWINS has also provided a dataset spanning nearly the whole time from sol 14 to 477, amounting to more than 18 GB. For our work here, we focus on the higher time resolution ($1\, {\rm Hz}$) wind data, which are somewhat more limited in extent, often only spanning the mid- to late afternoon for a given sol. The wind measurements involve modeled reconstructions, as described in \citet{Banfield2018}, and we used the CSV files in the ``data\_derived'' folder. The higher time resolution files are labeled as ``modelevent''. (The lower resolution files are labeled as ``model'').
+Wind data come from the TWINS instrument, the sensors for which sit on booms located on the InSight platform and facing opposite directions about a meter above the solar panels \citep{2020NatGe..13..190B}. TWINS acquires data at $0.1\, {\rm Hz}$ and $1\, {\rm Hz}$ with an accuracy of $1\, {\rm m\ s^{-1}}$ for wind speed and $22.5^\circ$ for wind direction. Since the wind direction data give constraints that are, in principle, redundant and less robust than the wind speed data, we do not include the direction data in our analysis. TWINS has also provided a dataset spanning nearly the whole time from sol 14 to 477, amounting to more than 18 GB. For our work here, we focus on the higher time resolution ($1\, {\rm Hz}$) wind data, which are somewhat more limited in extent, often only spanning the mid- to late afternoon for a given sol. The wind measurements involve modeled reconstructions, as described in \citet{Banfield2019}, and we used the CSV files in the ``data\_derived'' folder. The higher time resolution files are labeled as ``modelevent''. (The lower resolution files are labeled as ``model'').
 
 Vortex encounters can also produce excursions in ambient temperature (as the warm core passes over the sensor) \citep{2016SSRv..203...39M}, and APSS does return air temperature data. However, we do not model these time-series since the temperature data show small or negligible excursions during the encounters. In any case, the temperatures would be expected to simply mirror the pressure excursions \citep{2016Icar..271..326L}.
 
 \subsection{Searching for Vortex Encounters and Fitting Pressure Profiles}
 \label{sec:Searching for Vortex Encounters and Fitting Pressure Profiles}
-Both the pressure and wind speed data exhibit turbulent excursions that constitute a source of non-Gaussian noise and complicate our search for vortex encounters. However, the pressure data are both more plentiful and less affected by these excursions, so we search for encounters using the pressure time-series. This approach replicates many prior studies, including previous analyses of InSight data \citep{2021JGRE..12606511S, 2021Icar..35514119L}. Figure \ref{fig:data_conditioning_and_fit} depicts our search process in graphical form, and panel (a) shows the raw pressure time-series for sol 392, a representative sol. The vertical dashed orange lines show the vortex signals, whose detection we describe next. Any time-series analysis scheme will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, and we explore biases of our detection scheme and how those influence the final recovered population of vortices in the Appendix \ref{sec:Vortex Recovery Statistics}. 
+Both the pressure and wind speed data exhibit turbulent excursions that constitute a source of non-Gaussian noise and complicate our search for vortex encounters. However, the pressure data are both more plentiful and less affected by these excursions, so we search for encounters using the pressure time-series. This approach replicates many prior studies, including previous analyses of InSight data \citep{2021JGRE..12606511S, 2021Icar..35514119L}. Figure \ref{fig:data_conditioning_and_fit} depicts our search process in graphical form, and panel (a) shows the raw pressure time-series for sol 395, a representative sol. The vertical dashed orange lines show the vortex signals, whose detection we describe next. Any time-series analysis scheme will unavoidably involve selection effects that can skew the recovered population of signals \citep{2018Icar..299..166J}, and we explore biases of our detection scheme and how those influence the final recovered population of vortices in the Appendix \ref{sec:Vortex Recovery Statistics}. 
 
 To suppress longer-term signals and facilitate detection of the vortices, we apply a mean boxcar filter with a window size $W$ before sifting the data for vortices. Figure \ref{fig:data_conditioning_and_fit}(b) shows the resulting detrended time-series $\Delta P$. Based on the analysis described in the Appendix \ref{sec:Vortex Recovery Statistics}, we chose $W = 3000\,{\rm s}$. 
 
@@ -336,11 +336,11 @@ Finally, considering the original, undetrended time-series (e.g., Figure \ref{fi
 \end{equation}
 where $r$ the radial distance of the InSight sensors from the vortex center, $P_{\rm act}$ the pressure excursion at the vortex center, and $D_{\rm act}$ is taken as the vortex diameter. As a function of time $t$, $r(t)$ is given by
 \begin{equation}
-    r(t) = \sqrt{b^2 + U^2 \left( t - t_0 \right)^2}.\label{eqn:radial_distance}
+    r(t) = \sqrt{b^2 + U^2 \left( t - t_0 \right)^2}\label{eqn:radial_distance}
 \end{equation}
 where $t_0$ is the time of closest approach. This scheme assumes the vortex travels past the sensor on a linear trajectory with a unidirectional and constant velocity $U$ (at least during the course of a single encounter). The closest approach distance $b$ between the vortex center and the InSight sensors is usually greater than zero. As a result, the minimum observed in the pressure time-series $\Delta P_{\rm obs}$ is not usually as deep as the actual pressure excursion at the vortex center \citep{2018Icar..299..166J, 2019Icar..317..209K}. The pressure time-series for a vortex encounter can therefore be represented by 
 \begin{equation}
-    \Delta P(t) = \frac{-\Delta P_{\rm obs}}{1 + \left( \frac{ t - t_0 }{\Gamma_{\rm obs}/2} \right)^2},\label{eqn:Lorentzian_profile}
+    \Delta P(t) = \frac{-\Delta P_{\rm obs}}{1 + \left( \frac{ t - t_0 }{\Gamma_{\rm obs}/2} \right)^2}\label{eqn:Lorentzian_profile}
 \end{equation}
 where $\Gamma_{\rm obs}$ is the observed profile full-width/half-max (FWHM). With these definitions, $\Gamma_{\rm obs} = U^{-1} \sqrt{D_{\rm act}^2 + \left( 2 b \right)^2}$. 
 
@@ -349,7 +349,7 @@ We fit this profile combined with a linear trend, returning best fit parameters 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/data_conditioning_and_fit.png}
-    \caption{(a) The pressure time-series for sol 392, as blue dots. The vertical orange lines highlight the detected vortex signals. (b) The time-series after application of the mean boxcar filter. Apparent by eye, the scatter in the time-series increases around mid-day. (c) Convolution of the matched filter with the time-series in (b). The horizontal dashed orange line shows the detection threshold of 5. (d) A model fit (solid orange line) to the deepest vortex discovered on sol 392, along with the model fit parameters -- each point's uncertainty is calculated via $1.4826\ \times$ the median absolute deviation in the window centered on that point.}
+    \caption{(a) The pressure time-series for sol 395, as blue dots. The vertical orange lines highlight the detected vortex signals. (b) The time-series after application of the mean boxcar filter. Apparent by eye, the scatter in the time-series increases around mid-day. (c) Convolution of the matched filter with the time-series in (b). The horizontal dashed orange line shows the detection threshold of 5. (d) A model fit (solid orange line) to the deepest vortex discovered on sol 395, along with the model fit parameters -- each point's uncertainty is calculated via $1.4826\ \times$ the median absolute deviation in the window centered on that point.}
     \label{fig:data_conditioning_and_fit}
 \end{figure}
 
@@ -357,11 +357,11 @@ We fit this profile combined with a linear trend, returning best fit parameters 
 \label{sec:Fitting Wind Profiles}
 To assess the intrinsic vortex properties and encounter geometries, we also fit wind speed profiles to the wind speed time-series that coincide in time with the peaks found by our search. The wind speed signal consists both of an ambient wind $U$ and the vortex wind $V(r)$, which is a function of radial distance (and therefore time). For the Rankine vortex model \citep{1991ExFl...11...73V}, $V(r)$ is given by
 \begin{equation}
-    V(r) = V_{\rm act} \frac{2 \left( \frac{r}{D_{\rm act}/2} \right) }{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2},
+    V(r) = V_{\rm act} \frac{2 \left( \frac{r}{D_{\rm act}/2} \right) }{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2}
 \end{equation}
 where $V_{\rm act}$ is the tangential wind speed at the vortex diameter. Similar to the pressure signal, a non-zero $b$ means the maximum wind speed encountered $V_{\rm obs}$ is less than the actual maximum at the vortex diameter. We model the observed vortex wind profile as
 \begin{equation}
-    V(t) = V_{\rm obs} \frac{\sqrt{1 + \left( U_1/b \right)^2 \left( t - t_0 \right)^2}}{1 + \left(\frac{t - t_0}{\Gamma_{\rm obs}/2}\right)^2},\label{eqn:wind_profile}
+    V(t) = V_{\rm obs} \frac{\sqrt{1 + \left( U_1/b \right)^2 \left( t - t_0 \right)^2}}{1 + \left(\frac{t - t_0}{\Gamma_{\rm obs}/2}\right)^2}\label{eqn:wind_profile}
 \end{equation}
 where $U_1$ is the ambient wind speed before the encounter and which we take as the advective speed for the vortex. Strictly, this model breaks down for $b = 0$, but such an encounter is statistically unlikely \citep{2018Icar..299..166J}. Many of the wind signals exhibit a different ambient wind speed before the encounter ($U_1$) than after the encounter ($U_2$). Thus, the total wind speed observed $W(t)$ is the vector sum of the ambient wind and vortex wind, given by 
 \begin{equation}
@@ -369,7 +369,7 @@ where $U_1$ is the ambient wind speed before the encounter and which we take as 
     \begin{array}{ll}
             \sqrt{V^2 + 2 U_1 V \cos \theta + U_1^2}, & \left( t - t_0 \right) \leq 0\\
             \sqrt{V^2 + 2 U_2 V \cos \theta + U_2^2}, & \left( t - t_0 \right) > 0\\
-    \end{array},\label{eqn:total_wind_speed}
+    \end{array} \label{eqn:total_wind_speed}
 \end{equation}
 where $\cos \theta = b/\sqrt{b^2 + \left( U_{1/2} \right)^2\left( t - t_0 \right)^2}$. 
 
@@ -380,7 +380,7 @@ As we show in Appendix \ref{sec:Inferring Encounter Geometries from the Pressure
 \begin{figure}
 \centering
 \includegraphics[width=0.48\textwidth]{figures/vortices_and_windspeed.png}
-\caption{Pressure data (blue dots) and models (blue lines) and horizontal windspeed data (orange dots) and models. \label{fig:vortices_and_windspeed}}
+\caption{Pressure data (blue dots) and models (blue lines) and horizontal windspeed data (orange dots) and models (orange lines). \label{fig:vortices_and_windspeed}}
 \end{figure}
 
 \subsection{Vortex Statistics}
@@ -416,7 +416,7 @@ The $\Gamma_{\rm obs}$- and $\Delta P_{\rm obs}$-values exhibit intriguing trend
 
 Presumably, these hour-to-hour trends reflect the influence of variable ambient conditions, but these data alone are not sufficient to judge what influence: the increase in $\Gamma_{\rm obs}$ could result either from intrinsically larger vortices late in the day or lower wind speeds $U$ advecting the same size vortices past the sensor. Fortunately, the TWINS wind speed data can shed light on this issue. Figure \ref{fig:vortices_and_windspeed} shows the three vortices with the largest $\Delta P_{\rm obs}$-values. We estimated the advection speed by taking the median value $U$ between 5- and 3-$\Gamma_{\rm obs}$ before the encounter time $t_0$. This approach returns a wind speed close enough in time to be a plausible estimate of the advection speed but early enough that the vortex did not significantly influence the measurement. 
 
-Figure \ref{fig:U_vs_t0-sol_hist} shows the distribution of advective wind speeds associated with the observed vortices; the maximum, median, and minimum values are $19.1\pm2.3$, $7.6\pm1.0$, and $0.5\pm0.2 \,{\rm m\ s^{-1}}$, respectively. Panel (a) shows a clear decrease in wind speed during the lull in vortex encounters around sol 100 and an increase in wind speeds, along with a widened scatter, during the peak around sol 300. Panel (b) shows a small increase the median advective speed from the early to mid-morning (11:00) and then a steady decline of about 30\% thereafter. This decline in advection speed correlates very closely with the increase in $\Gamma_{\rm obs}$ from 11:00 to 16:00 LTST. Assuming uniformly distributed random encounter distances $b$, we expect the vortex duration to scale inversely with advection speed. Consequently, the increase in $\Gamma_{\rm obs}$ seen in Figure \ref{fig:Gammaobs_DeltaPobs_vs_TOD_and_sol}(c) seems likely to result from the decrease in advection speed, not from a systematic increase in vortex diameter. Indeed, the decline in $\Delta P_{\rm obs}$ seen in the afternoon comports with this result \citep{2020Icar..33813523J}.
+Figure \ref{fig:U_vs_t0-sol_hist} shows the distribution of advective wind speeds associated with the observed vortices; the maximum, median, and minimum values are $19.1\pm2.3$, $7.6\pm1.0$, and $0.5\pm0.2 \,{\rm m\ s^{-1}}$, respectively. Panel (a) shows a clear decrease in wind speed during the lull in vortex encounters around sol 100 and an increase in wind speeds, along with a widened scatter, during the peak around sol 300. Panel (b) shows a small increase of the median advective speed from the early to mid-morning (11:00) and then a steady decline of about 30\% thereafter. This decline in advection speed correlates very closely with the increase in $\Gamma_{\rm obs}$ from 11:00 to 16:00 LTST. Assuming uniformly distributed random encounter distances $b$, we expect the vortex duration to scale inversely with advection speed. Consequently, the increase in $\Gamma_{\rm obs}$ seen in Figure \ref{fig:Gammaobs_DeltaPobs_vs_TOD_and_sol}(c) seems likely to result from the decrease in advection speed, not from a systematic increase in vortex diameter. Indeed, the decline in $\Delta P_{\rm obs}$ seen in the afternoon comports with this result \citep{2020Icar..33813523J}.
 
 % Figure \ref{fig:Dobs_vs_Gammaobs-DeltaPobs_hist} shows the distribution of $D_{\rm obs}$-values against $\Gamma_{\rm obs}$ and $\Delta P_{\rm obs}$, as well as a cumulative histogram. The maximum, minimum, and median values are $1100 \pm 240$, $75 \pm 21$, and $4 \pm 1 \,{\rm m}$, respectively. Not surprisingly, the $D_{\rm obs}$-values correlate positively with $\Gamma_{\rm obs}$ with scatter resulting from the relatively narrow range of advective wind speeds. 
 % On the other hand, $D_{\rm obs}$ seems negatively correlated with $P_{\rm obs}$, and a power-law fit using the Levenberg-Marquardt algorithm \citep{Press2007} gives $D_{\rm obs} \propto \Delta P_{\rm obs}^{-0.42\pm0.04}$, where uncertainties come from the covariance matrix. As explained in \citet{2018Icar..299..166J}, for a vortex encounter with any miss distance $b$, we expect $\Delta P_{\rm obs}$ and $D_{\rm obs}$ are related to the vortex's central pressure excursion $\Delta P_{\rm act}$ and diameter $D_{\rm act}$ as $\Delta P_{\rm obs} D_{\rm obs}^2 = \Delta P_{\rm act} D_{\rm act}^2$. Figure \ref{fig:Dobs_vs_Gammaobs-DeltaPobs_hist}(b) could be interpreted, then, as encounters with vortices at a variety of miss distances but all with the same $\Delta P_{\rm act}$- and $D_{\rm act}$-values (the exponent $0.4\pm0.04$ diverges from 0.5 by less than $3\sigma$). However, such a result is totally unexpected as dust devil diameters are known to span a wide range and would be inconsistent with a variety of studies \citep[cf.][]{2016SSRv..203..277L}. Instead, this result probably only indicates that the range of miss distances plays an important role in setting the observed distribution. 
@@ -424,7 +424,7 @@ Figure \ref{fig:U_vs_t0-sol_hist} shows the distribution of advective wind speed
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/U_vs_t0-sol_hist.png}
-    \caption{Distribution of vortex-associated wind speeds $U$ as a function of time of day (a) and mission sol (b). Panel (c) shows a differential (as opposed to cumulative) histogram of $U$-values.}
+    \caption{Distribution of vortex-associated wind speeds $U$ as a function of time of mission sol (a) and local time (b). Panel (c) shows a differential (as opposed to cumulative) histogram of $U$-values.}
     \label{fig:U_vs_t0-sol_hist}
 \end{figure}
 
@@ -489,7 +489,7 @@ where $k$ is the total number of encounters during the observing period $T$ and 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/areal_occurrence_rate.png}
-    \caption{The solid blue curve shows the areal occurrence rate for vortices (``vortex rates''). The dashed, orange line shows the allowed maximum rate for dust devils inferred from the image analysis (``max DD rates''). The grey region shows a range of rates reported in \citet{2020GeoRL..4787234P} (``P20 rate'').}
+    \caption{The solid blue curve shows the areal occurrence rate for vortices (``vortex rates''). The dashed, orange line shows the allowed maximum rate for dust devils inferred from the ICC image analysis (``max DD rates''). The grey region shows a range of rates reported in \citet{2016Icar..266..315R,2020GeoRL..4787234P} (``P20 rate'').}
     \label{fig:areal_occurrence_rate}
 \end{figure}
 
@@ -580,7 +580,7 @@ In the future, planetary missions with a focus on or at least capabilities to as
 
 \acknowledgments
 
-We acknowledge helpful input from Don Banfield and Matthew Golombek.
+We acknowledge helpful input from Don Banfield and Matthew Golombek. We also thank the Insight team and NASA PDS for providing access to the data. The data are available from NASA's Atmosphere's PDS Node - \url{https://atmos.nmsu.edu/data_and_services/atmospheres_data/INSIGHT/insight.html}. BJ was supported by a grant from NASA's Solar System Workings program NNH17ZDA001N.
 
 %% To help institutions obtain information on the effectiveness of their 
 %% telescopes the AAS Journals has created a group of keywords for telescope 
@@ -628,7 +628,7 @@ Of course, the narrower the window, the more effectively we can reduce the long-
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/Pobsprime-sigmaP_vs_W.png}
-    \caption{(a) Comparing the pressure excursion observed before $\Delta P_{\rm obs}$ application of the mean boxcar filter and after $\Delta P_{\rm obs}^\prime$ as a function of the width of the filter $W$ and of the vortex signal $\Gamma_{\rm obs}$. (b) Scatter in the pressure time-series $\sigma_P$ for the sol with the largest (sol 435) and least (sol 269) values as a function of the window size $W$ for the mean boxcar filter. Sol 392 has scatter close the median value for all sols. }
+    \caption{(a) Comparing the pressure excursion observed before $\Delta P_{\rm obs}$ application of the mean boxcar filter and after $\Delta P_{\rm obs}^\prime$ as a function of the width of the filter $W$ and of the vortex signal $\Gamma_{\rm obs}$. (b) Scatter in the pressure time-series $\sigma_P$ for the sol with the largest (sol 435) and least (sol 269) values as a function of the window size $W$ for the mean boxcar filter. Sol 395 has scatter close the median value for all sols. }
     \label{fig:Pobsprime-sigmaP_vs_W}
 \end{figure}
 
@@ -637,7 +637,7 @@ Finally, we must interpret these results in terms of our ability to recover vort
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/vortex_recovery.png}
-    \caption{How effectively a convolution of a synthetic pressure time-series with the matched filter ($F \ast P$) recovers a vortex. The vortex has a known depth $\Delta P_\text{obs}$ and width $\Gamma_\text{obs}$ and is embedded in a synthetic time-series with white noise of variance $\sigma_\text{P}^2$. The matched filtered has a width $\Gamma$. The dashed, white line shows the threshold for detection used in this study ($F \ast P \geq 5$). In principle, vortices with values of $\Delta P_\text{obs}\sigma_P$ and $\Gamma/\Gamma_\text{obs}$ above and to the left of that line could be recovered.}
+    \caption{How effectively a convolution of a synthetic pressure time-series with the matched filter ($F \ast P$) recovers a vortex. The vortex has a known depth $\Delta P_\text{obs}$ and width $\Gamma_\text{obs}$ and is embedded in a synthetic time-series with white noise of variance $\sigma_P$. The matched filtered has a width $\Gamma$. The dashed, white line shows the threshold for detection used in this study ($F \ast P \geq 5$). In principle, vortices with values of $\Delta P_{\rm obs}/\sigma_P$ and $\Gamma/\Gamma_\text{obs}$ above and to the left of that line could be recovered.}
     \label{fig:vortex_recovery}
 \end{figure}
 
@@ -656,7 +656,7 @@ where $r$ is the radial distance from the vortex center, $P_{\rm act}$ the centr
     V = \frac{ V_{\rm act} \left( 2\frac{b}{D_{\rm act}/2} \right)}{1 + \left( \frac{b}{D_{\rm act}/2} \right)^2} = V_{\rm obs}.\label{eqn:Vobs}
 \end{equation} 
 
-Cyclostrophic balance relates the pressure and velocity as \citep{2020Icar..33813523J}:
+Cyclostrophic balance relates the pressure and velocity \citep{2020Icar..33813523J} as:
 \begin{equation}
     V_{\rm act} = \left( \Delta P_{\rm act}/\rho \right)^{1/2},\label{eqn:cyclostrophic_balance}
 \end{equation}
