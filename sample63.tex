@@ -36,7 +36,7 @@
 %%
 %%
 %% using aastex version 6.3
-\documentclass[linenumbers]{aastex63}
+\documentclass[linenumbers,trackchanges]{aastex63}
 \usepackage{amsmath}
 \usepackage{wrapfig}
 
@@ -479,9 +479,11 @@ In spite of these observational biases, we can still infer eyewall velocities $V
 \end{figure}
 
 If all encountered vortices had the same advective speed $U$, diameter $D_{\rm act}$, and central pressure excursion $\Delta P_{\rm act}$, the areal density of vortices $n$ can be estimated from the number of vortex detections per unit time, $\nu$, via
-\begin{equation}
+\replaced{\begin{equation*}
     \nu = k/T = f U \left( 2 b_{\rm max} \right) \label{eqn:simple_number_of_encounters}
-\end{equation}
+\end{equation*}}{\begin{equation}
+    \nu = k/T = n U \left( 2 b_{\rm max} \right) \label{eqn:simple_number_of_encounters}
+\end{equation}}
 
 where $k$ is the total number of encounters during the observing period $T$ and $b_{\rm max} = \left( \frac{D_{\rm act}}{2} \right) \sqrt{ \frac{\Delta P_{\rm act}}{\Delta P_{\rm min}} - 1 }$ is the maximum radial encounter distance for which a pressure signal will register. For the advective speed, we use not the pre-encounter wind velocities considered in, for example, Equation \ref{eqn:total_wind_speed} but the hour-by-hour average speeds illustrated in Figure \ref{fig:advective_speeds} because we are interested in the advection of a population of vortices, not the individual vortices. In principle, calculating $n$ from the observed encounters requires integrating over the population. Unfortunately, the small number of vortices for which we were able to robustly estimate the actual parameters severely limits our ability to integrate over the population.  Moreover, we expect these parameters to vary with time-of-day and season. In lieu of this more complete evaluation, we instead calculate the population average for $b_{\rm max}$ and then use that average value to solve for $n$ from the encounter rates depicted in Figure \ref{fig:sol_and_t0_histograms}. We convert that areal density into an areal occurrence rate $f$ (number per area per time) for comparison to other studies, and Figure \ref{fig:areal_occurrence_rate} shows our estimate for $f$ for vortices.
 
