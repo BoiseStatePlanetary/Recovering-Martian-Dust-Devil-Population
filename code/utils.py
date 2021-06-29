@@ -186,6 +186,7 @@ def determine_bounds(vortex, init_params, init_t0_fac=0.0002, init_DeltaP_fac=10
 def retrieve_data(sol, filename_stem="_calib_", dr=None, nans_in_gaps=False, data_field="PRESSURE"):
     sol_filename = create_datafilename(sol, filename_stem=filename_stem, dr=dr)
 
+    print("sol_filename: ", sol_filename)
     sol_data = np.genfromtxt(sol_filename[0], delimiter=",", dtype=None, names=True)
     LTST, LTST_and_sol = convert_ltst(sol_data)
 
