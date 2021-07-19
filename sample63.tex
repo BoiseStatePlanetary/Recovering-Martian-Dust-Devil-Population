@@ -480,7 +480,7 @@ In spite of these observational biases, we can still infer eyewall velocities $V
 
 If all encountered vortices had the same advective speed $U$, diameter $D_{\rm act}$, and central pressure excursion $\Delta P_{\rm act}$, the areal density of vortices $n$ can be estimated from the number of vortex detections per unit time, $\nu$, via
 \replaced{\begin{equation*}
-    \nu = k/T = f U \left( 2 b_{\rm max} \right) \label{eqn:simple_number_of_encounters}
+    \nu = k/T = f U \left( 2 b_{\rm max} \right) 
 \end{equation*}}{\begin{equation}
     \nu = k/T = n U \left( 2 b_{\rm max} \right) \label{eqn:simple_number_of_encounters}
 \end{equation}}
@@ -588,7 +588,7 @@ The overall encounter rate from \citet{2021JGRE..12606511S} is about seven times
 
 \added{The dust devil areal occurrence rate inferred for the Spirit lander site in \citet{2010JGRE..115.0F02G} appears to be comparable to rate for vortices we infer for InSight. \citet{2010JGRE..115.0F02G} analyzed images collected over three martian years, netting more than 700 sightings of active dust devils. Normalizing their detections by the imaging area and frequency, they inferred hourly areal occurrence rates which varied over a sol from 0 up to $0.05\,{\rm km^{-2}\ hour^{-1}}$ (their Figure 7). Of course, theirs was an imaging survey and ours is a meteorological survey.}
 
-\citet{2021JGRE..12606511S} explored the dependence of vortex occurrence on meteorological conditions using large eddy simulations (LES). Interestingly, rates for synthetic vortex encounters inferred from LES match the observed rates reported in that study, which would seem to corroborate the assertion that the InSight region exhibits unusually frequent vortex activity. However, the rates of track formation inferred from the LES were much higher than reported in \citet{2020GeoRL..4787234P}. \citet{2021JGRE..12606511S} accounted for this discrepancy by invoking a higher threshold friction velocity than they initially assumed. In any case, it is not clear what meteorological or topographic conditions in the region around InSight might lead to a higher vortex frequency. Conducting an analogous LES analysis for other landing sites (Phoenix's landing site, for example) and comparing the expected to the observed vortex encounter statistics would be especially enlightening. 
+\deleted{\citet{2021JGRE..12606511S} explored the dependence of vortex occurrence on meteorological conditions using large eddy simulations (LES). Interestingly, rates for synthetic vortex encounters inferred from LES match the observed rates reported in that study, which would seem to corroborate the assertion that the InSight region exhibits unusually frequent vortex activity. However, the rates of track formation inferred from the LES were much higher than reported in \citet{2020GeoRL..4787234P}. \citet{2021JGRE..12606511S} accounted for this discrepancy by invoking a higher threshold friction velocity than they initially assumed. In any case, it is not clear what meteorological or topographic conditions in the region around InSight might lead to a higher vortex frequency. Conducting an analogous LES analysis for other landing sites (Phoenix's landing site, for example) and comparing the expected to the observed vortex encounter statistics would be especially enlightening.} 
 
 % 2021 Jul 16 - Thinking about why InSight didn't see any dust devils
 % Could it be because it was windier at InSight during vortex activity? If it were windier, that might
@@ -615,22 +615,32 @@ The overall encounter rate from \citet{2021JGRE..12606511S} is about seven times
 % Spiga+ (2021) - InSight
 % At  the  same  time,  it  should  be  noted  that  shearing  may  prevent  theformation of convective vortices if the ambient wind speed is too high (Kurgansky et al., 2011;Balme et al., 2012).  This does not seem to be the case at the InSight landing site where, even inthe low-surface-temperature and high-wind-speed conditions of theAphelion seasonsequence, thenumber of vortex encounters is very high.
 
-\subsection{Why didn't InSight Image Any Active Dust Devils?}
-\label{sec:Why didn't InSight Image Any Active Dust Devils?}
+\subsection{Why didn't InSight Image Any Dust Devils?}
+\label{sec:Why didn't InSight Image Any Dust Devils?}
 
-\added{If the vortex occurrence rate at InSight is similar to or even greatly exceeds the rates seen by other Mars landers, why did InSight image no active dust devils when those other landers imaged many? Not for lack of trying: \citet{2020NatGe..13..190B} describe concerted imaging campaigns to detect dust devils, as illustrated in Figure \ref{fig:Example-Image_Insight-Combined-Analysis}(b). This imaging campaign resembles campaigns conducted those from other missions, with more than a thousand images collected over hundreds of sols. 
+\added{If the vortex occurrence rate at InSight is similar to or even greatly exceeds the rates seen by other Mars landers, why did InSight image no dust devils when those other landers imaged many? Not for lack of trying: \citet{2020NatGe..13..190B} describe a concerted imaging campaign to detect dust devils, as illustrated in Figure \ref{fig:Example-Image_Insight-Combined-Analysis}(b). This imaging campaign resembles campaigns conducted those from other missions, with more than a thousand images collected over hundreds of sols. 
 
-Inspection of the hourly wind speed data collected throughout the mission suggests an explanation for the lack of imaged dust devils: the InSight landing site appears to be much windier during the times of day when vortex activity occurs. Figure \ref{fig:U_vs_DeltaP_comparisons}(a) shows the distribution of hourly-averaged wind speeds both during vortex encounters and at all times including during vortex encounters. (N.B., these wind speeds are different from the speeds from immediately before encounters used to estimate vortex diameters and shown in Figure \ref{fig:U1_vs_Gamma_hist}). Clearly, the vortex-associated advective speeds skew toward larger values than the winds overall. 
+Inspection of the hourly wind speed data collected throughout the mission suggests an explanation for the lack of imaged dust devils: the InSight landing site appears to be much windier during the times of day when vortex activity occurs. Figure \ref{fig:U_vs_DeltaP_comparisons}(a) shows the distribution of hourly-averaged wind speeds both during vortex encounters and at all times including during vortex encounters. (N.B., these wind speeds are different from the speeds from immediately before encounters used to estimate vortex diameters and shown in Figure \ref{fig:U1_vs_Gamma_hist}). Clearly, the vortex-associated advective speeds skew toward larger values than the winds overall, with an average of $8.3\,{\rm m\ s^{-1}}$. 
 
+The seminal terrestrial field studies of \citet{1969JApMe...8...32S} indicated that dust devil frequency often increases for increasing wind speed but then declines again above a certain wind speed. The same trend seems to hold for martian dust devils. Among imaged dust devils for which horizontal speeds could be estimated, \citet{2010JGRE..115.0F02G} found only about two dozen of about 500 total advected faster than $8\,{\rm m\ s^{-1}}$. Though \citet{2010JGRE..115.0E16E} did not directly estimate the advective velocities of imaged dust devils, the hourly-averaged wind speeds measured by Phoenix rarely exceeded $8\, {\rm m\ s^{-1}}$.
 
+Certainly, an increased advection speed would be expected to increase the rate of dust devil encounter since more dust devils would be advected past the camera or meteorological sensor, what has been called the ``advection effect''. Moreover, some non-zero winds are probably necessary to provide the vorticity requisite for dust devil formation \citep{2020Icar..33813523J}, and, in any case, turbulent winds must accompany the convectively unstable conditions that produce dust devils. However, as discussed in \citet{2016SSRv..203..183R}, higher wind speeds may suppress a high near-surface lapse rate and reduce the vigor of convective mixing associated with dust devils. In addition, wind shear could disrupt the dynamical structures in which dust devils are embedded.
+
+Evidence for the suppression of dust devils at high wind speeds appears in Figure \ref{fig:U_vs_DeltaP_comparisons}(a): there are fewer vortex encounters above about $8\,{\rm m\ s^{-1}}$. Moreover, Figure \ref{fig:U_vs_DeltaP_comparisons} shows the maximum $\Delta P_{\rm obs}$ for vortices that \emph{are} encountered seems to decline for $\langle U \rangle$ exceeding $4\,{\rm m\ s^{-1}}$, qualitatively consistent with the suggestion that high wind speeds reduce the lapse rate and therefore vortex strength. It is worth noting that the median $\Delta P_{\rm obs}$-values remain roughly constant with $\langle U \rangle$; however, all else equal, we might reasonably expect it is the most vigorous vortices which are dust devils, not necessarily the average vortices. Also, although the number of vortex encounters declines as $\langle U \rangle$ passes $8\, {\rm m\ s^{-1}}$, thereby potentially reducing the width of the $\Delta P_{\rm obs}$ distribution, the systematic decline in maximum $\Delta P_{\rm obs}$ with increasing $\langle U \rangle$ appears well before the maximum in number of vortices binned by $\langle U \rangle$.
 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{figures/U_vs_DeltaP_comparisons.png}
-    \caption{(a) The distribution of hourly-averaged wind speeds during the hours when vortices were encountered (solid, blue line) and throughout the dataset, whether or not vortices were encountered (dashed, orange line). (b) Vortex $\Delta P_{\rm obs}$-values vs.~their hourly averaged advective wind speeds.}
+    \caption{(a) The distribution of hourly-averaged wind speeds during the hours when vortices were encountered (solid, blue line) and throughout the dataset, whether or not vortices were encountered (dashed, orange line). (b) Vortex $\Delta P_{\rm obs}$-values vs.~their hourly averaged advective wind speeds. The horizontal orange lines show the maximum $\Delta P_{\rm obs}$-value observed for wind speeds binned by $2\, {\rm m\ s^{-1}}$ (the horizontal span of each line shows the binning).}
     \label{fig:U_vs_DeltaP_comparisons}
 \end{figure}
 
+Ostensibly, these results seem to contradict some of those from \cite{2021JGRE..12606511S}, who reported a strong positive correlation between wind speed and vortex encounter rate and reasonably invoked the advection effect. That study also explored the dependence of vortex occurrence on meteorological conditions using large eddy simulations (LES) and found an increase in encounter rate with the synthetic vortices from the model but a reduction in the vortex areal occurrence rate. (Thus, they attributed their increased encounter rate to the advection effect.)
+However, the wind speeds they explored for vortex encounters were not the hour-by-hour averages we discuss here. Instead, they calculated the average between 11:00 and 14:00 LTST for each day, which gave smaller speeds. In fact, if we conduct the same wind speed averaging, we obtain similar results (smaller overall average wind speeds and a montonic increase in encounter rate with wind speed). 
+
+Why the InSight landing site might have been windier overall than the landing sites for other mission that successfully imaged dust devils is not clear and should be the focus of future studies. Moreover, the comprehensive data and/or studies for other Mars missions are lacking to robustly corroborate the possibility that InSight's landing site is indeed windier than other sites. In any case, the available data are at least consistent with the idea that dust devil formation was suppressed at InSight by higher wind speeds than have been seen at other landing sites. 
+
+% In any case, it is not clear what meteorological or topographic conditions in the region around InSight might lead to a higher vortex frequency. Conducting an analogous LES analysis for other landing sites (Phoenix's landing site, for example) and comparing the expected to the observed vortex encounter statistics would be especially enlightening.
 
 }
 
@@ -725,7 +735,7 @@ Finally, we must interpret these results in terms of our ability to recover vort
 \label{sec:Inferring Encounter Geometries from the Pressure and Velocity Profiles}
 We assume the vortices correspond to \replaced{Rankine}{Vatistas} vortices \citep{1991ExFl...11...73V}, giving pressure $\Delta P$ and tangential wind velocity profiles $V$:
 \begin{equation}
-    \Delta P(r) = -\frac{\Delta P_{\rm act}}{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2}\label{eqn:radial_lorentzian_profile}
+    \Delta P(r) = -\frac{\Delta P_{\rm act}}{1 + \left( \frac{r}{D_{\rm act}/2} \right)^2}\label{eqn:radial_lorentzian_profile_appendix}
 \end{equation}
 and
 \begin{equation}
@@ -740,7 +750,7 @@ Cyclostrophic balance relates the pressure and velocity \citep{2020Icar..3381352
 \begin{equation}
     V_{\rm act} = \left( \Delta P_{\rm act}/\rho \right)^{1/2},\label{eqn:cyclostrophic_balance}
 \end{equation}
-where $\rho$ is the atmospheric density. Combining Equations \ref{eqn:radial_lorentzian_profile}, \ref{eqn:Vobs}, and \ref{eqn:cyclostrophic_balance} gives
+where $\rho$ is the atmospheric density. Combining Equations \ref{eqn:radial_lorentzian_profile_appendix}, \ref{eqn:Vobs}, and \ref{eqn:cyclostrophic_balance} gives
 \begin{equation}
     \Delta P_{\rm act} = \left( 1 - \frac{\rho V_{\rm obs}^2}{4 \Delta P_{\rm obs}} \right)^{-1} \Delta P_{\rm obs},\label{eqn:solution_for_Pact}
 \end{equation}
