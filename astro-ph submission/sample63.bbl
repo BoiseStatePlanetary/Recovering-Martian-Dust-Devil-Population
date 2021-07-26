@@ -1,0 +1,305 @@
+\begin{thebibliography}{}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{{Ambikasaran} {et~al.}(2014){Ambikasaran}, {Foreman-Mackey},
+  {Greengard}, {Hogg}, \& {O'Neil}}]{hodlr}
+{Ambikasaran}, S., {Foreman-Mackey}, D., {Greengard}, L., {Hogg}, D.~W., \&
+  {O'Neil}, M. 2014
+
+\bibitem[{{Banerdt} {et~al.}(2020){Banerdt}, {Smrekar}, {Banfield}, {Giardini},
+  {Golombek}, {Johnson}, {Lognonn{\'e}}, {Spiga}, {Spohn}, {Perrin},
+  {St{\"a}hler}, {Antonangeli}, {Asmar}, {Beghein}, {Bowles}, {Bozdag}, {Chi},
+  {Christensen}, {Clinton}, {Collins}, {Daubar}, {Dehant}, {Drilleau},
+  {Fillingim}, {Folkner}, {Garcia}, {Garvin}, {Grant}, {Grott}, {Grygorczuk},
+  {Hudson}, {Irving}, {Kargl}, {Kawamura}, {Kedar}, {King}, {Knapmeyer-Endrun},
+  {Knapmeyer}, {Lemmon}, {Lorenz}, {Maki}, {Margerin}, {McLennan}, {Michaut},
+  {Mimoun}, {Mittelholz}, {Mocquet}, {Morgan}, {Mueller}, {Murdoch},
+  {Nagihara}, {Newman}, {Nimmo}, {Panning}, {Pike}, {Plesa}, {Rodriguez},
+  {Rodriguez-Manfredi}, {Russell}, {Schmerr}, {Siegler}, {Stanley},
+  {Stutzmann}, {Teanby}, {Tromp}, {van Driel}, {Warner}, {Weber}, \&
+  {Wieczorek}}]{2020NatGe..13..183B}
+{Banerdt}, W.~B., {Smrekar}, S.~E., {Banfield}, D., {et~al.} 2020, Nature
+  Geoscience, 13, 183
+
+\bibitem[{Banfield {et~al.}(2019)Banfield, Rodriguez-Manfredi, Russell, Rowe,
+  Leneman, Lai, Cruce, Means, Johnson, Mittelholz, Joy, Chi, Mikellides,
+  Carpenter, Navarro, Sebastian, Gomez-Elvira, Torres, Mora, Peinado,
+  Lepinette, Hurst, Lognonn{\'{e}}, Smrekar, \& Banerdt}]{Banfield2019}
+Banfield, D., Rodriguez-Manfredi, J.~A., Russell, C.~T., {et~al.} 2019, Space
+  Science Reviews, 215, 4
+
+\bibitem[{{Banfield} {et~al.}(2020){Banfield}, {Spiga}, {Newman}, {Forget},
+  {Lemmon}, {Lorenz}, {Murdoch}, {Viudez-Moreiras}, {Pla-Garcia}, {Garcia},
+  {Lognonn{\'e}}, {Karatekin}, {Perrin}, {Martire}, {Teanby}, {Hove}, {Maki},
+  {Kenda}, {Mueller}, {Rodriguez}, {Kawamura}, {McClean}, {Stott},
+  {Charalambous}, {Millour}, {Johnson}, {Mittelholz}, {M{\"a}{\"a}tt{\"a}nen},
+  {Lewis}, {Clinton}, {St{\"a}hler}, {Ceylan}, {Giardini}, {Warren}, {Pike},
+  {Daubar}, {Golombek}, {Rolland}, {Widmer-Schnidrig}, {Mimoun}, {Beucler},
+  {Jacob}, {Lucas}, {Baker}, {Ansan}, {Hurst}, {Mora-Sotomayor}, {Navarro},
+  {Torres}, {Lepinette}, {Molina}, {Marin-Jimenez}, {Gomez-Elvira}, {Peinado},
+  {Rodriguez-Manfredi}, {Carcich}, {Sackett}, {Russell}, {Spohn}, {Smrekar}, \&
+  {Banerdt}}]{2020NatGe..13..190B}
+{Banfield}, D., {Spiga}, A., {Newman}, C., {et~al.} 2020, Nature Geoscience,
+  13, 190
+
+\bibitem[{{Basu} {et~al.}(2004){Basu}, {Richardson}, \&
+  {Wilson}}]{2004JGRE..10911006B}
+{Basu}, S., {Richardson}, M.~I., \& {Wilson}, R.~J. 2004, Journal of
+  Geophysical Research (Planets), 109, E11006
+
+\bibitem[{{Bridges} {et~al.}(2012){Bridges}, {Ayoub}, {Avouac}, {Leprince},
+  {Lucas}, \& {Mattson}}]{2012Natur.485..339B}
+{Bridges}, N.~T., {Ayoub}, F., {Avouac}, J.~P., {et~al.} 2012, \nat, 485, 339
+
+\bibitem[{{Cantor} {et~al.}(2006){Cantor}, {Kanak}, \&
+  {Edgett}}]{2006JGRE..11112002C}
+{Cantor}, B.~A., {Kanak}, K.~M., \& {Edgett}, K.~S. 2006, Journal of
+  Geophysical Research (Planets), 111, E12002
+
+\bibitem[{{Choi} \& {Dundas}(2011)}]{2011GeoRL..3824206C}
+{Choi}, D.~S., \& {Dundas}, C.~M. 2011, \grl, 38, L24206
+
+\bibitem[{{Ellehoj} {et~al.}(2010){Ellehoj}, {Gunnlaugsson}, {Taylor},
+  {Kahanp{\"a}{\"a}}, {Bean}, {Cantor}, {Gheynani}, {Drube}, {Fisher}, {Harri},
+  {Holstein-Rathlou}, {Lemmon}, {Madsen}, {Malin}, {Polkko}, {Smith},
+  {Tamppari}, {Weng}, \& {Whiteway}}]{2010JGRE..115.0E16E}
+{Ellehoj}, M.~D., {Gunnlaugsson}, H.~P., {Taylor}, P.~A., {et~al.} 2010,
+  Journal of Geophysical Research (Planets), 115, E00E16
+
+\bibitem[{{Fenton} {et~al.}(2016){Fenton}, {Reiss}, {Lemmon}, {Marticorena},
+  {Lewis}, \& {Cantor}}]{2016SSRv..203...89F}
+{Fenton}, L., {Reiss}, D., {Lemmon}, M., {et~al.} 2016, \ssr, 203, 89
+
+\bibitem[{{Ferri} {et~al.}(2003){Ferri}, {Smith}, {Lemmon}, \&
+  {Renn{\'o}}}]{2003JGRE..108.5133F}
+{Ferri}, F., {Smith}, P.~H., {Lemmon}, M., \& {Renn{\'o}}, N.~O. 2003, Journal
+  of Geophysical Research (Planets), 108, 5133
+
+\bibitem[{{Golombek} {et~al.}(2020){Golombek}, {Williams}, {Warner}, {Parker},
+  {Williams}, {Daubar}, {Calef}, {Grant}, {Bailey}, {Abarca}, {Deen}, {Ruoff},
+  {Maki}, {McEwen}, {Baugh}, {Block}, {Tamppari}, {Call}, {Ladewig}, {Stoltz},
+  {Weems}, {Mora-Sotomayor}, {Torres}, {Johnson}, {Kennedy}, \&
+  {Sklyanskiy}}]{2020E&SS....701248G}
+{Golombek}, M., {Williams}, N., {Warner}, N.~H., {et~al.} 2020, Earth and Space
+  Science, 7, e01248
+
+\bibitem[{{Greeley} {et~al.}(2003){Greeley}, {Balme}, {Iversen}, {Metzger},
+  {Mickelson}, {Phoreman}, \& {White}}]{2003JGRE..108.5041G}
+{Greeley}, R., {Balme}, M.~R., {Iversen}, J.~D., {et~al.} 2003, Journal of
+  Geophysical Research (Planets), 108, 5041
+
+\bibitem[{{Greeley} \& {Iversen}(1985)}]{1985wagp.book.....G}
+{Greeley}, R., \& {Iversen}, J.~D. 1985, {Wind as a geological process on
+  Earth, Mars, Venus and Titan.}
+
+\bibitem[{{Greeley} {et~al.}(2005){Greeley}, {Arvidson}, {Bell}, {Christensen},
+  {Foley}, {Haldemann}, {Kuzmin}, {Landis}, {Neakrase}, {Neukum}, {Squyres},
+  {Sullivan}, {Thompson}, {Whelley}, \& {Williams}}]{2005JGRE..110.6002G}
+{Greeley}, R., {Arvidson}, R., {Bell}, J.~F., {et~al.} 2005, Journal of
+  Geophysical Research (Planets), 110, E06002
+
+\bibitem[{{Greeley} {et~al.}(2006){Greeley}, {Whelley}, {Arvidson}, {Cabrol},
+  {Foley}, {Franklin}, {Geissler}, {Golombek}, {Kuzmin}, {Landis}, {Lemmon},
+  {Neakrase}, {Squyres}, \& {Thompson}}]{2006JGRE..11112S09G}
+{Greeley}, R., {Whelley}, P.~L., {Arvidson}, R.~E., {et~al.} 2006, Journal of
+  Geophysical Research (Planets), 111, E12S09
+
+\bibitem[{{Greeley} {et~al.}(2010){Greeley}, {Waller}, {Cabrol}, {Landis},
+  {Lemmon}, {Neakrase}, {Pendleton Hoffer}, {Thompson}, \&
+  {Whelley}}]{2010JGRE..115.0F02G}
+{Greeley}, R., {Waller}, D.~A., {Cabrol}, N.~A., {et~al.} 2010, Journal of
+  Geophysical Research (Planets), 115, E00F02
+
+\bibitem[{Harris {et~al.}(2020)Harris, Millman, van~der Walt, Gommers,
+  Virtanen, Cournapeau, Wieser, Taylor, Berg, Smith, Kern, Picus, Hoyer, van
+  Kerkwijk, Brett, Haldane, del R{'{\i}}o, Wiebe, Peterson,
+  G{'{e}}rard-Marchant, Sheppard, Reddy, Weckesser, Abbasi, Gohlke, \&
+  Oliphant}]{harris2020array}
+Harris, C.~R., Millman, K.~J., van~der Walt, S.~J., {et~al.} 2020, Nature, 585,
+  357
+
+\bibitem[{Hunter(2007)}]{Hunter:2007}
+Hunter, J.~D. 2007, Computing in Science \& Engineering, 9, 90
+
+\bibitem[{{Jackson}(2020)}]{2020Icar..33813523J}
+{Jackson}, B. 2020, \icarus, 338, 113523
+
+\bibitem[{{Jackson} \& {Lorenz}(2015)}]{2015JGRE..120..401J}
+{Jackson}, B., \& {Lorenz}, R. 2015, Journal of Geophysical Research (Planets),
+  120, 401
+
+\bibitem[{{Jackson} {et~al.}(2018{\natexlab{a}}){Jackson}, {Lorenz}, \&
+  {Davis}}]{2018Icar..299..166J}
+{Jackson}, B., {Lorenz}, R., \& {Davis}, K. 2018{\natexlab{a}}, \icarus, 299,
+  166
+
+\bibitem[{{Jackson} {et~al.}(2018{\natexlab{b}}){Jackson}, {Lorenz}, {Davis},
+  \& {Lipple}}]{2018RemS...10...65J}
+{Jackson}, B., {Lorenz}, R., {Davis}, K., \& {Lipple}, B. 2018{\natexlab{b}},
+  Remote Sensing, 10, 65
+
+\bibitem[{{Jia} {et~al.}(2017){Jia}, {Andreotti}, \&
+  {Claudin}}]{2017PNAS..114.2509J}
+{Jia}, P., {Andreotti}, B., \& {Claudin}, P. 2017, Proceedings of the National
+  Academy of Science, 114, 2509
+
+\bibitem[{{Kahanp{\"a}{\"a}} {et~al.}(2016){Kahanp{\"a}{\"a}}, {Newman},
+  {Moores}, {Zorzano}, {Mart{\'\i}n-Torres}, {Navarro}, {Lepinette}, {Cantor},
+  {Lemmon}, {Valent{\'\i}n-Serrano}, {Ull{\'a}n}, \&
+  {Schmidt}}]{2016JGRE..121.1514K}
+{Kahanp{\"a}{\"a}}, H., {Newman}, C., {Moores}, J., {et~al.} 2016, Journal of
+  Geophysical Research (Planets), 121, 1514
+
+\bibitem[{{Kurgansky}(2019)}]{2019Icar..317..209K}
+{Kurgansky}, M.~V. 2019, \icarus, 317, 209
+
+\bibitem[{{Kurgansky}(2021)}]{2021Icar..35814200K}
+---. 2021, \icarus, 358, 114200
+
+\bibitem[{{Lorenz}(2014)}]{2014JAtS...71.4461L}
+{Lorenz}, R.~D. 2014, Journal of Atmospheric Sciences, 71, 4461
+
+\bibitem[{{Lorenz}(2016)}]{2016Icar..271..326L}
+---. 2016, \icarus, 271, 326
+
+\bibitem[{Lorenz \& Jackson(2015)}]{LORENZ20151}
+Lorenz, R.~D., \& Jackson, B.~K. 2015, GeoResJ, 5, 1
+
+\bibitem[{{Lorenz} \& {Jackson}(2016)}]{2016SSRv..203..277L}
+{Lorenz}, R.~D., \& {Jackson}, B.~K. 2016, \ssr, 203, 277
+
+\bibitem[{{Lorenz} {et~al.}(2021){Lorenz}, {Spiga}, {Lognonn{\'e}}, {Plasman},
+  {Newman}, \& {Charalambous}}]{2021Icar..35514119L}
+{Lorenz}, R.~D., {Spiga}, A., {Lognonn{\'e}}, P., {et~al.} 2021, \icarus, 355,
+  114119
+
+\bibitem[{{Maki} {et~al.}(2018){Maki}, {Golombek}, {Deen}, {Abarca}, {Sorice},
+  {Goodsall}, {Schwochert}, {Lemmon}, {Trebi-Ollennu}, \&
+  {Banerdt}}]{2018SSRv..214..105M}
+{Maki}, J.~N., {Golombek}, M., {Deen}, R., {et~al.} 2018, \ssr, 214, 105
+
+\bibitem[{{Metzger} {et~al.}(1999){Metzger}, {Carr}, {Johnson}, {Parker}, \&
+  {Lemmon}}]{1999GeoRL..26.2781M}
+{Metzger}, S.~M., {Carr}, J.~R., {Johnson}, J.~R., {Parker}, T.~J., \&
+  {Lemmon}, M.~T. 1999, \grl, 26, 2781
+
+\bibitem[{{Moores} {et~al.}(2015){Moores}, {Lemmon}, {Kahanp{\"a}{\"a}},
+  {Rafkin}, {Francis}, {Pla-Garcia}, {Bean}, {Haberle}, {Newman}, {Mischna},
+  {Vasavada}, {de la Torre Ju{\'a}rez}, {Renn{\'o}}, {Bell}, {Calef}, {Cantor},
+  {Mcconnochie}, {Harri}, {Genzer}, {Wong}, {Smith}, {Mart{\'\i}n-Torres},
+  {Zorzano}, {Kemppinen}, \& {McCullough}}]{2015Icar..249..129M}
+{Moores}, J.~E., {Lemmon}, M.~T., {Kahanp{\"a}{\"a}}, H., {et~al.} 2015,
+  \icarus, 249, 129
+
+\bibitem[{{Murphy} {et~al.}(2016){Murphy}, {Steakley}, {Balme}, {Deprez},
+  {Esposito}, {Kahanp{\"a}{\"a}}, {Lemmon}, {Lorenz}, {Murdoch}, {Neakrase},
+  {Patel}, \& {Whelley}}]{2016SSRv..203...39M}
+{Murphy}, J., {Steakley}, K., {Balme}, M., {et~al.} 2016, \ssr, 203, 39
+
+\bibitem[{{Murphy} \& {Nelli}(2002)}]{2002GeoRL..29.2103M}
+{Murphy}, J.~R., \& {Nelli}, S. 2002, \grl, 29, 2103
+
+\bibitem[{{Neakrase} \& {Greeley}(2010)}]{2010Icar..206..306N}
+{Neakrase}, L. D.~V., \& {Greeley}, R. 2010, \icarus, 206, 306
+
+\bibitem[{{Newman} {et~al.}(2019){Newman}, {Kahanp{\"a}{\"a}}, {Richardson},
+  {Mart{\'\i}nez}, {Vicente-Retortillo}, \& {Lemmon}}]{2019JGRE..124.3442N}
+{Newman}, C.~E., {Kahanp{\"a}{\"a}}, H., {Richardson}, M.~I., {et~al.} 2019,
+  Journal of Geophysical Research (Planets), 124, 3442
+
+\bibitem[{{Perrin} {et~al.}(2020){Perrin}, {Rodriguez}, {Jacob}, {Lucas},
+  {Spiga}, {Murdoch}, {Lorenz}, {Daubar}, {Pan}, {Kawamura}, {Lognonn{\'e}},
+  {Banfield}, {Banks}, {Garcia}, {Newman}, {Ohja}, {Widmer-Schnidrig},
+  {McEwen}, \& {Banerdt}}]{2020GeoRL..4787234P}
+{Perrin}, C., {Rodriguez}, S., {Jacob}, A., {et~al.} 2020, \grl, 47, e87234
+
+\bibitem[{{Petrosyan} {et~al.}(2011){Petrosyan}, {Galperin}, {Larsen}, {Lewis},
+  {M{\"a}{\"a}tt{\"a}nen}, {Read}, {Renno}, {Rogberg}, {Savij{\"a}rvi},
+  {Siili}, {Spiga}, {Toigo}, \& {V{\'a}zquez}}]{2011RvGeo..49.3005P}
+{Petrosyan}, A., {Galperin}, B., {Larsen}, S.~E., {et~al.} 2011, Reviews of
+  Geophysics, 49, RG3005
+
+\bibitem[{Press {et~al.}(2007)Press, Teukolsky, Vetterling, \&
+  Flannery}]{Press2007}
+Press, W.~H., Teukolsky, S.~A., Vetterling, W.~T., \& Flannery, B.~P. 2007,
+  Numerical Recipes 3rd Edition: The Art of Scientific Computing, 3rd edn.
+  (Cambridge University Press)
+
+\bibitem[{{Rafkin} {et~al.}(2016){Rafkin}, {Jemmett-Smith}, {Fenton}, {Lorenz},
+  {Takemi}, {Ito}, \& {Tyler}}]{2016SSRv..203..183R}
+{Rafkin}, S., {Jemmett-Smith}, B., {Fenton}, L., {et~al.} 2016, \ssr, 203, 183
+
+\bibitem[{{Reiss} {et~al.}(2016){Reiss}, {Fenton}, {Neakrase}, {Zimmerman},
+  {Statella}, {Whelley}, {Rossi}, \& {Balme}}]{2016SSRv..203..143R}
+{Reiss}, D., {Fenton}, L., {Neakrase}, L., {et~al.} 2016, \ssr, 203, 143
+
+\bibitem[{{Reiss} \& {Lorenz}(2016)}]{2016Icar..266..315R}
+{Reiss}, D., \& {Lorenz}, R.~D. 2016, \icarus, 266, 315
+
+\bibitem[{{Renn{\'o}} {et~al.}(1998){Renn{\'o}}, {Burkett}, \&
+  {Larkin}}]{1998JAtS...55.3244R}
+{Renn{\'o}}, N.~O., {Burkett}, M.~L., \& {Larkin}, M.~P. 1998, Journal of
+  Atmospheric Sciences, 55, 3244
+
+\bibitem[{{Ringrose} {et~al.}(2003){Ringrose}, {Towner}, \&
+  {Zarnecki}}]{2003Icar..163...78R}
+{Ringrose}, T.~J., {Towner}, M.~C., \& {Zarnecki}, J.~C. 2003, \icarus, 163, 78
+
+\bibitem[{Rousseeuw \& Croux(1993)}]{doi:10.1080/01621459.1993.10476408}
+Rousseeuw, P.~J., \& Croux, C. 1993, Journal of the American Statistical
+  Association, 88, 1273
+
+\bibitem[{{Ryan} \& {Lucich}(1983)}]{1983JGR....8811005R}
+{Ryan}, J.~A., \& {Lucich}, R.~D. 1983, \jgr, 88, 11005
+
+\bibitem[{Seabold \& Perktold(2010)}]{seabold2010statsmodels}
+Seabold, S., \& Perktold, J. 2010, in 9th Python in Science Conference
+
+\bibitem[{{Sinclair}(1969)}]{1969JApMe...8...32S}
+{Sinclair}, P.~C. 1969, Journal of Applied Meteorology, 8, 32
+
+\bibitem[{{Smith} {et~al.}(2002){Smith}, {Conrath}, {Pearl}, \&
+  {Christensen}}]{2002Icar..157..259S}
+{Smith}, M.~D., {Conrath}, B.~J., {Pearl}, J.~C., \& {Christensen}, P.~R. 2002,
+  \icarus, 157, 259
+
+\bibitem[{{Spiga} {et~al.}(2018){Spiga}, {Banfield}, {Teanby}, {Forget},
+  {Lucas}, {Kenda}, {Rodriguez Manfredi}, {Widmer-Schnidrig}, {Murdoch},
+  {Lemmon}, {Garcia}, {Martire}, {Karatekin}, {Le Maistre}, {Van Hove},
+  {Dehant}, {Lognonn{\'e}}, {Mueller}, {Lorenz}, {Mimoun}, {Rodriguez},
+  {Beucler}, {Daubar}, {Golombek}, {Bertrand}, {Nishikawa}, {Millour},
+  {Rolland}, {Brissaud}, {Kawamura}, {Mocquet}, {Martin}, {Clinton},
+  {Stutzmann}, {Spohn}, {Smrekar}, \& {Banerdt}}]{2018SSRv..214..109S}
+{Spiga}, A., {Banfield}, D., {Teanby}, N.~A., {et~al.} 2018, \ssr, 214, 109
+
+\bibitem[{{Spiga} {et~al.}(2021){Spiga}, {Murdoch}, {Lorenz}, {Forget},
+  {Newman}, {Rodriguez}, {Pla-Garcia}, {Moreiras}, {Banfield}, {Perrin},
+  {Mueller}, {Lemmon}, {Millour}, \& {Banerdt}}]{Spiga2021}
+{Spiga}, A., {Murdoch}, N., {Lorenz}, R., {et~al.} 2021, Journal of Geophysical
+  Research (Planets), 126, e06511
+
+\bibitem[{{Steakley} \& {Murphy}(2016)}]{2016Icar..278..180S}
+{Steakley}, K., \& {Murphy}, J. 2016, \icarus, 278, 180
+
+\bibitem[{{Thomas} \& {Gierasch}(1985)}]{1985Sci...230..175T}
+{Thomas}, P., \& {Gierasch}, P.~J. 1985, Science, 230, 175
+
+\bibitem[{{Vatistas} {et~al.}(1991){Vatistas}, {Kozel}, \&
+  {Mih}}]{1991ExFl...11...73V}
+{Vatistas}, G.~H., {Kozel}, V., \& {Mih}, W.~C. 1991, Experiments in Fluids,
+  11, 73
+
+\bibitem[{Virtanen {et~al.}(2020)Virtanen, Gommers, Oliphant, Haberland, Reddy,
+  Cournapeau, Burovski, Peterson, Weckesser, Bright, {van der Walt}, Brett,
+  Wilson, Millman, Mayorov, Nelson, Jones, Kern, Larson, Carey, Polat, Feng,
+  Moore, {VanderPlas}, Laxalde, Perktold, Cimrman, Henriksen, Quintero, Harris,
+  Archibald, Ribeiro, Pedregosa, {van Mulbregt}, \& {SciPy 1.0
+  Contributors}}]{2020SciPy-NMeth}
+Virtanen, P., Gommers, R., Oliphant, T.~E., {et~al.} 2020, Nature Methods, 17,
+  261
+
+\bibitem[{{Whelley} \& {Greeley}(2008)}]{2008JGRE..113.7002W}
+{Whelley}, P.~L., \& {Greeley}, R. 2008, Journal of Geophysical Research
+  (Planets), 113, E07002
+
+\end{thebibliography}
