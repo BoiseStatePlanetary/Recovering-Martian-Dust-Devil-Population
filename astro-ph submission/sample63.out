@@ -1,0 +1,15 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Meteorological Time-Series Analysis}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Time-Series Data}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Searching for Vortex Encounters and Fitting Pressure Profiles}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Fitting Wind Profiles}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Vortex Statistics}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.5}{Inferring Areal Occurrence Rate from the Time-Series Analysis}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{Image Analysis}{}% 8
+\BOOKMARK [1][-]{section.4}{Discussion}{}% 9
+\BOOKMARK [2][-]{subsection.4.1}{Inferring Occurrence Rates and Thresholds for Dust Lifting}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.2}{Comparison to Previous Work}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.3}{Why Didn't InSight Image Any Dust Devils?}{section.4}% 12
+\BOOKMARK [1][-]{section.5}{Conclusions}{}% 13
+\BOOKMARK [1][-]{appendix.A}{Vortex Recovery Statistics}{}% 14
+\BOOKMARK [1][-]{appendix.B}{Inferring Encounter Geometries from the Pressure and Velocity Profiles}{}% 15
